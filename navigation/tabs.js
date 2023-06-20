@@ -10,6 +10,7 @@ import {
   setIsTradeModalVisible,
   selectIsTradeModalVisible,
 } from '../Src/redux/market/coinSlice';
+import Watchlist from '../screens/Watchlist';
 const Tab = createBottomTabNavigator();
 const TabBarCustomButton = ({children, onPress}) => {
   return (
@@ -87,8 +88,8 @@ const Tabs = () => {
       />
      
      <Tab.Screen
-        name="watchlist"
-        component={Market}
+        name="Watchlist"
+        component={Watchlist}
         options={{
           headerShown: true,
           headerTintColor: "white",

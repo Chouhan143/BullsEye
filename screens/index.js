@@ -1,6 +1,6 @@
 import Home from "./Home"
 import Portfolio from "./Portfolio"
-import Market from "./Market"
+import Watchlist from "./Watchlist"
 import Profile from "./Profile"
 import MainLayout from "./MainLayout"
 
@@ -8,7 +8,7 @@ import MainLayout from "./MainLayout"
 export {
     Home,
     Portfolio,
-    Market,
+    Watchlist,
     Profile,
     MainLayout,
 }

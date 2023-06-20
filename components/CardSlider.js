@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchCoinData} from '../Src/redux/market/coinSlice';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {COLORS, SIZES, sizes, spacing,FONTS} from '../constants/theme';
 import FavoriteButton from './FavoriteButton';
 import LinearGradient from 'react-native-linear-gradient';
@@ -16,6 +16,9 @@ import { icons } from '../constants';
 const CARD_WIDTH = sizes.width;
 const CARD_HEIGHT = 200;
 const CardSlider = ({sizes, spacing, large}) => {
+
+  const [data,setdata]=useState([1,1,1,1,]);
+
   const dispatch = useDispatch();
   const coinsData = useSelector(state => state.coin.data);
   useEffect(() => {
