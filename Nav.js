@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
+import React, { useState } from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 import SignIn from './screens/SignIn';
 import Funds from './Src/ProfilePages/Funds';
 import Tabs from './navigation/tabs';
+import UserProfile from "./Src/ProfilePages/Userprofile"
 const Stack = createStackNavigator();
 const Nav = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -15,7 +16,7 @@ const Nav = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerShown: false,
+          // headerShown: false,
         }}
         initialRouteName="SignIn" // Set initial route to SignIn
       >
@@ -26,14 +27,21 @@ const Nav = () => {
                         title: 'Sign In'
                     }}
                 /> */}
-        <Stack.Screen name="MainLayout" component={Tabs} />
+        <Stack.Screen name="MainLayout" component={Tabs}
+          options={{ headerShown: false, }} />
 
         <Stack.Screen
           Options={{
-            headerShown: true,
+            headerShown:"true",
           }}
           name="Funds"
           component={Funds}
+        />
+        <Stack.Screen
+          Options={{ title:'profile',
+            headerShown:'false'}}
+          name="UserProfile"
+          component={UserProfile}
         />
       </Stack.Navigator>
     </NavigationContainer>

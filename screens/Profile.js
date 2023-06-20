@@ -109,33 +109,24 @@ const Profile = (props) => {
             </View>
           </TouchableOpacity>
 
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate("UserProfile")}>
+            <View style={{
+              flex: 1, justifyContent: 'space-between',
+              flexDirection: "row", marginTop: SIZES.radius,
+              borderBottomWidth: 0.8, height: 50, borderBottomColor: '#D6EDF0',
+              alignItems: 'center'
+            }}>
+              <Text style={{ color: COLORS.black, ...FONTS.h3 }}>
+                Profile
+              </Text>
+              <Image source={icons.profile}
+                style={{ height: 25, width: 25, tintColor: "#B1C3BB" }} />
+            </View>
+          </TouchableOpacity>
 
 
-          <View style={{
-            flex: 1, justifyContent: 'space-between',
-            flexDirection: "row", marginTop: SIZES.radius,
-            borderBottomWidth: 0.8, height: 50, borderBottomColor: '#D6EDF0',
-            alignItems: 'center'
-          }}>
-            <Text style={{ color: COLORS.black, ...FONTS.h3 }}>
-              Profile
-            </Text>
-            <Image source={icons.profile}
-              style={{ height: 25, width: 25, tintColor: "#B1C3BB" }} />
-          </View>
 
-          <View style={{
-            flex: 1, justifyContent: 'space-between',
-            flexDirection: "row", marginTop: SIZES.radius,
-            borderBottomWidth: 0.8, height: 50, borderBottomColor: '#D6EDF0',
-            alignItems: 'center'
-          }}>
-            <Text style={{ color: COLORS.black, ...FONTS.h3 }}>
-              App Code
-            </Text>
-            <Image source={icons.lock}
-              style={{ height: 25, width: 25, tintColor: "#B1C3BB" }} />
-          </View>
 
           <View style={{
             flex: 1, justifyContent: 'space-between',
@@ -150,18 +141,7 @@ const Profile = (props) => {
             <Image source={icons.setting}
               style={{ height: 25, width: 25, tintColor: "#B1C3BB" }} />
           </View>
-          <View style={{
-            flex: 1, justifyContent: 'space-between',
-            flexDirection: "row", marginTop: SIZES.radius,
-            borderBottomWidth: 0.8, height: 50, borderBottomColor: '#D6EDF0',
-            alignItems: 'center'
-          }}>
-            <Text style={{ color: COLORS.black, ...FONTS.h3 }}>
-              Connected Apps
-            </Text>
-            <Image source={icons.box}
-              style={{ height: 25, width: 25, tintColor: "#B1C3BB" }} />
-          </View>
+
           <View style={{
             flex: 1, justifyContent: 'space-between',
             flexDirection: "row", marginTop: SIZES.radius,
@@ -188,18 +168,7 @@ const Profile = (props) => {
             <Image source={icons.customersupport}
               style={{ height: 25, width: 25, tintColor: "#B1C3BB" }} />
           </View>
-          <View style={{
-            flex: 1, justifyContent: 'space-between',
-            flexDirection: "row", marginTop: SIZES.radius,
-            borderBottomWidth: 0.8, height: 50, borderBottomColor: '#D6EDF0',
-            alignItems: 'center'
-          }}>
-            <Text style={{ color: COLORS.black, ...FONTS.h3 }}>
-              User manual
-            </Text>
-            <Image source={icons.usermanual}
-              style={{ height: 25, width: 25, tintColor: "#B1C3BB" }} />
-          </View>
+
           <View style={{
             flex: 1, justifyContent: 'space-between',
             flexDirection: "row", marginTop: SIZES.radius,
@@ -212,36 +181,6 @@ const Profile = (props) => {
             <Image source={icons.contect}
               style={{ height: 30, width: 30, tintColor: "#B1C3BB" }} />
           </View>
-          <SectionTitle title="OTHER" />
-          <View style={{
-            flex: 1, justifyContent: 'space-between',
-            flexDirection: "row", marginTop: SIZES.radius,
-            borderBottomWidth: 0.8, height: 50, borderBottomColor: '#D6EDF0',
-            alignItems: 'center'
-          }}>
-            <Text style={{ color: COLORS.black, ...FONTS.h3 }}>
-              Invited friends
-            </Text>
-            <Image source={icons.Adduser}
-              style={{ height: 25, width: 25, tintColor: "#B1C3BB" }} />
-          </View>
-          <View style={{
-            flex: 1, justifyContent: 'space-between',
-            flexDirection: "row", marginTop: SIZES.radius,
-            borderBottomWidth: 0.8, height: 50, borderBottomColor: '#D6EDF0',
-            alignItems: 'center'
-          }}>
-            <Text style={{ color: COLORS.black, ...FONTS.h3 }}>
-              Licenses
-            </Text>
-            <Image source={icons.licenses}
-              style={{ height: 25, width: 25, tintColor: "#B1C3BB" }} />
-          </View>
-
-
-
-
-
 
         </ScrollView>
 
