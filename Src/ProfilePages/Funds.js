@@ -9,7 +9,7 @@ const Tab = createMaterialTopTabNavigator();
 const Funds = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Equity" component={Equity} />
+      {/* <Tab.Screen name="Equity" component={Equity} />  */}
       <Tab.Screen name="Commodity" component={Commodity} />
     </Tab.Navigator>
   )
