@@ -23,6 +23,9 @@ const licenses = require("../assets/icons/certificate.png")
 const download = require("../assets/icons/download.png")
 const plus = require("../assets/icons/plus.png")
 const watchlist = require("../assets/icons/save.png")
+const pencil = require("../assets/icons/pencil.png")
+const pens = require("../assets/icons/pens.png")
+
 
 
 
@@ -52,5 +55,8 @@ export default {
     licenses,
     download,
     plus,
-    watchlist
+    watchlist,
+    pencil,
+    pens,
+    
 }
