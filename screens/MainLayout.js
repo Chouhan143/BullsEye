@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Animated, Text} from 'react-native';
+import {
+  View,
+  Animated,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
 import {IconTextButton} from '../components';
 import {BuySellButton} from '../components';
 import {COLORS, SIZES, icons} from '../constants';
@@ -10,11 +17,142 @@ import {
   setIsTradeModalVisible,
   selectIsTradeModalVisible,
 } from '../Src/redux/market/coinSlice';
+const {height, width} = Dimensions.get('window');
+const MainLayout = ({children, props}) => {
+  const data = {
+    qty: 2,
+    avg: 66.65,
+    percentage: '+5.30%',
+    stockName: 'BHEL',
+    invested: 2781.85,
+    ltp: 90.0,
+    ltpPercentage: '-0.48%',
+  };
+  function Test(props) {
+    const {qty, avg, percentage, stockName, invested, ltp, ltpPercentage} =
+      props;
+    return (
+      <View
+        style={[
+          styles.searchEluation,
+          {
+            paddingVertical: 15,
+          },
+        ]}>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            paddingHorizontal: 10,
+            justifyContent: 'space-between',
+          }}>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              paddingHorizontal: 20,
+            }}>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              <Text style={{color: 'gray'}}>Qty.</Text>
+              <Text style={{color: 'black'}}>{qty}</Text>
+            </View>
 
-const MainLayout = ({children}) => {
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                paddingHorizontal: 20,
+              }}>
+              <Text style={{color: 'gray'}}>Avg.</Text>
+              <Text style={{color: 'black'}}>{avg}</Text>
+            </View>
+          </View>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              paddingHorizontal: 20,
+            }}>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              <Text style={{color: 'green'}}>{percentage}</Text>
+            </View>
+          </View>
+        </View>
+
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            padding: 10,
+            justifyContent: 'space-between',
+          }}>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              paddingHorizontal: 20,
+            }}>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              <Text style={{color: 'black', fontWeight: '700'}}>
+                {stockName}
+              </Text>
+            </View>
+          </View>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              paddingHorizontal: 20,
+            }}>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              <Text style={{color: 'green'}}>{ltpPercentage}</Text>
+            </View>
+          </View>
+        </View>
+
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            paddingHorizontal: 10,
+            justifyContent: 'space-between',
+          }}>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              paddingHorizontal: 20,
+            }}>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              <Text style={{color: 'gray', paddingRight: 5}}>Invested</Text>
+              <Text style={{color: 'black'}}>{invested}</Text>
+            </View>
+          </View>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              paddingHorizontal: 20,
+            }}>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              <Text style={{color: 'gray'}}>LTP </Text>
+              <Text style={{color: 'black'}}>{ltp}</Text>
+              <Text style={{color: 'red'}}> ({ltpPercentage})</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    );
+  }
+
+  dispatch = useDispatch();
   const isTradeModalVisible = useSelector(selectIsTradeModalVisible);
   const modalAnimatedValue = React.useRef(new Animated.Value(0)).current;
-
+  const closeModal = () => {
+    // Dispatch the action to hide the trade modal
+    // or perform any other necessary operations
+    dispatch(setIsTradeModalVisible(false));
+  };
   React.useEffect(() => {
     if (isTradeModalVisible) {
       Animated.timing(modalAnimatedValue, {
@@ -33,114 +171,162 @@ const MainLayout = ({children}) => {
 
   const modalY = modalAnimatedValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [SIZES.height, SIZES.height - 350],
+    outputRange: [SIZES.height, SIZES.height - 450],
   });
 
   return (
-    <View style={{flex: 1}}>
-      {children}
+    <TouchableOpacity activeOpacity={1} onPress={closeModal} style={{flex: 1}}>
+      <View style={{flex: 1}}>
+        {children}
 
-      {/* Dim Background */}
+        {/* Dim Background */}
 
-      {isTradeModalVisible && (
+        {isTradeModalVisible && (
+          <Animated.View
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: COLORS.transparentBlack,
+            }}
+            opacity={modalAnimatedValue}
+          />
+        )}
+
+        {/* model */}
+
         <Animated.View
           style={{
             position: 'absolute',
-            top: 0,
             left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: COLORS.transparentBlack,
-          }}
-          opacity={modalAnimatedValue}
-        />
-      )}
-
-      {/* model */}
-
-      <Animated.View
-        style={{
-          position: 'absolute',
-          left: 0,
-          top: modalY,
-          width: '100%',
-          height: 500,
-          size: SIZES.padding,
-          backgroundColor: '#2E538C',
-          borderTopRightRadius: 15,
-          borderTopLeftRadius: 15,
-        }}>
-        <View
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            padding: 12,
-            
-            borderBottomWidth:0.2,
-            borderBottomColor:'#fff'
+            top: modalY,
+            width: '100%',
+            height: 700,
+            size: SIZES.padding,
+            backgroundColor: '#fff',
+            borderTopRightRadius: 15,
+            borderTopLeftRadius: 15,
           }}>
-          <View>
-            <Text style={{color: '#fff', fontSize: 16, fontWeight: '700'}}>
-              AGOL
-            </Text>
+          <Test {...data} />
+
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-around',
+              borderTopRightRadius: 15,
+              borderTopLeftRadius: 15,
+              paddingTop: 15,
+            }}>
+            <BuySellButton
+              label="Buy"
+              onPress={console.log('Buy Stocks Succesfully')}
+              backgroundColor={'#138F6A'}
+            />
+
+            <BuySellButton
+              label="Sell"
+              onPress={console.log('Sell Stocks Succesfully')}
+              backgroundColor={'red'}
+            />
           </View>
           <View
             style={{
               display: 'flex',
               justifyContent: 'center',
-              flexDirection: 'row',
               alignItems: 'center',
-              
+              flexDirection: 'row',
+              paddingTop: 20,
+              paddingBottom: 20,
+              borderBottomWidth: 0.2,
+              borderBottomColor: '#fff',
             }}>
-            <Text style={{color: '#fff', fontSize: 14}}>BSE </Text>
-            <Text style={{color: '#fff', fontSize: 14}}>76.98 (0.00%) </Text>
+            <Icon name="graph-bar" size={25} color="#138F6A" />
+            <Text
+              style={{
+                color: '#138F6A',
+                fontSize: 16,
+                fontWeight: '700',
+                paddingHorizontal: 10,
+              }}>
+              View Chart
+            </Text>
+            <Icon2 name="arrowright" size={25} color="#138F6A" />
           </View>
-        </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            borderTopRightRadius: 15,
-            borderTopLeftRadius: 15,
-            paddingTop:15,
-          
-          }}>
-          <BuySellButton
-            label="Buy"
-            onPress={console.log('Buy Stocks Succesfully')}
-            backgroundColor={'#138F6A'}
-          />
-
-          <BuySellButton
-            label="Sell"
-            onPress={console.log('Sell Stocks Succesfully')}
-            backgroundColor={'red'}
-          />
-        </View>
-        <View
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'row',
-            paddingTop:20,
-            paddingBottom:20,
-            borderBottomWidth:0.2,
-            borderBottomColor:'#fff'
-          }}>
-          <Icon name="graph-bar" size={25} color="#fff" />
-          <Text style={{color: '#fff', fontSize: 16, fontWeight: '700',paddingHorizontal:10}}>
-            View Chart
-          </Text>
-          <Icon2 name="arrowright" size={25} color="#fff" />
-        </View>
-      </Animated.View>
-    </View>
+        </Animated.View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
 export default MainLayout;
+
+const styles = StyleSheet.create({
+  container: {
+    width: width,
+    height: height - 200,
+    marginTop: 80,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    backgroundColor: '#ffff',
+  },
+  sub_container_holdings: {
+    width: '90%',
+    height: height - 600,
+    marginTop: 100,
+    borderRadius: 7,
+    backgroundColor: '#fff',
+    position: 'absolute',
+    display: 'flex',
+    alignSelf: 'center',
+
+    // alignItems: 'center',
+    top: -150,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    // Add other styles as needed
+  },
+  sub_container_position: {
+    width: '90%',
+    height: height - 620,
+    marginTop: 100,
+    borderRadius: 7,
+    backgroundColor: '#fff',
+    position: 'absolute',
+    display: 'flex',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    top: -150,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    // Add other styles as needed
+  },
+
+  searchEluation: {
+    borderBottomWidth: 0.1,
+    shadowColor: '#b3b3b3',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 2,
+  },
+});

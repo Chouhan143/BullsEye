@@ -196,64 +196,7 @@ const Home = () => {
           justifyContent: 'space-around',
           flexDirection: 'row',
         }}>
-        <View style={styles.RefralBox}>
-          <View
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 20,
-              backgroundColor: '#09111c',
-              alignSelf: 'center',
-            }}>
-            <Image
-              source={require('../assets/Image/Reward.png')}
-              style={{
-                width: 35,
-                height: 35,
-                alignSelf: 'center',
-                borderRadius: 15,
-              }}
-            />
-          </View>
-          <Text
-            style={{
-              color: '#fff',
-              fontSize: 16,
-              fontWeight: '700',
-              alignSelf: 'center',
-            }}>
-            Reward's{' '}
-          </Text>
-        </View>
-        <View style={styles.RefralBox}>
-          <View
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 20,
-              backgroundColor: '#09111c',
-              alignSelf: 'center',
-            }}>
-            <Image
-              source={require('../assets/Image/Refer.png')}
-              style={{
-                width: 40,
-                height: 40,
-                alignSelf: 'center',
-                borderRadius: 20,
-              }}
-            />
-          </View>
-          <Text
-            style={{
-              color: '#fff',
-              fontSize: 16,
-              fontWeight: '700',
-              alignSelf: 'center',
-            }}>
-         Refers
-          </Text>
-        </View>
+    
       </View>
     </ScrollView>
   );
@@ -309,16 +252,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
 
-  RefralBox: {
-    width: '45%',
-    height: height - 630,
-    backgroundColor: '#2E538C',
-    borderRadius: 5,
-    marginVertical: 10,
-    display: 'flex',
-    justifyContent: 'space-around',
 
-    // paddingHorizontal:10,
-    flexDirection: 'row',
-  },
 });
