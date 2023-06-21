@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {TouchableOpacity,Text} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {TabIcon} from '../components';
-import {Home, Portfolio, Market, Profile} from '../screens';
+import {Home, Portfolio, Market, Profile, Order} from '../screens';
 import {COLORS, icons} from '../constants';
 import {useSelector, useDispatch} from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -190,7 +190,7 @@ const Tabs = () => {
 
 <Tab.Screen
   name="Orders"
-  component={Home}
+  component={Order}
   options={{
     headerShown: true,
     headerTintColor: "white",

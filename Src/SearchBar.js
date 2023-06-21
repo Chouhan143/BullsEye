@@ -24,7 +24,7 @@ const SearchBar = () => {
     if (isActive) {
       ref.current?.scrollTo(0);
     } else {
-      ref.current?.scrollTo(-400);
+      ref.current?.scrollTo(-500);
     }
   }, []);
   // BootomSheet Modal  end  ---------------------------------------
