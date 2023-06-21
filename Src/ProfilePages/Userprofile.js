@@ -12,7 +12,7 @@ const UserProfile = (onPress) => {
             }}>
                 <Text style={{ marginLeft: 20 }}>{title}</Text>
                 <TouchableOpacity>
-                    <Text style={{ fontSize: 15, color: 'blue', marginRight: 20 }}>{value} </Text>
+                    <Text style={{ fontSize: 15, color: '#2980B9', marginRight: 20 }}>{value} </Text>
                 </TouchableOpacity>
 
             </View>
@@ -116,7 +116,7 @@ const UserProfile = (onPress) => {
                     <UserRow1 title={"Demat (BO)"} value={"0000000245154"} />
                     <View style={{ marginLeft: 20, marginTop: 20, }}>
                         <TouchableOpacity>
-                            <Text style={{ fontSize: 15, color: 'blue' }}>Manage Account</Text>
+                            <Text style={{ fontSize: 15, color: '#2980B9' }}>Manage Account</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -136,7 +136,7 @@ const UserProfile = (onPress) => {
 
                     <View style={{ marginLeft: 20, marginTop: 40, }}>
                         <TouchableOpacity>
-                            <Text style={{ fontSize: 15, color: 'blue' }}>Continue</Text>
+                            <Text style={{ fontSize: 15, color: '#2980B9' }}>Continue</Text>
                         </TouchableOpacity>
 
                     </View>

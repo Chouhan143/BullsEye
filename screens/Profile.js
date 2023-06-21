@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView, Switch, title, onPress } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, Switch, title, onPress, Alert } from 'react-native';
 import { MainLayout } from './';
 import { HeaderBar } from "../components"
 import { FONTS, COLORS, SIZES, dummyData, icons } from "../constants";
@@ -18,7 +18,19 @@ const SectionTitle = ({ title }) => {
     </View>
   )
 }
+const HandleLogout = () => {
+  Alert.alert("Logout!", "Are you sure you want to Logout?", [
+    {
+      text: 'Cencal',
+      // onPress: () = {},
+    },
+    {
+      text: 'OK',
+      // onPress: () = {},
+    },
+  ])
 
+}
 
 
 const Profile = (props) => {
@@ -124,36 +136,38 @@ const Profile = (props) => {
                 style={{ height: 25, width: 25, tintColor: "#B1C3BB" }} />
             </View>
           </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate("Setting")}>
+            <View style={{
+              flex: 1, justifyContent: 'space-between',
+              flexDirection: "row", marginTop: SIZES.radius,
+              borderBottomWidth: 0.8, height: 50, borderBottomColor: '#D6EDF0',
 
+              alignItems: 'center'
+            }}>
+              <Text style={{ color: COLORS.black, ...FONTS.h3 }}>
+                Setting
+              </Text>
+              <Image source={icons.setting}
+                style={{ height: 25, width: 25, tintColor: "#B1C3BB" }} />
+            </View>
+          </TouchableOpacity>
 
-
-
-          <View style={{
-            flex: 1, justifyContent: 'space-between',
-            flexDirection: "row", marginTop: SIZES.radius,
-            borderBottomWidth: 0.8, height: 50, borderBottomColor: '#D6EDF0',
-
-            alignItems: 'center'
-          }}>
-            <Text style={{ color: COLORS.black, ...FONTS.h3 }}>
-              Setting
-            </Text>
-            <Image source={icons.setting}
-              style={{ height: 25, width: 25, tintColor: "#B1C3BB" }} />
-          </View>
-
-          <View style={{
-            flex: 1, justifyContent: 'space-between',
-            flexDirection: "row", marginTop: SIZES.radius,
-            borderBottomWidth: 0.8, height: 50, borderBottomColor: '#D6EDF0',
-            alignItems: 'center'
-          }}>
-            <Text style={{ color: COLORS.black, ...FONTS.h3 }}>
-              Logout
-            </Text>
-            <Image source={icons.logout}
-              style={{ height: 25, width: 25, tintColor: "#B1C3BB" }} />
-          </View>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate(HandleLogout())}>
+            <View style={{
+              flex: 1, justifyContent: 'space-between',
+              flexDirection: "row", marginTop: SIZES.radius,
+              borderBottomWidth: 0.8, height: 50, borderBottomColor: '#D6EDF0',
+              alignItems: 'center'
+            }}>
+              <Text style={{ color: COLORS.black, ...FONTS.h3 }}>
+                Logout
+              </Text>
+              <Image source={icons.logout}
+                style={{ height: 25, width: 25, tintColor: "#B1C3BB" }} />
+            </View>
+          </TouchableOpacity>
           <SectionTitle title="SUPPORT" />
 
           <View style={{
@@ -169,18 +183,21 @@ const Profile = (props) => {
               style={{ height: 25, width: 25, tintColor: "#B1C3BB" }} />
           </View>
 
-          <View style={{
-            flex: 1, justifyContent: 'space-between',
-            flexDirection: "row", marginTop: SIZES.radius,
-            borderBottomWidth: 0.8, height: 50, borderBottomColor: '#D6EDF0',
-            alignItems: 'center'
-          }}>
-            <Text style={{ color: COLORS.black, ...FONTS.h3 }}>
-              Contact
-            </Text>
-            <Image source={icons.contect}
-              style={{ height: 30, width: 30, tintColor: "#B1C3BB" }} />
-          </View>
+          <TouchableOpacity
+          onPress={() => props.navigation.navigate("BuySrceen")}>
+            <View style={{
+              flex: 1, justifyContent: 'space-between',
+              flexDirection: "row", marginTop: SIZES.radius,
+              borderBottomWidth: 0.8, height: 50, borderBottomColor: '#D6EDF0',
+              alignItems: 'center'
+            }}>
+              <Text style={{ color: COLORS.black, ...FONTS.h3 }}>
+                Contact
+              </Text>
+              <Image source={icons.contect}
+                style={{ height: 30, width: 30, tintColor: "#B1C3BB" }} />
+            </View>
+          </TouchableOpacity>
 
         </ScrollView>
 
