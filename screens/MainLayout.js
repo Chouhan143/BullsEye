@@ -28,6 +28,27 @@ const MainLayout = ({children, props}) => {
     ltp: 90.0,
     ltpPercentage: '-0.48%',
   };
+
+  const data_1 = {
+    qty: 16,
+    avg: 98.65,
+    percentage: '+12.30%',
+    stockName: 'GAIL',
+    invested: 1570.85,
+    ltp: 30.0,
+    ltpPercentage: '-0.90%',
+  };
+
+  const data_2 = {
+    qty: 50,
+    avg: 70.65,
+    percentage: '+12.30%',
+    stockName: 'IDEA',
+    invested: 5000.85,
+    ltp: 40.0,
+    ltpPercentage: '-0.63%',
+  };
+
   function Test(props) {
     const {qty, avg, percentage, stockName, invested, ltp, ltpPercentage} =
       props;

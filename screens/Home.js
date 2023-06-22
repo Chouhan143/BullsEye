@@ -10,7 +10,7 @@ import {ScrollView} from 'react-native';
 const {height, width} = Dimensions.get('window');
 const Home = () => {
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor:COLORS.mainBgColor}}>
       <View style={styles.container}>
         <Screen1 />
         <View style={styles.marketBox}>
@@ -21,9 +21,9 @@ const Home = () => {
               flexDirection: 'row',
               padding: 10,
             }}>
-            <Text style={{color: COLORS.white}}>Market Today</Text>
+            <Text style={{color: COLORS.textColor}}>Market Today</Text>
             <TouchableOpacity>
-              <Text style={{color: COLORS.white}}>
+              <Text style={{color: COLORS.textColor}}>
                 View More <Icon name="right" />{' '}
               </Text>
             </TouchableOpacity>
@@ -38,11 +38,11 @@ const Home = () => {
                 padding: 10,
               }}>
               <View style={{display: 'flex', justifyContent: 'center'}}>
-                <Text style={{color: '#fff'}}>Nifty</Text>
+                <Text style={{color: COLORS.textColor}}>Nifty</Text>
                 <Text style={{color: 'red', paddingVertical: 5}}>
                   18,745.95
                 </Text>
-                <Text style={{color: '#fff'}}>-9.50 (-0.05%)</Text>
+                <Text style={{color: COLORS.textColor}}>-9.50 (-0.05%)</Text>
               </View>
               <View
                 style={{
@@ -53,11 +53,11 @@ const Home = () => {
                   marginTop: 10,
                 }}></View>
               <View style={{display: 'flex', justifyContent: 'center'}}>
-                <Text style={{color: '#fff'}}>Bank Nifty</Text>
+                <Text style={{color: COLORS.textColor}}>Bank Nifty</Text>
                 <Text style={{color: 'red', paddingVertical: 5}}>
                   43,745.95
                 </Text>
-                <Text style={{color: '#fff'}}>-99.50 (-0.025%)</Text>
+                <Text style={{color: COLORS.textColor}}>-99.50 (-0.025%)</Text>
               </View>
             </View>
           </View>
@@ -68,24 +68,24 @@ const Home = () => {
             style={{
               flexDirection: 'row',
               padding: 10,
-              backgroundColor: '#172a46',
+              backgroundColor: COLORS.TopBox,
               borderTopRightRadius: 10,
               borderTopLeftRadius: 10,
             }}>
-            <Text style={{color: COLORS.white}}>Portfolio</Text>
+            <Text style={{color: COLORS.textColor}}>Portfolio</Text>
           </View>
 
           <View>
             <Text
               style={{
-                color: '#fff',
+                color: COLORS.textColor,
                 padding: 10,
                 fontWeight: '700',
                 fontSize: 16,
               }}>
               ₹1,00,000
             </Text>
-            <Text style={{color: 'white', paddingLeft: 10}}>
+            <Text style={{color:COLORS.textColor, paddingLeft: 10}}>
               <Icon2 name="arrowup" color={'green'} size={15} />
               Overall Profit <Text style={{color: 'green'}}> ₹10,000 </Text>
               (10.25%)
@@ -99,18 +99,18 @@ const Home = () => {
               padding: 10,
             }}>
             <View>
-              <Text style={{color: '#fff', padding: 5}}>
+              <Text style={{color: COLORS.textColor, padding: 5}}>
                 Investment Amount{' '}
               </Text>
-              <Text style={{color: '#fff', paddingLeft: 10}}>₹80000 </Text>
+              <Text style={{color: COLORS.textColor, paddingLeft: 10}}>₹80000 </Text>
             </View>
             <View>
-              <Text style={{color: '#fff', padding: 5}}>
+              <Text style={{color: COLORS.textColor, padding: 5}}>
                 {' '}
                 <Icon2 name="arrowup" color={'green'} size={15} />
                 Today's Profit{' '}
               </Text>
-              <Text style={{color: '#fff', paddingLeft: 20}}>₹1000 </Text>
+              <Text style={{color: COLORS.textColor, paddingLeft: 20}}>₹1000 </Text>
             </View>
           </View>
         </View>
@@ -131,11 +131,11 @@ const Home = () => {
               width: 50,
               height: 50,
               borderWidth: 1,
-              borderColor: '#fff',
+              borderColor: COLORS.textColor,
               borderRadius: 25,
             }}
           />
-          <Text style={{color: '#fff', paddingVertical: 10}}>Gold</Text>
+          <Text style={{color: COLORS.textColor, paddingVertical: 10}}>Gold</Text>
         </View>
         <View
           style={{
@@ -149,7 +149,7 @@ const Home = () => {
               width: 50,
               height: 50,
               borderWidth: 1,
-              borderColor: '#fff',
+              borderColor: COLORS.textColor,
               borderRadius: 25,
             }}
           />
@@ -163,11 +163,11 @@ const Home = () => {
               top: 0,
               borderRadius: 15,
             }}>
-            <Text style={{color: '#fff', fontSize: 9, alignSelf: 'center'}}>
+            <Text style={{color: COLORS.textColor, fontSize: 9, alignSelf: 'center'}}>
               New
             </Text>
           </View>
-          <Text style={{color: '#fff', paddingVertical: 10}}>Silver</Text>
+          <Text style={{color: COLORS.textColor, paddingVertical: 10}}>Silver</Text>
         </View>
         <View
           style={{
@@ -182,11 +182,11 @@ const Home = () => {
               width: 50,
               height: 50,
               borderWidth: 1,
-              borderColor: '#fff',
+              borderColor: COLORS.textColor,
               borderRadius: 25,
             }}
           />
-          <Text style={{color: '#fff', paddingVertical: 10}}>Copper</Text>
+          <Text style={{color: COLORS.textColor, paddingVertical: 10}}>Copper</Text>
         </View>
       </View>
       {/* Event image  end  ------------------------------------ */}
@@ -209,11 +209,13 @@ const styles = StyleSheet.create({
     flex: 1,
     display: 'flex',
     alignItems: 'center',
+  
   },
   marketBox: {
     width: '95%',
     height: height - 540,
-    backgroundColor: '#2E538C',
+    // backgroundColor: '#2E538C',
+    backgroundColor:COLORS.bgColor,
     borderRadius: 10,
     display: 'flex',
     justifyContent: 'center',
@@ -233,7 +235,7 @@ const styles = StyleSheet.create({
   portfolioBox: {
     width: '95%',
     height: height - 560,
-    backgroundColor: '#2E538C',
+    backgroundColor:COLORS.bgColor,
     borderRadius: 10,
     display: 'flex',
     marginVertical: 10,
@@ -241,7 +243,7 @@ const styles = StyleSheet.create({
   ImageBox: {
     width: '95%',
     height: height - 600,
-    backgroundColor: '#2E538C',
+    backgroundColor:COLORS.bgColor,
     borderRadius: 10,
     display: 'flex',
     justifyContent: 'space-around',

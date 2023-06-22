@@ -11,10 +11,13 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
+import axios from 'axios';
 import {MainLayout} from './';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchCoinData} from '../Src/redux/market/coinSlice';
 import TopTab from '../Src/TabScreens/TopTab';
+
+
 import {
   BalanceInfo,
   CardSlider,
@@ -47,7 +50,126 @@ const Watchlist = () => {
   useEffect(() => {
     dispatch(fetchCoinData());
   }, []);
+
+ 
+
+
   // redux api data  end  ---------------------------------------
+
+const renderItem = (item) =>{
+
+return(
+ <View
+      style={[
+        styles.searchEluation,
+        {
+          paddingVertical: 15,
+        },
+      ]}>
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          paddingHorizontal: 10,
+          justifyContent: 'space-between',
+        }}>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            paddingHorizontal: 20,
+          }}>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <Text style={{color: 'gray'}}>Qty.</Text>
+            <Text style={{color: 'black'}}>{item.trade_name}</Text>
+          </View>
+
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              paddingHorizontal: 20,
+            }}>
+            <Text style={{color: 'gray'}}>Avg.</Text>
+            <Text style={{color: 'black'}}>{item.trade_name}</Text>
+          </View>
+        </View>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            paddingHorizontal: 20,
+          }}>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <Text style={{color: 'green'}}>{item.trade_name}</Text>
+          </View>
+        </View>
+      </View>
+
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          padding: 10,
+          justifyContent: 'space-between',
+        }}>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            paddingHorizontal: 20,
+          }}>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <Text style={{color: 'black', fontWeight: '700'}}>{item.trade_name}</Text>
+          </View>
+        </View>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            paddingHorizontal: 20,
+          }}>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <Text style={{color: 'green'}}>{item.trade_name}</Text>
+          </View>
+        </View>
+      </View>
+
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          paddingHorizontal: 10,
+          justifyContent: 'space-between',
+        }}>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            paddingHorizontal: 20,
+          }}>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <Text style={{color: 'gray', paddingRight: 5}}>Invested</Text>
+            <Text style={{color: 'black'}}>{item.trade_name}</Text>
+          </View>
+        </View>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            paddingHorizontal: 20,
+          }}>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <Text style={{color: 'gray'}}>LTP </Text>
+            <Text style={{color: 'black'}}>{item.trade_name}</Text>
+            <Text style={{color: 'red'}}> {item.trade_name}</Text>
+          </View>
+        </View>
+      </View>
+    </View>
+)
+}
+
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>
@@ -57,7 +179,12 @@ const Watchlist = () => {
             flex: 1,
             backgroundColor: '#2E538C',
           }}>
-          <TopTab />
+          {/* <TopTab /> */}
+          <FlatList
+          data={coinsData}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          />
         </View>
         <BottomSheet ref={ref} />
       </MainLayout>

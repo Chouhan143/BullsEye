@@ -7,6 +7,7 @@ import {
   Image,
 } from 'react-native';
 import React, {useState,useRef, useEffect} from 'react';
+import { COLORS } from './constants';
 const {height, width} = Dimensions.get('window');
 export default function Screen1() {
   const [data, SetData] = useState([
@@ -118,7 +119,7 @@ export default function Screen1() {
                   style={{
                     width: '90%',
                     height: '90%',
-                    backgroundColor: '#2E538C',
+                    backgroundColor: COLORS.bgColor,
                     borderRadius: 10,
                     justifyContent: 'center',
                     padding: 10,
@@ -135,7 +136,7 @@ export default function Screen1() {
                     />
                     <Text
                       style={{
-                        color: 'white',
+                        color: COLORS.textColor,
                         marginTop: 10,
                         textAlign: 'justify',
                         flex: 1,
@@ -167,7 +168,7 @@ export default function Screen1() {
                 width: currentIndex == index ? 30 : 8,
                 height: currentIndex == index ? 10 : 8,
                 borderRadius: currentIndex == index ? 5 : 4,
-                backgroundColor: currentIndex == index ? '#2E538C' : 'gray',
+                backgroundColor: currentIndex == index ? COLORS.textColor : COLORS.bgColor,
                 marginLeft: 5,
               }}></View>
           );

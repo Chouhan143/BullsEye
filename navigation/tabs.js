@@ -39,7 +39,7 @@ const Tabs = () => {
       screenOptions={{
         tabBarStyle: {
           height: 70,
-          backgroundColor: '#2E538C',
+          backgroundColor: COLORS.bgColor,
           borderTopColor: 'transparent',
         },
         tabBarShowLabel: false,
@@ -50,9 +50,9 @@ const Tabs = () => {
         options={{
           headerShown: true,
           headerTitle: "Home",
-          headerTintColor: "white",
+          headerTintColor: COLORS.textColor,
           headerStyle: {
-            backgroundColor: "#2E538C", // Set the desired background color here
+            backgroundColor: "#a0aab5", // Set the desired background color here
           },
           // headerLeft: () => (
           //   <TouchableOpacity
@@ -92,7 +92,7 @@ const Tabs = () => {
         component={Watchlist}
         options={{
           headerShown: true,
-          headerTintColor: "white",
+          headerTintColor: "#EEF5DB",
           headerStyle: {
             backgroundColor: "#2E538C", // Set the desired background color here
           },
@@ -119,7 +119,7 @@ const Tabs = () => {
         component={Portfolio}
         options={{
           headerShown: true,
-          headerTintColor: "white",
+          headerTintColor: "#a0aab5",
           headerStyle: {
             backgroundColor: "#2E538C", // Set the desired background color here
           },
@@ -155,7 +155,7 @@ const Tabs = () => {
         component={Home}
         options={{
           headerShown: true,
-          headerTintColor: "white",
+          headerTintColor: "#EEF5DB",
           headerStyle: {
             backgroundColor: "#2E538C", // Set the desired background color here
           },
@@ -193,7 +193,7 @@ const Tabs = () => {
   component={Order}
   options={{
     headerShown: true,
-    headerTintColor: "white",
+    headerTintColor: "#EEF5DB",
     headerStyle: {
       backgroundColor: "#2E538C", // Set the desired background color here
     },
@@ -226,7 +226,7 @@ const Tabs = () => {
         component={Profile}
         options={{
           headerShown: true,
-          headerTintColor: "white",
+          headerTintColor: "#EEF5DB",
           headerStyle: {
             backgroundColor: "#2E538C", // Set the desired background color here
           },
