@@ -44,12 +44,12 @@ const Profile = (props) => {
       <View
         style={{
           flex: 1,
-          paddingHorizontal: SIZES.padding,
-          backgroundColor: COLORS.white,
+          paddingHorizontal: 15,
+          backgroundColor: COLORS.mainBgColor,
 
         }}>
         {/* Header  */}
-        <Text style={{ color: 'black', ...FONTS.largeTitle }}>Account</Text>
+        <Text style={{ color: 'black', fontSize: 30, }}>Account</Text>
 
         {/* Details  */}
         <ScrollView
@@ -63,8 +63,8 @@ const Profile = (props) => {
               marginTop: SIZES.radius,
 
               borderRadius: SIZES.radius,
-              elevation: 5, borderWidth: 0.5, borderColor: 'white',
-              backgroundColor: 'white',
+              elevation: 5, borderWidth: 0.5, borderColor: "white",
+              backgroundColor: COLORS.bgColor,
               height: 100, width: "100%",
               justifyContent: 'center',
               alignItems: 'center'
@@ -73,30 +73,35 @@ const Profile = (props) => {
             <View style={{
               flex: 1,
               marginLeft: 10,
-              marginBottom: 40
+              flexDirection:'row'
+              // marginBottom: 40
 
             }}>
+              <Image
+                source={icons.profile}
+                style={{ width: 45, height: 45 ,}}
+              />
               <Text
-                style={{ color: COLORS.black, ...FONTS.h3 }}
+                style={{ color: COLORS.black, ...FONTS.h3,marginTop:10 }}
               >{dummyData.profile.email}</Text>
-              <Text style={{
+              {/* <Text style={{
                 color: COLORS.lightGray2, ...FONTS.body4
-              }}>ID :{dummyData.profile.id}</Text>
+              }}>ID :{dummyData.profile.id}</Text> */}
             </View>
             {/* STATUS  */}
             <View style={{
               flexDirection: 'row',
               alignItems: 'center',
-              marginRight: 7
+              marginRight: 15
             }}
             >
               <Image
                 source={icons.verified}
-                style={{ width: 25, height: 25 }}
+                style={{ width: 25, height: 25 ,}}
               />
               <Text style={{
                 marginLeft: SIZES.base,
-                color: COLORS.lightGreen, ...FONTS.body4
+                color: "#013220", ...FONTS.body4
               }}>Verified</Text>
 
             </View>
@@ -184,7 +189,7 @@ const Profile = (props) => {
           </View>
 
           <TouchableOpacity
-          onPress={() => props.navigation.navigate("BuySrceen")}>
+            onPress={() => props.navigation.navigate("BuySrceen")}>
             <View style={{
               flex: 1, justifyContent: 'space-between',
               flexDirection: "row", marginTop: SIZES.radius,
