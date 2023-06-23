@@ -6,8 +6,8 @@ import {getData} from '../../../constants/hooks/ApiHelper';
 export const fetchCoinData = createAsyncThunk('fetchCoin', async () => {
   try {
     const response = await axios.get('https://scripts.bulleyetrade.com/api/getMarket');
-    console.log("res", response.data);
-    return response.data;
+     const result = response.data.Data;
+     return result
   } catch (error) {
     console.log('error', error);
     throw error;

@@ -50,9 +50,9 @@ const Tabs = () => {
         options={{
           headerShown: true,
           headerTitle: "Home",
-          headerTintColor: COLORS.textColor,
+          headerTintColor: "#000",
           headerStyle: {
-            backgroundColor: "#a0aab5", // Set the desired background color here
+            backgroundColor: COLORS.bgColor, // Set the desired background color here
           },
           // headerLeft: () => (
           //   <TouchableOpacity
@@ -188,7 +188,7 @@ const Tabs = () => {
 
  */}
 
-<Tab.Screen
+{/* <Tab.Screen
   name="Orders"
   component={Order}
   options={{
@@ -216,7 +216,7 @@ const Tabs = () => {
       }
     },
   }}
-/>
+/> */}
 
 
 
