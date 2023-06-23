@@ -43,14 +43,15 @@ const Tabs = () => {
           borderTopColor: 'transparent',
         },
         tabBarShowLabel: false,
+        
       }}>
       <Tab.Screen
         name="Home"
         component={Home}
         options={{
-          headerShown: true,
+          headerShown: false,
           headerTitle: "Home",
-          headerTintColor: "#000",
+          headerTintColor: COLORS.BottomTab,
           headerStyle: {
             backgroundColor: COLORS.bgColor, // Set the desired background color here
           },
@@ -91,7 +92,7 @@ const Tabs = () => {
         name="Watchlist"
         component={Watchlist}
         options={{
-          headerShown: true,
+          headerShown: false,
           headerTintColor: "#EEF5DB",
           headerStyle: {
             backgroundColor: "#2E538C", // Set the desired background color here
@@ -118,7 +119,7 @@ const Tabs = () => {
         name="Portfolio"
         component={Portfolio}
         options={{
-          headerShown: true,
+          headerShown: false,
           headerTintColor: "#a0aab5",
           headerStyle: {
             backgroundColor: "#2E538C", // Set the desired background color here

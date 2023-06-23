@@ -7,8 +7,9 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import {TabView, SceneMap} from 'react-native-tab-view';
+import {TabView, SceneMap,TabBar} from 'react-native-tab-view';
 import MainLayout from './MainLayout';
+import { COLORS } from '../constants';
 import SearchBar from '../Src/SearchBar';
 import { useNavigation } from '@react-navigation/native';
 import {
@@ -190,7 +191,7 @@ const FirstRoute = () => {
 
   return (
     <MainLayout>
-    <View style={{flex: 1, backgroundColor: '#e6e6e6'}}>
+    <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
       <View style={styles.container}>
         <View style={styles.sub_container_holdings}>
           <View
@@ -325,7 +326,7 @@ const SecondRoute = () => {
 
   return (
     <MainLayout>
-    <View style={{flex: 1, backgroundColor: '#e6e6e6'}}>
+    <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
       <View style={styles.container}>
         <View style={styles.sub_container_position}>
           
@@ -352,7 +353,7 @@ const SecondRoute = () => {
               marginTop: 75,
             },
           ]}>
-          <SearchBar />
+          {/* <SearchBar /> */}
         </View>
 
         <TouchableOpacity onPress={()=>handleTradeButtonPress()} >
@@ -396,11 +397,19 @@ export default function Portfolio() {
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    {key: 'first', title: 'Holdings'},
-    {key: 'second', title: 'Positions'},
+    {key: 'first', title: 'LIVE TRADES'},
+    {key: 'second', title: 'PAST TRADES'},
   ]);
 
-
+  const renderTabBar = props => (
+    <TabBar
+      {...props}
+      style={{backgroundColor: COLORS.bgColor, height: 40}} // Set your desired header color here
+      labelStyle={{color: COLORS.textColor, fontSize: 11, fontWeight: '700'}}
+      indicatorStyle={{backgroundColor: '#1A6164'}}
+      activeColor="#1A6164"
+    />
+  );
   
 
   return (
@@ -409,6 +418,7 @@ export default function Portfolio() {
       renderScene={renderScene}
       onIndexChange={setIndex}
       initialLayout={{width: layout.width}}
+      renderTabBar={renderTabBar}
     />
   );
 }

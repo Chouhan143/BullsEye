@@ -11,6 +11,7 @@ export const COLORS = {
   bgColor: '#ACC8E5',
   textColor: '#000',
   TopBox:'#8aa0b7',
+  BottomTab:'#1A6164',
   white: '#fff',
   lightGreen: '#4BEE70',
   red: '#D84035',

@@ -20,11 +20,11 @@ const TabIcon = ({focused, icon, iconStyle, label, isTrade}) => {
           style={{
             width: 25,
             height: 25,
-            tintColor: focused ? COLORS.lightGreen : "#fff",
+            tintColor: focused ? COLORS.lightGreen :COLORS.BottomTab,
             ...iconStyle,
           }}
         />
-        <Text style={{color: "#fff", ...FONTS.h4}}>{label}</Text>
+        <Text style={{color:COLORS.BottomTab, ...FONTS.h4}}>{label}</Text>
       </View>
     );
   } else {
@@ -36,13 +36,13 @@ const TabIcon = ({focused, icon, iconStyle, label, isTrade}) => {
           style={{
             width: 25,
             height: 25,
-            tintColor: focused ? COLORS.white : '#282c35',
+            tintColor: focused ? COLORS.BottomTab : '#282c35',
             ...iconStyle,
           }}
         />
         <Text
           style={{
-            color: focused ? COLORS.white :  '#282c35',
+            color: focused ? COLORS.BottomTab :  '#282c35',
             ...FONTS.h4,
           }}>
           {label}

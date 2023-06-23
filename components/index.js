@@ -20,8 +20,4 @@ export {
     CardSlider,
     FavoriteButton,
     BuySellButton,
- 
- 
-
-
 }

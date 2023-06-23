@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, FlatList, ScrollView} from 'react-native';
+import {StyleSheet, Text, View, FlatList, ScrollView, TouchableOpacity} from 'react-native';
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import SearchBar from '../Src/SearchBar';
@@ -40,8 +40,14 @@ import {fetchCoinData} from '../Src/redux/market/coinSlice';
 const renderItem = ({item}) => {
   return (
     <View style={{flex: 1}}>
-      <View style={styles.container}>
-        <View style={styles.sideLine}></View>
+      <TouchableOpacity style={[styles.container, styles.searchCommodityBox]}>
+        <View
+          style={[
+            styles.sideLine,
+            {
+              backgroundColor: item.percent_chg < 1 ? 'red' : 'green',
+            },
+          ]}></View>
         <View
           style={{
             display: 'flex',
@@ -50,17 +56,26 @@ const renderItem = ({item}) => {
             gap: 3,
           }}>
           <Text
-            style={{color: COLORS.textColor, fontSize: 16, fontWeight: '700'}}>
+            style={{color: COLORS.textColor, fontSize: 12, fontWeight: '500'}}>
             {item.trade_name}
           </Text>
-          <Text style={{color: COLORS.textColor}}> {item.expiry_date}</Text>
+          <Text style={{color: COLORS.textColor, fontSize: 10}}>
+            {' '}
+            {item.expiry_date}
+          </Text>
           <Text
-            style={{color: COLORS.textColor, fontSize: 14, fontWeight: '500'}}>
+            style={{color: COLORS.textColor, fontSize: 10, fontWeight: '500'}}>
             {item.price}
           </Text>
-          <Text style={{color: 'green'}}>{item.percent_chg}%</Text>
+          <Text
+            style={{
+              color: item.percent_chg < 1 ? 'red' : 'green',
+              fontSize: 10,
+            }}>
+            {item.percent_chg}%
+          </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -73,12 +88,12 @@ const Home = () => {
   }, []);
 
   return (
-    <ScrollView style={{flex: 1}}>
+    <ScrollView style={{flex: 1,color:COLORS.mainBgColor}}>
       <View
         style={[
           styles.searchEluation,
           {
-            paddingVertical: 20,
+            paddingVertical: 15,
           },
         ]}>
         <View
@@ -89,14 +104,78 @@ const Home = () => {
             flexDirection: 'row',
             paddingHorizontal: 10,
           }}>
-          <Text style={{color: COLORS.textColor}}> SORT</Text>
+          <Text style={{color: COLORS.textColor}}> Sort</Text>
 
-          <Text style={{color: COLORS.textColor}}> SORT 2</Text>
+          <Text style={{color: COLORS.textColor}}> FNO group</Text>
 
-          <Text style={{color: COLORS.textColor}}> SORT 3</Text>
+          <Text style={{color: COLORS.textColor}}> Mini</Text>
         </View>
       </View>
+      <View style={{marginTop:10}}>
+        <FlatList
+          data={coinsData}
+          renderItem={renderItem}
+          keyExtractor={item => item.id.toString()}
+          horizontal={true}
+        />
+      </View>
 
+      <View
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginVertical: 10,
+        }}>
+        <Text
+          style={{color: COLORS.textColor, fontSize: 14, fontWeight: '600'}}>
+          Cash
+        </Text>
+      </View>
+      <FlatList
+        data={coinsData}
+        renderItem={renderItem}
+        keyExtractor={item => item.id.toString()}
+        horizontal={true}
+      />
+      <View
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginVertical: 10,
+        }}>
+        <Text
+          style={{color: COLORS.textColor, fontSize: 14, fontWeight: '600'}}>
+          FNO near month
+        </Text>
+      </View>
+      <FlatList
+        data={coinsData}
+        renderItem={renderItem}
+        keyExtractor={item => item.id.toString()}
+        horizontal={true}
+      />
+      <View style={{marginVertical: 20}}>
+        <FlatList
+          data={coinsData}
+          renderItem={renderItem}
+          keyExtractor={item => item.id.toString()}
+          horizontal={true}
+        />
+      </View>
+      <View
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginBottom: 10,
+        }}>
+        <Text
+          style={{color: COLORS.textColor, fontSize: 14, fontWeight: '600'}}>
+          FNO Far month
+        </Text>
+      </View>
       <FlatList
         data={coinsData}
         renderItem={renderItem}
@@ -114,15 +193,15 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 10,
+    marginHorizontal: 7,
     backgroundColor: COLORS.bgColor,
-    width: 180,
-    height: 100,
+    width: 110,
+    height: 70,
+    borderRadius:3
   },
   sideLine: {
-    width: 5,
-    height: 60,
-    backgroundColor: 'red',
+    width: 3,
+    height: 40,
     position: 'absolute',
     left: 0,
     borderRadius: 10,
@@ -137,5 +216,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 2,
+  },
+  searchCommodityBox: {
+    borderBottomWidth: 0.1,
+    shadowColor: COLORS.textColor,
+    shadowOffset: {
+      width: 2,
+      height: 5,
+    },
+    shadowOpacity: 0.50,
+    shadowRadius: 4.84,
+    elevation: 5,
   },
 });

@@ -1,210 +1,81 @@
-import React, {useEffect, useRef, useCallback} from 'react';
+import React from 'react';
 import {
-  GestureHandlerRootView,
-  GestureDetector,
-} from 'react-native-gesture-handler';
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  Image,
   StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  TextInput,
+  useWindowDimensions,
 } from 'react-native';
-import axios from 'axios';
-import {MainLayout} from './';
-import {useDispatch, useSelector} from 'react-redux';
-import {fetchCoinData} from '../Src/redux/market/coinSlice';
-import TopTab from '../Src/TabScreens/TopTab';
-
-
-import {
-  BalanceInfo,
-  CardSlider,
-  Chart,
-  IconTextButton,
-  TopTabNavigator,
-} from '../components';
-import {COLORS, FONTS, SIZES, icons} from '../constants';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import BottomSheet from '../Src/BottomSheet';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import Icon from 'react-native-vector-icons/AntDesign';
+import Icon2 from 'react-native-vector-icons/Feather';
+import Icon3 from 'react-native-vector-icons/Ionicons';
+import {COLORS} from '../constants';
+import {useNavigation} from '@react-navigation/native';
+import Tab_View from '../Src/TabScreens/Tab_View';
 
 const Watchlist = () => {
-  // BootomSheet Modal  start ---------------------------------------
-  const ref = useRef(null);
-  const onPress = useCallback(() => {
-    const isActive = ref.current?.isActive();
-    if (isActive) {
-      ref.current?.scrollTo(0);
-    } else {
-      ref.current?.scrollTo(-200);
-    }
-  }, []);
-  // BootomSheet Modal  end  ---------------------------------------
-
-  // redux api data  start  ---------------------------------------
-  const dispatch = useDispatch();
-  const coinsData = useSelector(state => state.coin.data);
-  const isLoader = useSelector(state => state.coin.isLoader);
-  console.log('coidataState', coinsData);
-  useEffect(() => {
-    dispatch(fetchCoinData());
-  }, []);
-
- 
-
-
-  // redux api data  end  ---------------------------------------
-
-const renderItem = (item) =>{
-
-return(
- <View
-      style={[
-        styles.searchEluation,
-        {
-          paddingVertical: 15,
-        },
-      ]}>
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          paddingHorizontal: 10,
-          justifyContent: 'space-between',
-        }}>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            paddingHorizontal: 20,
-          }}>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <Text style={{color: 'gray'}}>Qty.</Text>
-            <Text style={{color: 'black'}}>{item.trade_name}</Text>
-          </View>
-
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              paddingHorizontal: 20,
-            }}>
-            <Text style={{color: 'gray'}}>Avg.</Text>
-            <Text style={{color: 'black'}}>{item.trade_name}</Text>
-          </View>
-        </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            paddingHorizontal: 20,
-          }}>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <Text style={{color: 'green'}}>{item.trade_name}</Text>
-          </View>
-        </View>
-      </View>
-
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          padding: 10,
-          justifyContent: 'space-between',
-        }}>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            paddingHorizontal: 20,
-          }}>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <Text style={{color: 'black', fontWeight: '700'}}>{item.trade_name}</Text>
-          </View>
-        </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            paddingHorizontal: 20,
-          }}>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <Text style={{color: 'green'}}>{item.trade_name}</Text>
-          </View>
-        </View>
-      </View>
-
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          paddingHorizontal: 10,
-          justifyContent: 'space-between',
-        }}>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            paddingHorizontal: 20,
-          }}>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <Text style={{color: 'gray', paddingRight: 5}}>Invested</Text>
-            <Text style={{color: 'black'}}>{item.trade_name}</Text>
-          </View>
-        </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            paddingHorizontal: 20,
-          }}>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <Text style={{color: 'gray'}}>LTP </Text>
-            <Text style={{color: 'black'}}>{item.trade_name}</Text>
-            <Text style={{color: 'red'}}> {item.trade_name}</Text>
-          </View>
-        </View>
-      </View>
-    </View>
-)
-}
-
+  const navigation = useNavigation();
 
   return (
-    <GestureHandlerRootView style={{flex: 1}}>
-      <MainLayout>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: '#2E538C',
-          }}>
-          {/* <TopTab /> */}
-          <FlatList
-          data={coinsData}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
+    <View style={styles.container}>
+      <View style={styles.searchContainer}>
+        <Icon name="arrowleft" size={25} color="#000" />
+
+        <TouchableOpacity
+          style={styles.searchInputContainer}
+          onPress={()=> navigation.navigate('SearchData')}>
+          <Icon2 name="search" size={18} color="#fff" />
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search"
+            placeholderTextColor="#fff"
           />
-        </View>
-        <BottomSheet ref={ref} />
-      </MainLayout>
-    </GestureHandlerRootView>
+        </TouchableOpacity>
+
+        <Icon3 name="notifications-outline" size={25} color="#000" />
+      </View>
+      <Tab_View />
+    </View>
   );
 };
 
 export default Watchlist;
 
 const styles = StyleSheet.create({
-  circle: {
-    width: 30,
-    height: 30,
-    backgroundColor: '#A74CAB',
-    borderWidth: 2,
-    borderColor: '#ffff',
-    borderRadius: 20,
-    marginRight: 10,
+  container: {
+    flex: 1,
+  },
+  searchContainer: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
+    flexDirection: 'row',
+    marginVertical: 10,
+  },
+  searchInputContainer: {
+    width: 220,
+    height: 35,
+    backgroundColor: COLORS.bgColor,
+    borderRadius: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: 10,
+  },
+  searchInput: {
+    width: '90%',
+    paddingLeft: 10,
+  },
+  tabBar: {
+    backgroundColor: COLORS.bgColor,
+  },
+  tabLabel: {
+    color: '#fff',
+  },
+  tabIndicator: {
+    backgroundColor: '#fff',
   },
 });
