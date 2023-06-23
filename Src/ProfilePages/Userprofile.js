@@ -4,146 +4,115 @@ import { SIZES, COLORS, icons, } from '../../constants';
 
 
 const UserProfile = (onPress) => {
-    const UserRow = ({ title, value, onPress }) => {
-        return (
-            <View style={{
-                flex: 1,
-                flexDirection: 'row', marginTop: SIZES.radius,
-                height: 60, justifyContent: 'space-between', backgroundColor: COLORS.mainBgColor, alignItems: 'center'
-            }}>
-                <Text style={{ marginLeft: 20 }}>{title}</Text>
-                <TouchableOpacity>
-                    <Text style={{ fontSize: 15, color: '#2980B9', marginRight: 20 }}>{value} </Text>
-                </TouchableOpacity>
-
-            </View>
 
 
-
-        )
-    }
-    const UserRow1 = ({ title, value, onPress }) => {
-        return (
-            <View style={{
-                flex: 1,
-                flexDirection: 'row', marginTop: SIZES.radius,
-                justifyContent: 'space-between', backgroundColor: COLORS.mainBgColor, alignItems: 'center'
-            }}>
-                <Text style={{ marginLeft: 20 }}>{title}</Text>
-                <Text style={{ marginRight: 20 }} >{value}{onPress}</Text>
-
-            </View>
-
-
-
-        )
-    }
     return (
         <ScrollView>
-            <View style={{flex:1,backgroundColor:COLORS.mainBgColor}}>
-                <View style={{ backgroundColor: COLORS.mainBgColor }}>
-                    <View style={{ flex: 1, backgroundColor: COLORS.mainBgColor, marginTop: 10 }}>
-                        <View style={{
-                            height: 120, backgroundColor: COLORS.bgColor, width: '95%', position: 'absolute', justifyContent: 'space-between',
-                            borderBottomWidth: 0.3, borderBottomColor: COLORS.lightGray3, alignSelf: 'center', flexDirection: 'row', borderRadius: 10
-                        }}>
-                            <View style={{ marginTop: 25 }}>
-                                <Text style={{ fontSize: 25, marginLeft: 15, }}>kapil kachhawa</Text>
-                                <Text style={{ fontSize: 15, marginLeft: 15 }}>kas25014</Text>
+            <View style={{ flex: 1, backgroundColor: COLORS.mainBgColor }}>
 
-                            </View>
-                            {/* <View style={{ borderWidth: 0.5, borderColor: 'black', borderRadius: 200, width: 80, height: 80 }}>
-                            <Image source={icons.profile} style={{ width: 40, height: 40, alignSelf: 'center' }} />
-                            <TouchableOpacity
-                            >
-                                <View style={{
-                                    justifyContent: 'center', marginRight: 500, alignItems: 'center',
-                                    borderWidth: 0.5, borderColor: 'black', borderRadius: 200, width: 20, height: 20,
-                                    backgroundColor: 'blue',
-                                }}>
-                                    <Image source={icons.plus} style={{ width: 15, height: 15, alignSelf: 'center', tintColor: 'white' }} />
-                                </View>
-                            </TouchableOpacity>
+                <View style={{ backgroundColor: COLORS.mainBgColor, marginTop: 10 }}>
+                    <View style={{
+                        height: 130, backgroundColor: COLORS.bgColor, width: '95%', justifyContent: 'space-between',
+                        borderBottomWidth: 0.3, borderBottomColor: COLORS.lightGray3, alignSelf: 'center', flexDirection: 'row', borderRadius: 10
+                    }}>
+                        <View style={{ marginTop: 25 }}>
+                            <Text style={{ fontSize: 25, marginLeft: 15, }}>kapil kachhawa</Text>
+                            <Text style={{ fontSize: 15, marginLeft: 15 }}>kas25014</Text>
 
-                        </View> */}
+                        </View>
+
+                        <View
+                            style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 50,
+                                marginTop: 20,
+                                marginRight: 50
+                            }}>
+                            <Image
+                                source={icons.profile}
+                                style={{
+                                    width: 70,
+                                    height: 70,
+                                    borderWidth: 1,
+                                    borderColor: '#000',
+                                    borderRadius: 50,
+                                }}
+                            />
                             <View
                                 style={{
-                                    width: 50,
-                                    height: 50,
-                                    borderRadius: 50,
-                                    marginTop: 20,
-                                    marginRight: 50
+                                    width: 30,
+                                    height: 12,
+                                    backgroundColor: 'red',
+                                    position: 'absolute',
+                                    right: -20,
+                                    top: 40,
+                                    borderRadius: 15,
                                 }}>
-                                <Image
-                                    source={icons.profile}
-                                    style={{
-                                        width: 70,
-                                        height: 70,
-                                        borderWidth: 1,
-                                        borderColor: '#000',
-                                        borderRadius: 50,
-                                    }}
-                                />
-                                <View
-                                    style={{
-                                        width: 30,
-                                        height: 12,
-                                        backgroundColor: 'red',
-                                        position: 'absolute',
-                                        right: -20,
-                                        top: 40,
-                                        borderRadius: 15,
-                                    }}>
-                                    <TouchableOpacity>
-                                        <Text style={{ color: '#fff', fontSize: 9, alignSelf: 'center' }}>
-                                            Edit
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
+                                <TouchableOpacity>
+                                    <Text style={{ color: '#fff', fontSize: 9, alignSelf: 'center' }}>
+                                        Edit
+                                    </Text>
+                                </TouchableOpacity>
                             </View>
-
                         </View>
 
                     </View>
-                    <View style={{ marginTop: 120, backgroundColor: COLORS.mainBgColor }}>
-                        <UserRow title={"Passward & Security"} value={"Manage"} />
-
-                    </View>
-
-
-                    <View style={{ marginTop: 20, backgroundColor: COLORS.mainBgColor }}>
-                        <UserRow1 title={"E-Mail"} value={"demo@gmail.com"} />
-                        <UserRow1 title={"Phone"} value={"***251246"} />
-                        <UserRow1 title={"PAN"} value={"**595kj"} />
-                        <UserRow1 title={"Demat (BO)"} value={"0000000245154"} />
-                        <View style={{ marginLeft: 20, marginTop: 20, backgroundColor: COLORS.mainBgColor }}>
-                            <TouchableOpacity>
-                                <Text style={{ fontSize: 15, color: '#2980B9' }}>Manage Account</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <View style={{ backgroundColor: COLORS.mainBgColor, }}>
-                        <Text style={{ marginTop: 20, marginLeft: 20, color: "#000" }} >Bank ACCOUNT</Text>
-                        <UserRow1 title={"SBI"} value={"*5578589****"} />
-
-                        {/* <UserRow title={"Sagement"} value={"Mcx,gold,Silver,Copper"} />
-                    <UserRow title={"Demat Authorisation"} value={"POA"} />  */}
-
-
-                    </View>
-                    {/* <View >
-                    <Text style={{ marginTop: 30, marginLeft: 20, color: "#000" }} >Account closure </Text>
-                    <Text style={{ marginTop: 20, marginLeft: 20, }} >lorem20 the cat is very beuatyfull and i dont like wine </Text>
-
-                    <View style={{ marginLeft: 20, marginTop: 40, }}>
-                        <TouchableOpacity>
-                            <Text style={{ fontSize: 15, color: '#2980B9' }}>Continue</Text>
-                        </TouchableOpacity>
-
-                    </View>
-                </View> */}
 
                 </View>
+
+                <View style={{
+                    flexDirection: 'row', justifyContent: 'space-between',
+                    paddingLeft: 20, paddingRight: 20, marginTop: 30
+                }}>
+                    <Text style={{ fontSize: 17 }}>
+                        Password
+                    </Text>
+                    <TouchableOpacity>
+                        <Text style={{ fontSize: 17, color: 'blue' }}>
+                            change
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{
+                    flexDirection: 'row', justifyContent: 'space-between', marginTop: 40,
+                    paddingLeft: 20, paddingRight: 20
+                }}>
+                    <Text>E-mail</Text>
+                    <Text>kk12345@gmail.com</Text>
+                </View>
+                <View style={{
+                    flexDirection: 'row', justifyContent: 'space-between', marginTop: 40,
+                    paddingLeft: 20, paddingRight: 20
+                }}>
+                    <Text>Phone</Text>
+                    <Text>88*59****5325.com</Text>
+                </View>
+                <View style={{
+                    flexDirection: 'row', justifyContent: 'space-between', marginTop: 40,
+                    paddingLeft: 20, paddingRight: 20
+                }}>
+                    <Text>PAN</Text>
+                    <Text>kwd**47de**</Text>
+                </View>
+                <View style={{ margin: 20, }}>
+                    <View style={{ marginTop: 20 }}>
+                        <Text style={{ fontSize: 15 }}>Bank Account</Text>
+
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
+                        <Text>ICICI</Text>
+                        <Text>12454***45***58**</Text>
+                    </View>
+                </View>
+
+
+
+
+
+
+
+
             </View>
         </ScrollView>
     )
