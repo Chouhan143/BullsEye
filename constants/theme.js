@@ -9,7 +9,7 @@ export const COLORS = {
   // secondary: "#A7C7E7",
   mainBgColor:'#d6e4f2',
   bgColor: '#ACC8E5',
-  textColor: '#112A46',
+  textColor: '#000',
   TopBox:'#8aa0b7',
   white: '#fff',
   lightGreen: '#4BEE70',
