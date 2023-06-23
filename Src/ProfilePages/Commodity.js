@@ -7,7 +7,7 @@ const Commodity = (onPress) => {
         return (
             <View style={{
                 marginLeft: SIZES.radius, flexDirection: 'row',
-                height: 30, justifyContent: 'space-between', backgroundColor: '#DEEEEE', alignItems: 'center'
+                height: 30, justifyContent: 'space-between', backgroundColor: COLORS.mainBgColor, alignItems: 'center'
             }}>
                 <Text>{title}</Text>
                 <Text style={{ marginRight: SIZES.radius }}>{value}</Text>
@@ -38,12 +38,12 @@ const Commodity = (onPress) => {
         <View
             style={{
                 width: "100%", height: "100%", position: 'absolute', marginTop: 80,
-                backgroundColor: "#E7ECEA",
+                backgroundColor: COLORS.mainBgColor,
                 borderRadius: SIZES.radius
             }}>
             <View style={{
                 position: 'absolute',
-                width: '94%', height: 120, backgroundColor: "#fff", marginTop: -70,
+                width: '94%', height: 120, backgroundColor: COLORS.bgColor, marginTop: -70,
                 marginLeft: SIZES.radius, borderRadius: SIZES.radius
             }}>
                 <View style={{ marginTop: SIZES.radius, alignItems: 'center' }}>

@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import React, { useState } from 'react';
-import { SIZES, icons } from '../../constants';
+import { SIZES, icons,COLORS } from '../../constants';
 
 const Setting = () => {
     const [isClicked, SetIsClicked] = useState(false)
@@ -9,7 +9,7 @@ const Setting = () => {
         return (
             <View style={{
                 flexDirection: 'row', marginTop: SIZES.radius,
-                height: 50, justifyContent: 'space-between', backgroundColor: '#EBEBEB', alignItems: 'center'
+                height: 50, justifyContent: 'space-between', backgroundColor: COLORS.mainBgColor, alignItems: 'center'
             }}>
                 <Text style={{ marginLeft: 20 }}>{title}</Text>
                 <TouchableOpacity>
@@ -25,12 +25,12 @@ const Setting = () => {
 
 
     return (
-        <View style={{flex:1}}>
+        <View style={{flex:1 ,backgroundColor:COLORS.mainBgColor}}>
             <UserRow title={'Passward'} value={"Change"} />
             <UserRow title={'M-PIN'} value={"Change"} />
 
             <UserRow title={'Dark Mode'} value={"Change"} />
-            <View>
+            {/* <View>
                 <TouchableOpacity style={styles.dropdown}
                     onPress={() => {
                         SetIsClicked(!isClicked);
@@ -42,9 +42,9 @@ const Setting = () => {
                 {isClicked ? <View style={styles.dropdown2}>
                     <Text style={styles.droptext}>Quick Buy/Sell from watchlist</Text>
                 </View> : null}
-            </View>
+            </View> */}
 
-            <View style={{marginTop:20}}>
+            {/* <View style={{marginTop:20}}>
                 <TouchableOpacity style={styles.dropdown}
                     onPress={() => {
                         SetClicked(!clicked);
@@ -59,7 +59,7 @@ const Setting = () => {
                     </View> : null}
                 </View>
 
-            </View>
+            </View> */}
 
         </View>
 
@@ -71,7 +71,7 @@ export default Setting
 const styles = StyleSheet.create({
     dropdown: {
         width: "100%",
-        height: 50, backgroundColor: '#EBEBEB',
+        height: 50, backgroundColor: COLORS.mainBgColor ,
         alignSelf: 'center', marginTop: 50,
         flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
         paddingLeft: 20, paddingRight: 20,
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         width: 20, height: 20
     },
     dropdown2: {
-        width: '100%', height: 40, alignSelf: 'center', backgroundColor: '#EBEBEB'
+        width: '100%', height: 40, alignSelf: 'center', backgroundColor: COLORS.mainBgColor
     },
     droptext: {
         marginLeft: 20, marginTop: 10,
