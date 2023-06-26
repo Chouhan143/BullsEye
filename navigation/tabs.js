@@ -226,7 +226,7 @@ const Tabs = () => {
         name="Profile"
         component={Profile}
         options={{
-          headerShown: true,
+          headerShown: false,
           headerTintColor: "#EEF5DB",
           headerStyle: {
             backgroundColor: "#2E538C", // Set the desired background color here

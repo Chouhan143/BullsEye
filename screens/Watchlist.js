@@ -11,7 +11,7 @@ import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/Feather';
-import Icon3 from 'react-native-vector-icons/Ionicons';
+import Icon3 from 'react-native-vector-icons/AntDesign';
 import {COLORS} from '../constants';
 import {useNavigation} from '@react-navigation/native';
 import Tab_View from '../Src/TabScreens/Tab_View';
@@ -22,20 +22,27 @@ const Watchlist = () => {
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
-        <Icon name="arrowleft" size={25} color="#000" />
-
+     
         <TouchableOpacity
           style={styles.searchInputContainer}
-          onPress={()=> navigation.navigate('SearchData')}>
+          onPress={() => navigation.navigate('SearchData')}>
           <Icon2 name="search" size={18} color="#fff" />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search"
-            placeholderTextColor="#fff"
-          />
+       
+          <Text style={styles.searchInput}>Search</Text>
         </TouchableOpacity>
-
-        <Icon3 name="notifications-outline" size={25} color="#000" />
+        <TouchableOpacity onPress={()=>navigation.navigate('Profile')}>
+        <View
+          style={{
+            width: 35,
+            height: 35,
+            borderRadius: 17,
+            backgroundColor: COLORS.bgColor,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Icon3 name="user" size={25} color="#000" />
+        </View>
+        </TouchableOpacity>
       </View>
       <Tab_View />
     </View>
@@ -68,6 +75,7 @@ const styles = StyleSheet.create({
   searchInput: {
     width: '90%',
     paddingLeft: 10,
+    color: COLORS.white,
   },
   tabBar: {
     backgroundColor: COLORS.bgColor,

@@ -1,35 +1,147 @@
 import * as React from 'react';
+import {useEffect} from 'react';
 import {
   View,
   useWindowDimensions,
   StyleSheet,
   TouchableOpacity,
+  FlatList,
+  ScrollView,
+  Text,
 } from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {COLORS} from '../../constants';
 import Icon from 'react-native-vector-icons/Entypo';
 import {useNavigation} from '@react-navigation/native';
+import {useSelector, useDispatch} from 'react-redux';
+import {fetchCoinData} from '../redux/market/coinSlice';
 
 const My_Stocks = () => {
+  const coinsData = useSelector(state => state.coin.data);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCoinData());
+  }, []);
   const navigation = useNavigation();
   const navigationHandle = () => {
     navigation.navigate('SearchData');
   };
+  const renderItem = ({item}) => {
+    return (
+      // <ScrollView style={{flex: 1}}>
+      <TouchableOpacity
+        style={{
+          width: '100%',
+          height: 60,
+          backgroundColor: COLORS.bgColor,
+          marginVertical: 1,
+          justifyContent: 'center',
+          paddingHorizontal: 20,
+        }}>
+        {/* <View style={styles.topContainer}> */}
+        <View style={styles.topMiddle}>
+          <View>
+            <Text
+              style={[
+                styles.topText,
+                item.percent_chg > 1 ? styles.redText : styles.greenText,
+              ]}>
+              {item.trade_name}
+            </Text>
+          </View>
+          <View style={styles.topLast}>
+            <Text style={[styles.topText,item.percent_chg > 1 ? styles.redText : styles.greenText, {paddingRight: 60}]}>
+              {item.price.toLocaleString()}
+            </Text>
+            <Text style={[styles.topText,item.percent_chg > 1 ? styles.redText : styles.greenText,]}>{item.percent_chg}%</Text>
+          </View>
+        </View>
+        {/* </View> */}
+      </TouchableOpacity>
+      // </ScrollView>
+    );
+  };
+
   return (
     <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
-     
+      <View style={styles.topContainer}>
+        <View style={styles.topMiddle}>
+          <View>
+            <Text style={styles.topText}>Stock Name</Text>
+          </View>
+          <View style={styles.topLast}>
+            <Text style={[styles.topText, {paddingRight: 20}]}>Price</Text>
+            <Text style={styles.topText}>Change / Vol</Text>
+          </View>
+        </View>
+      </View>
+      <FlatList
+        data={coinsData}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      />
     </View>
   );
 };
 
 const My_Watchlist = () => {
+  const coinsData = useSelector(state => state.coin.data);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCoinData());
+  }, []);
   const navigation = useNavigation();
   const navigationHandle = () => {
     navigation.navigate('SearchData');
   };
+  const renderItem = ({item}) => {
+    return (
+      // <ScrollView style={{flex: 1}}>
+      <TouchableOpacity
+        style={{
+          width: '100%',
+          height: 60,
+          backgroundColor: COLORS.bgColor,
+          marginVertical: 1,
+          justifyContent: 'center',
+          paddingHorizontal: 20,
+        }}>
+        {/* <View style={styles.topContainer}> */}
+        <View style={styles.topMiddle}>
+          <View>
+            <Text style={styles.topText}>{item.trade_name}</Text>
+          </View>
+          <View style={styles.topLast}>
+            <Text style={[styles.topText, {paddingRight: 60}]}>
+              {item.price.toLocaleString()}
+            </Text>
+            <Text style={styles.topText}>{item.percent_chg}%</Text>
+          </View>
+        </View>
+        {/* </View> */}
+      </TouchableOpacity>
+      // </ScrollView>
+    );
+  };
   return (
     <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
-      <TouchableOpacity style={styles.addBox} onPress={navigationHandle} >
+      <View style={styles.topContainer}>
+        <View style={styles.topMiddle}>
+          <View>
+            <Text style={styles.topText}>Stock Name</Text>
+          </View>
+          <View style={styles.topLast}>
+            <Text style={[styles.topText, {paddingRight: 20}]}>Price</Text>
+            <Text style={styles.topText}>Change / Vol</Text>
+          </View>
+        </View>
+      </View>
+      {/* <FlatList
+        data={coinsData}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      /> */}
+      <TouchableOpacity style={styles.addBox} onPress={navigationHandle}>
         <Icon name="plus" size={25} color="#fff" />
       </TouchableOpacity>
     </View>
@@ -42,6 +154,17 @@ const Watchlist2 = () => {
       <TouchableOpacity style={styles.addBox}>
         <Icon name="plus" size={25} color="#fff" />
       </TouchableOpacity>
+      <View style={styles.topContainer}>
+        <View style={styles.topMiddle}>
+          <View>
+            <Text style={styles.topText}>Stock Name</Text>
+          </View>
+          <View style={styles.topLast}>
+            <Text style={[styles.topText, {paddingRight: 20}]}>Price</Text>
+            <Text style={styles.topText}>Change / Vol</Text>
+          </View>
+        </View>
+      </View>
     </View>
   );
 };
@@ -94,5 +217,38 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  topContainer: {
+    width: '100%',
+    height: 40,
+    backgroundColor: '#6799CE',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    paddingHorizontal: 20,
+  },
+  topMiddle: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  topLast: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+  topText: {
+    color: COLORS.textColor,
+    fontSize: 12,
+    fontWeight: '500',
+  },
+  redText: {
+    color: '#ff3333',
+  },
+
+  greenText: {
+    color: '#008000',
   },
 });

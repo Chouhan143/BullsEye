@@ -5,7 +5,10 @@ import SearchBar from '../Src/SearchBar';
 import {COLORS} from '../constants';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchCoinData} from '../Src/redux/market/coinSlice';
-
+import {
+  setIsTradeModalVisible,
+  selectIsTradeModalVisible,
+} from '../Src/redux/market/coinSlice';
 // import {CommodityBox} from '../components';
 
 // function CommodityBox(props) {
@@ -38,9 +41,10 @@ import {fetchCoinData} from '../Src/redux/market/coinSlice';
 // }
 
 const renderItem = ({item}) => {
+  
   return (
     <View style={{flex: 1}}>
-      <TouchableOpacity style={[styles.container, styles.searchCommodityBox]}>
+      <TouchableOpacity style={[styles.container, styles.searchCommodityBox]} onPress={()=>handleTradeButtonPress()}>
         <View
           style={[
             styles.sideLine,
@@ -81,6 +85,10 @@ const renderItem = ({item}) => {
 };
 
 const Home = () => {
+  const isTradeModalVisible = useSelector(selectIsTradeModalVisible);
+
+
+
   const coinsData = useSelector(state => state.coin.data);
   const dispatch = useDispatch();
   useEffect(() => {
