@@ -1,14 +1,17 @@
-import {StyleSheet, Text, View, FlatList, ScrollView, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, FlatList, ScrollView, TouchableOpacity } from 'react-native';
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchBar from '../Src/SearchBar';
-import {COLORS} from '../constants';
-import {useSelector, useDispatch} from 'react-redux';
-import {fetchCoinData} from '../Src/redux/market/coinSlice';
+import { COLORS } from '../constants';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCoinData } from '../Src/redux/market/coinSlice';
 import {
   setIsTradeModalVisible,
   selectIsTradeModalVisible,
 } from '../Src/redux/market/coinSlice';
+
+import { useNavigation } from '@react-navigation/native';
+import { forVerticalIOS } from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/CardStyleInterpolators';
 // import {CommodityBox} from '../components';
 
 // function CommodityBox(props) {
@@ -40,11 +43,13 @@ import {
 //   );
 // }
 
-const renderItem = ({item}) => {
-  
+const renderItem = ({ item, props }) => {
+
+
   return (
-    <View style={{flex: 1}}>
-      <TouchableOpacity style={[styles.container, styles.searchCommodityBox]} onPress={()=>handleTradeButtonPress()}>
+    <View style={{ flex: 1 }}>
+      <TouchableOpacity style={[styles.container, styles.searchCommodityBox]}
+        onPress={() => props.navigation.navigate("MainLayout")}>
         <View
           style={[
             styles.sideLine,
@@ -60,15 +65,15 @@ const renderItem = ({item}) => {
             gap: 3,
           }}>
           <Text
-            style={{color: COLORS.textColor, fontSize: 12, fontWeight: '500'}}>
+            style={{ color: COLORS.textColor, fontSize: 12, fontWeight: '500' }}>
             {item.trade_name}
           </Text>
-          <Text style={{color: COLORS.textColor, fontSize: 10}}>
+          <Text style={{ color: COLORS.textColor, fontSize: 10 }}>
             {' '}
             {item.expiry_date}
           </Text>
           <Text
-            style={{color: COLORS.textColor, fontSize: 10, fontWeight: '500'}}>
+            style={{ color: COLORS.textColor, fontSize: 10, fontWeight: '500' }}>
             {item.price}
           </Text>
           <Text
@@ -84,7 +89,8 @@ const renderItem = ({item}) => {
   );
 };
 
-const Home = () => {
+const Home = (item) => {
+  const navigation = useNavigation();
   const isTradeModalVisible = useSelector(selectIsTradeModalVisible);
 
 
@@ -92,11 +98,14 @@ const Home = () => {
   const coinsData = useSelector(state => state.coin.data);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchCoinData());
-  }, []);
+    const interval = setInterval(() => {
+      dispatch(fetchCoinData());
+    }, 1000); // 1000 milliseconds = 1 second
 
+    return () => clearInterval(interval); // Cleanup function to clear the interval on unmount
+  }, []);
   return (
-    <ScrollView style={{flex: 1,color:COLORS.mainBgColor}}>
+    <ScrollView style={{ flex: 1, color: COLORS.mainBgColor }}>
       <View
         style={[
           styles.searchEluation,
@@ -112,14 +121,14 @@ const Home = () => {
             flexDirection: 'row',
             paddingHorizontal: 10,
           }}>
-          <Text style={{color: COLORS.textColor}}> Sort</Text>
+          <Text style={{ color: COLORS.textColor }}> Sort</Text>
 
-          <Text style={{color: COLORS.textColor}}> FNO group</Text>
+          <Text style={{ color: COLORS.textColor }}> FNO group</Text>
 
-          <Text style={{color: COLORS.textColor}}> Mini</Text>
+          <Text style={{ color: COLORS.textColor }}> Mini</Text>
         </View>
       </View>
-      <View style={{marginTop:10}}>
+      <View style={{ marginTop: 10 }}>
         <FlatList
           data={coinsData}
           renderItem={renderItem}
@@ -136,7 +145,7 @@ const Home = () => {
           marginVertical: 10,
         }}>
         <Text
-          style={{color: COLORS.textColor, fontSize: 14, fontWeight: '600'}}>
+          style={{ color: COLORS.textColor, fontSize: 14, fontWeight: '600' }}>
           Cash
         </Text>
       </View>
@@ -154,7 +163,7 @@ const Home = () => {
           marginVertical: 10,
         }}>
         <Text
-          style={{color: COLORS.textColor, fontSize: 14, fontWeight: '600'}}>
+          style={{ color: COLORS.textColor, fontSize: 14, fontWeight: '600' }}>
           FNO near month
         </Text>
       </View>
@@ -164,7 +173,7 @@ const Home = () => {
         keyExtractor={item => item.id.toString()}
         horizontal={true}
       />
-      <View style={{marginVertical: 20}}>
+      <View style={{ marginVertical: 20 }}>
         <FlatList
           data={coinsData}
           renderItem={renderItem}
@@ -172,24 +181,27 @@ const Home = () => {
           horizontal={true}
         />
       </View>
-      <View
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginBottom: 10,
-        }}>
-        <Text
-          style={{color: COLORS.textColor, fontSize: 14, fontWeight: '600'}}>
-          FNO Far month
-        </Text>
-      </View>
-      <FlatList
-        data={coinsData}
-        renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
-        horizontal={true}
-      />
+
+      {/* <ScrollView >
+        {coinsData.map((item, index,) => (
+          
+          <View key={index[0]}>
+            <View style={{flex:1,marginLeft:10}}>
+              <View style={{ width: 120, height: 100, backgroundColor: 'red', borderRadius:10,justifyContent:'center',alignItems:'center'}}>
+                <Text>{item.trade_name}</Text>
+                <Text>{item.expiry_date}</Text>
+                <Text>{item.price}</Text>
+                <Text>{item.percent_chg}%</Text>
+              </View>
+              <View style={{ borderBottomColor: "#BBC7CF", marginTop: 10 }}></View>
+
+
+            </View>
+          </View>
+        ))}
+      </ScrollView> */}
+
+
     </ScrollView>
   );
 };
@@ -205,7 +217,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.bgColor,
     width: 110,
     height: 70,
-    borderRadius:3
+    borderRadius: 3
   },
   sideLine: {
     width: 3,

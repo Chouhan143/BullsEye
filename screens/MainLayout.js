@@ -7,18 +7,22 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import {IconTextButton} from '../components';
-import {BuySellButton} from '../components';
-import {COLORS, SIZES, icons} from '../constants';
-import {useSelector, useDispatch} from 'react-redux';
+import { IconTextButton } from '../components';
+import { BuySellButton } from '../components';
+import { COLORS, SIZES, icons } from '../constants';
+import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/Foundation';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import {
   setIsTradeModalVisible,
   selectIsTradeModalVisible,
 } from '../Src/redux/market/coinSlice';
-const {height, width} = Dimensions.get('window');
-const MainLayout = ({children, props}) => {
+import { useNavigation, } from '@react-navigation/native';
+
+
+const { height, width } = Dimensions.get('window');
+const MainLayout = ({ children, props }) => {
+  const navigation = useNavigation();
   const data = {
     qty: 2,
     avg: 66.65,
@@ -50,7 +54,7 @@ const MainLayout = ({children, props}) => {
   };
 
   function Test(props) {
-    const {qty, avg, percentage, stockName, invested, ltp, ltpPercentage} =
+    const { qty, avg, percentage, stockName, invested, ltp, ltpPercentage } =
       props;
     return (
       <View
@@ -73,9 +77,9 @@ const MainLayout = ({children, props}) => {
               flexDirection: 'row',
               paddingHorizontal: 20,
             }}>
-            <View style={{display: 'flex', flexDirection: 'row'}}>
-              <Text style={{color: 'gray'}}>Qty.</Text>
-              <Text style={{color: 'black'}}>{qty}</Text>
+            <View style={{ display: 'flex', flexDirection: 'row' }}>
+              <Text style={{ color: 'gray' }}>Qty.</Text>
+              <Text style={{ color: 'black' }}>{qty}</Text>
             </View>
 
             <View
@@ -84,8 +88,8 @@ const MainLayout = ({children, props}) => {
                 flexDirection: 'row',
                 paddingHorizontal: 20,
               }}>
-              <Text style={{color: 'gray'}}>Avg.</Text>
-              <Text style={{color: 'black'}}>{avg}</Text>
+              <Text style={{ color: 'gray' }}>Avg.</Text>
+              <Text style={{ color: 'black' }}>{avg}</Text>
             </View>
           </View>
           <View
@@ -94,8 +98,8 @@ const MainLayout = ({children, props}) => {
               flexDirection: 'row',
               paddingHorizontal: 20,
             }}>
-            <View style={{display: 'flex', flexDirection: 'row'}}>
-              <Text style={{color: 'green'}}>{percentage}</Text>
+            <View style={{ display: 'flex', flexDirection: 'row' }}>
+              <Text style={{ color: 'green' }}>{percentage}</Text>
             </View>
           </View>
         </View>
@@ -113,8 +117,8 @@ const MainLayout = ({children, props}) => {
               flexDirection: 'row',
               paddingHorizontal: 20,
             }}>
-            <View style={{display: 'flex', flexDirection: 'row'}}>
-              <Text style={{color: 'black', fontWeight: '700'}}>
+            <View style={{ display: 'flex', flexDirection: 'row' }}>
+              <Text style={{ color: 'black', fontWeight: '700' }}>
                 {stockName}
               </Text>
             </View>
@@ -125,8 +129,8 @@ const MainLayout = ({children, props}) => {
               flexDirection: 'row',
               paddingHorizontal: 20,
             }}>
-            <View style={{display: 'flex', flexDirection: 'row'}}>
-              <Text style={{color: 'green'}}>{ltpPercentage}</Text>
+            <View style={{ display: 'flex', flexDirection: 'row' }}>
+              <Text style={{ color: 'green' }}>{ltpPercentage}</Text>
             </View>
           </View>
         </View>
@@ -144,9 +148,9 @@ const MainLayout = ({children, props}) => {
               flexDirection: 'row',
               paddingHorizontal: 20,
             }}>
-            <View style={{display: 'flex', flexDirection: 'row'}}>
-              <Text style={{color: 'gray', paddingRight: 5}}>Invested</Text>
-              <Text style={{color: 'black'}}>{invested}</Text>
+            <View style={{ display: 'flex', flexDirection: 'row' }}>
+              <Text style={{ color: 'gray', paddingRight: 5 }}>Invested</Text>
+              <Text style={{ color: 'black' }}>{invested}</Text>
             </View>
           </View>
           <View
@@ -155,10 +159,10 @@ const MainLayout = ({children, props}) => {
               flexDirection: 'row',
               paddingHorizontal: 20,
             }}>
-            <View style={{display: 'flex', flexDirection: 'row'}}>
-              <Text style={{color: 'gray'}}>LTP </Text>
-              <Text style={{color: 'black'}}>{ltp}</Text>
-              <Text style={{color: 'red'}}> ({ltpPercentage})</Text>
+            <View style={{ display: 'flex', flexDirection: 'row' }}>
+              <Text style={{ color: 'gray' }}>LTP </Text>
+              <Text style={{ color: 'black' }}>{ltp}</Text>
+              <Text style={{ color: 'red' }}> ({ltpPercentage})</Text>
             </View>
           </View>
         </View>
@@ -196,8 +200,8 @@ const MainLayout = ({children, props}) => {
   });
 
   return (
-    <TouchableOpacity activeOpacity={1} onPress={closeModal} style={{flex: 1}}>
-      <View style={{flex: 1}}>
+    <TouchableOpacity activeOpacity={1} onPress={closeModal} style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
         {children}
 
         {/* Dim Background */}
@@ -244,7 +248,7 @@ const MainLayout = ({children, props}) => {
             }}>
             <BuySellButton
               label="Buy"
-              onPress={console.log('Buy Stocks Succesfully')}
+              onPress={() => navigation.navigate("BuySrceen")}
               backgroundColor={'#138F6A'}
             />
 

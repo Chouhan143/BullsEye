@@ -73,16 +73,16 @@ const Profile = (props) => {
             <View style={{
               flex: 1,
               marginLeft: 10,
-              flexDirection:'row'
+              flexDirection: 'row'
               // marginBottom: 40
 
             }}>
               <Image
                 source={icons.profile}
-                style={{ width: 45, height: 45 ,}}
+                style={{ width: 45, height: 45, }}
               />
               <Text
-                style={{ color: COLORS.black, ...FONTS.h3,marginTop:10 }}
+                style={{ color: COLORS.black, ...FONTS.h3, marginTop: 10 }}
               >{dummyData.profile.email}</Text>
               {/* <Text style={{
                 color: COLORS.lightGray2, ...FONTS.body4
@@ -97,7 +97,7 @@ const Profile = (props) => {
             >
               <Image
                 source={icons.verified}
-                style={{ width: 25, height: 25 ,}}
+                style={{ width: 25, height: 25, }}
               />
               <Text style={{
                 marginLeft: SIZES.base,
@@ -175,18 +175,21 @@ const Profile = (props) => {
           </TouchableOpacity>
           <SectionTitle title="SUPPORT" />
 
-          <View style={{
-            flex: 1, justifyContent: 'space-between',
-            flexDirection: "row", marginTop: SIZES.radius,
-            borderBottomWidth: 0.8, height: 50, borderBottomColor: '#D6EDF0',
-            alignItems: 'center'
-          }}>
-            <Text style={{ color: COLORS.black, ...FONTS.h3 }}>
-              Support portal
-            </Text>
-            <Image source={icons.customersupport}
-              style={{ height: 25, width: 25, tintColor: "#B1C3BB" }} />
-          </View>
+          <TouchableOpacity 
+          onPress={() => props.navigation.navigate("Button1")}>
+            <View style={{
+              flex: 1, justifyContent: 'space-between',
+              flexDirection: "row", marginTop: SIZES.radius,
+              borderBottomWidth: 0.8, height: 50, borderBottomColor: '#D6EDF0',
+              alignItems: 'center'
+            }}>
+              <Text style={{ color: COLORS.black, ...FONTS.h3 }}>
+                Support portal
+              </Text>
+              <Image source={icons.customersupport}
+                style={{ height: 25, width: 25, tintColor: "#B1C3BB" }} />
+            </View>
+          </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => props.navigation.navigate("BuySrceen")}>

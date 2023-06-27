@@ -1,6 +1,8 @@
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, TouchableHighlight } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, TouchableHighlight, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import { COLORS, icons } from '../../constants'
+import { PanGestureHandler } from 'react-native-gesture-handler';
+import Animated, { Extrapolate, interpolate, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring, } from 'react-native-reanimated';
 
 const Intraday = () => {
   const [text, setText] = useState('');
@@ -9,6 +11,37 @@ const Intraday = () => {
   const [isPressed1, setIsPressed1] = useState(false);
   const [isPressed2, setIsPressed2] = useState(false);
   const [selectedButton, setSelectedButton] = useState(null);
+
+  const InterpolateXInput = [0, 150]
+  const X = useSharedValue(10);
+  const animatedGesturehandler = useAnimatedGestureHandler({
+    onActive: e => {
+      X.value = e.translationX;
+    },
+    onEnd: () => {
+      if (X.value > 150) {
+        X.value = withSpring(230);
+      }
+      else {
+        X.value = withSpring(10);
+      }
+    }
+  })
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: X.value }]
+    }
+  })
+
+  const TextStyle = useAnimatedStyle(() => {
+    return {
+      opacity: interpolate(
+        X.value, InterpolateXInput, [0.8, 0], Extrapolate.CLAMP),
+      transform: [
+        { translateX: interpolate(X.value, InterpolateXInput, [0, 150, Extrapolate.CLAMP,]) }]
+    }
+  })
 
   const handleButtonPress = (buttonId) => {
     setSelectedButton(buttonId);
@@ -58,12 +91,15 @@ const Intraday = () => {
   const renderButton = (buttonId, buttonColor, title) => (
     <TouchableHighlight
       key={buttonId}
-      style={[styles.button, { backgroundColor: selectedButton === buttonId ? 'green' : buttonColor }]}
+      style={[styles.button, {
+        backgroundColor: selectedButton === buttonId ? 'green' : buttonColor,
+
+      }]}
       underlayColor="yellow"
       onPress={() => handleButtonPress(buttonId)}
     >
       <View>
-        <Text>{title}</Text>
+        <Text style={{ color: selectedButton === buttonId ? 'white' : 'black' }} >{title}</Text>
       </View>
     </TouchableHighlight>
   );
@@ -133,7 +169,7 @@ const Intraday = () => {
             {renderButton(3, 'white', title = "SL-LMT")}
           </View>
           <View style={{ marginLeft: 20 }}>
-            {renderButton(4, 'gray', title = "SL-MKT")}
+            {renderButton(4, 'white', title = "SL-MKT")}
           </View>
 
         </View>
@@ -164,7 +200,7 @@ const Intraday = () => {
       <View style={{ flexDirection: 'row' }}>
 
         <View style={{ width: 70, height: 70, marginLeft: 20, marginTop: 20 }}>
-          {renderButton(5, 'white', title = "NRML")}
+          {renderButton(5, '#E2E6E9', title = "NRML")}
 
         </View>
 
@@ -179,22 +215,28 @@ const Intraday = () => {
       </View>
       <View style={{ borderBottomColor: "#BBC7CF", borderBottomWidth: 0.5, marginTop: -10 }}></View>
 
-      <TouchableOpacity>
-        <View style={{
-          width: 300, height: 50, backgroundColor: 'green', marginTop: 20,
-          alignItems: 'center', justifyContent: 'center', alignSelf: 'center', borderRadius: 15
-        }}>
-          <Text style={{ fontSize: 20 }}>
-            Buy
-          </Text>
 
-        </View>
-      </TouchableOpacity>
+      <View style={{
+        width: 300, height: 60, backgroundColor: 'green', marginTop: 40, paddingLeft: 10, paddingRight: 10,
+        justifyContent: 'center', borderRadius: 15, alignSelf: 'center', alignItems: 'center',
+      }}>
 
+        <PanGestureHandler onGestureEvent={animatedGesturehandler}>
 
+          <Animated.View style={[{
+            width: 50, height: 50, position: 'absolute', left: 0, backgroundColor: 'red',
+            borderRadius: 10, marginTop: -25, alignItems: 'center', justifyContent: 'center'
+          }, animatedStyle
+          ]}>
+            <Image source={icons.rightArrow} style={{ width: 20, height: 20, tintColor: 'white' }} />
+          </Animated.View>
+        </PanGestureHandler>
+        <Animated.Text style={[{ color: '#fff', fontSize: 15 }, TextStyle]}>
+          {">> Swipe Right to Order >>"}
+        </Animated.Text>
 
-
-    </View>
+      </View>
+    </View >
 
 
 
@@ -214,5 +256,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,
+
   },
 });
