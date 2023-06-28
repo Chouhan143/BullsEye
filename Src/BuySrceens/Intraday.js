@@ -216,26 +216,16 @@ const Intraday = () => {
       <View style={{ borderBottomColor: "#BBC7CF", borderBottomWidth: 0.5, marginTop: -10 }}></View>
 
 
-      <View style={{
-        width: 300, height: 60, backgroundColor: 'green', marginTop: 40, paddingLeft: 10, paddingRight: 10,
-        justifyContent: 'center', borderRadius: 15, alignSelf: 'center', alignItems: 'center',
-      }}>
+      <TouchableOpacity>
+        <View style={{
+          width: 300, height: 60, backgroundColor: 'green', marginTop: 40, paddingLeft: 10, paddingRight: 10,
+          justifyContent: 'center', borderRadius: 15, alignSelf: 'center', alignItems: 'center',
+        }}>
 
-        <PanGestureHandler onGestureEvent={animatedGesturehandler}>
+          <Text style={{fontSize:20,color:'white'}}>Buy</Text>
 
-          <Animated.View style={[{
-            width: 50, height: 50, position: 'absolute', left: 0, backgroundColor: 'red',
-            borderRadius: 10, marginTop: -25, alignItems: 'center', justifyContent: 'center'
-          }, animatedStyle
-          ]}>
-            <Image source={icons.rightArrow} style={{ width: 20, height: 20, tintColor: 'white' }} />
-          </Animated.View>
-        </PanGestureHandler>
-        <Animated.Text style={[{ color: '#fff', fontSize: 15 }, TextStyle]}>
-          {">> Swipe Right to Order >>"}
-        </Animated.Text>
-
-      </View>
+        </View>
+      </TouchableOpacity>
     </View >
 
 

@@ -9,7 +9,7 @@ const Tab = createMaterialTopTabNavigator();
 const BuySrceen = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Overnight" component={Overnight} /> 
+      {/* <Tab.Screen name="Overnight" component={Overnight} />  */}
       <Tab.Screen name="Intraday" component={Intraday} />
     </Tab.Navigator>
   )

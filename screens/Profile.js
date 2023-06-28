@@ -7,9 +7,9 @@ import { Colors } from 'react-native/Libraries/NewAppScreen'
 import { useNavigation, } from '@react-navigation/native';
 
 
-
+const navigation = useNavigation();
 const SectionTitle = ({ title }) => {
-  const navigation = useNavigation();
+  
   return (
     <View style={{ marginTop: SIZES.padding }}>
       <Text style={{

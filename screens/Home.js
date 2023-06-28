@@ -65,21 +65,21 @@ const renderItem = ({ item, props }) => {
             gap: 3,
           }}>
           <Text
-            style={{ color: COLORS.textColor, fontSize: 12, fontWeight: '500' }}>
+            style={{ color: COLORS.textColor, fontSize: 14, fontWeight: '500' }}>
             {item.trade_name}
           </Text>
-          <Text style={{ color: COLORS.textColor, fontSize: 10 }}>
+          <Text style={{ color: COLORS.textColor, fontSize: 11 }}>
             {' '}
             {item.expiry_date}
           </Text>
           <Text
-            style={{ color: COLORS.textColor, fontSize: 10, fontWeight: '500' }}>
+            style={{ color: COLORS.textColor, fontSize: 11, fontWeight: '500' }}>
             {item.price}
           </Text>
           <Text
             style={{
               color: item.percent_chg < 1 ? 'red' : 'green',
-              fontSize: 10,
+              fontSize: 11,
             }}>
             {item.percent_chg}%
           </Text>
@@ -110,34 +110,34 @@ const Home = (item) => {
         style={[
           styles.searchEluation,
           {
-            paddingVertical: 15,
+            paddingVertical: 15,backgroundColor:COLORS.bgColor,
           },
         ]}>
         <View
           style={{
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             alignItems: 'center',
             flexDirection: 'row',
             paddingHorizontal: 10,
           }}>
-          <Text style={{ color: COLORS.textColor }}> Sort</Text>
+          <Text style={{ color: COLORS.textColor,fontWeight:'600',fontSize:15 }}> Trade on Commodity</Text>
 
-          <Text style={{ color: COLORS.textColor }}> FNO group</Text>
-
-          <Text style={{ color: COLORS.textColor }}> Mini</Text>
+          
         </View>
       </View>
-      <View style={{ marginTop: 10 }}>
+      <View style={{ marginTop:10 }}>
         <FlatList
           data={coinsData}
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
-          horizontal={true}
+          numColumns={2} 
+          // horizontal={true}
         />
       </View>
 
-      <View
+     <View>
+       {/* <View
         style={{
           display: 'flex',
           justifyContent: 'center',
@@ -178,9 +178,10 @@ const Home = (item) => {
           data={coinsData}
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
+          numColumns={2} 
           horizontal={true}
         />
-      </View>
+      </View> */}
 
       {/* <ScrollView >
         {coinsData.map((item, index,) => (
@@ -199,7 +200,9 @@ const Home = (item) => {
             </View>
           </View>
         ))}
-      </ScrollView> */}
+      </ScrollView> */} 
+     </View>
+      
 
 
     </ScrollView>
@@ -215,9 +218,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 7,
     backgroundColor: COLORS.bgColor,
-    width: 110,
-    height: 70,
-    borderRadius: 3
+    width: 160,
+    height: 90,
+    borderRadius: 5,
+    marginBottom:10
   },
   sideLine: {
     width: 3,

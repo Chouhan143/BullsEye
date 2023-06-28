@@ -254,7 +254,7 @@ const MainLayout = ({ children, props }) => {
 
             <BuySellButton
               label="Sell"
-              onPress={console.log('Sell Stocks Succesfully')}
+              onPress={() => navigation.navigate("BuySrceen")}
               backgroundColor={'red'}
             />
           </View>
@@ -279,7 +279,7 @@ const MainLayout = ({ children, props }) => {
               }}>
               View Chart
             </Text>
-            <Icon2 name="arrowright" size={25} color="#138F6A" />
+            <Icon2 name="arrowright" size={25} color="#138F6A" /> 
           </View>
         </Animated.View>
       </View>
