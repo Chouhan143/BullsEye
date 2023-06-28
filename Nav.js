@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+
 import SignIn from './screens/SignIn';
 import Funds from './Src/ProfilePages/Funds';
 import Tabs from './navigation/tabs';
@@ -45,6 +46,7 @@ const Nav = () => {
         <Stack.Screen
           name="MainLayout"
           component={Tabs}
+          options={{ headerShown: false }}
           options={{ headerShown: false }}
         />
         <Stack.Screen

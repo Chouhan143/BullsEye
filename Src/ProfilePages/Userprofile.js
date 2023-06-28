@@ -7,8 +7,8 @@ const UserProfile = (onPress) => {
 
 
     return (
-        <ScrollView>
-            <View style={{ flex: 1, backgroundColor: COLORS.mainBgColor }}>
+        <ScrollView style={{ backgroundColor: COLORS.mainBgColor }}>
+            <View style={{ flex:1,}}>
 
                 <View style={{ backgroundColor: COLORS.mainBgColor, marginTop: 10 }}>
                     <View style={{
@@ -105,10 +105,7 @@ const UserProfile = (onPress) => {
                         <Text>12454***45***58**</Text>
                     </View>
                 </View>
-
-
-
-
+                
 
 
 
