@@ -23,7 +23,16 @@ export const getData2 = async url => {
 export const postData = async (url, data) => {
   try {
     const response = await axios.post(url, data);
-    return response.data;
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const postData2 = async (url, data) => {
+  try {
+    const response = await axios.post(url, data);
+    return response;
   } catch (error) {
     console.error(error);
   }

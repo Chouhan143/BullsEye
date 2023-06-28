@@ -22,26 +22,25 @@ const Watchlist = () => {
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
-     
         <TouchableOpacity
           style={styles.searchInputContainer}
           onPress={() => navigation.navigate('SearchData')}>
           <Icon2 name="search" size={18} color="#fff" />
-       
+
           <Text style={styles.searchInput}>Search</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>navigation.navigate('Profile')}>
-        <View
-          style={{
-            width: 35,
-            height: 35,
-            borderRadius: 17,
-            backgroundColor: COLORS.bgColor,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Icon3 name="user" size={25} color="#000" />
-        </View>
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+          <View
+            style={{
+              width: 35,
+              height: 35,
+              borderRadius: 17,
+              backgroundColor: COLORS.bgColor,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Icon3 name="user" size={25} color="#000" />
+          </View>
         </TouchableOpacity>
       </View>
       <Tab_View />

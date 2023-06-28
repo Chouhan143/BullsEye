@@ -8,6 +8,8 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
+
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -20,13 +22,15 @@ public class MainApplication extends Application implements ReactApplication {
         }
 
         @Override
-        protected List<ReactPackage> getPackages() {
-          @SuppressWarnings("UnnecessaryLocalVariable")
-          List<ReactPackage> packages = new PackageList(this).getPackages();
-          // Packages that cannot be autolinked yet can be added manually here, for example:
-          // packages.add(new MyReactNativePackage());
-          return packages;
-        }
+    protected List<ReactPackage> getPackages() {
+        List<ReactPackage> packages = new PackageList(this).getPackages();
+        // packages.add(new SplashScreenReactPackage());
+        return packages;
+    }
+
+ 
+
+
 
         @Override
         protected String getJSMainModuleName() {
