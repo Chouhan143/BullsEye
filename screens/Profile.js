@@ -18,6 +18,7 @@ const SectionTitle = ({ title }) => {
     </View>
   )
 }
+
 const HandleLogout = () => {
   Alert.alert("Logout!", "Are you sure you want to Logout?", [
     {
@@ -26,7 +27,7 @@ const HandleLogout = () => {
     },
     {
       text: 'OK',
-      // onPress: () = {},
+      onPress: () => { navigation.navigate('Login')},
     },
   ])
 

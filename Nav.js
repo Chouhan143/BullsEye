@@ -47,7 +47,7 @@ const Nav = () => {
           name="MainLayout"
           component={Tabs}
           options={{ headerShown: false }}
-          options={{ headerShown: false }}
+         
         />
         <Stack.Screen
           options={{
