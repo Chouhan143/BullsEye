@@ -29,7 +29,7 @@ const Nav = () => {
         }}
         initialRouteName="Login" // Set initial route to Login
       >
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Login"
           component={LoginScreen}
           options={{
@@ -42,7 +42,7 @@ const Nav = () => {
           options={{
             title: 'Register',
           }}
-        />
+        /> */}
         <Stack.Screen
           name="MainLayout"
           component={Tabs}
@@ -72,7 +72,7 @@ const Nav = () => {
         />
         <Stack.Screen
           options={{ title: 'BuyScreen', headerShown: false }}
-          name="BuySrceen"
+          name="BuyScreen"
           component={BuySrceen}
         />
       </Stack.Navigator>
