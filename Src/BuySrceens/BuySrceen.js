@@ -16,7 +16,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {Dimensions} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const Tab = createMaterialTopTabNavigator();
+const Tab = createMaterialTopTabNavigator(); 
 
 const {width, height} = Dimensions.get('window');
 const BuyScreen = () => {

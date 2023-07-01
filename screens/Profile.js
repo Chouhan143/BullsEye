@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView, Switch, title, onPress, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, Switch, title, onPress,Button,Alert } from 'react-native';
 import { MainLayout } from './';
 import { HeaderBar } from "../components"
 import { FONTS, COLORS, SIZES, dummyData, icons } from "../constants";
@@ -9,7 +9,7 @@ import { useNavigation, } from '@react-navigation/native';
 
 const navigation = useNavigation();
 const SectionTitle = ({ title }) => {
-  
+
   return (
     <View style={{ marginTop: SIZES.padding }}>
       <Text style={{
@@ -20,6 +20,25 @@ const SectionTitle = ({ title }) => {
 }
 
 const HandleLogout = () => {
+
+  Alert.alert("Logout!", "Are you sure you want to Logout?",
+    [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      
+      },
+      {
+        text: 'Logout',
+        style: 'destructive',
+        onPress: () => {
+
+          navigation.navigate('SignIn');
+        },
+      },
+    ], { cancelable: false }
+  )
+
   Alert.alert("Logout!", "Are you sure you want to Logout?", [
     {
       text: 'Cencal',
@@ -31,8 +50,9 @@ const HandleLogout = () => {
     },
   ])
 
-}
 
+}
+<Button onPress={HandleLogout} title="Logout" />
 
 const Profile = (props) => {
   const [faceId, SetFaceId] = useState(true)
@@ -176,8 +196,8 @@ const Profile = (props) => {
           </TouchableOpacity>
           <SectionTitle title="SUPPORT" />
 
-          <TouchableOpacity 
-          onPress={() => props.navigation.navigate("Button1")}>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate("Button1")}>
             <View style={{
               flex: 1, justifyContent: 'space-between',
               flexDirection: "row", marginTop: SIZES.radius,

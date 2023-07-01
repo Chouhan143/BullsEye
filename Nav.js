@@ -11,6 +11,7 @@ import BuySrceen from './Src/BuySrceens/BuySrceen';
 import SearchData from './Src/SearchData';
 import LoginScreen from './Src/LoginScreen';
 import RegisterScreen from './Src/RegisterScreen';
+import { Home } from './screens';
 
 const Stack = createStackNavigator();
 
@@ -47,7 +48,10 @@ const Nav = () => {
           name="MainLayout"
           component={Tabs}
           options={{ headerShown: false }}
+<<<<<<< HEAD
+=======
          
+>>>>>>> eec257ad36cbecdba23e2e31a1a7cd87fa90ea88
         />
         <Stack.Screen
           options={{
@@ -75,6 +79,11 @@ const Nav = () => {
           name="BuyScreen"
           component={BuySrceen}
         />
+         {/* <Stack.Screen
+          options={{ title: 'Home', headerShown: false }}
+          name="Home"
+          component={Home}
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

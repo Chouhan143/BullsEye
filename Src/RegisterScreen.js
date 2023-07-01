@@ -197,7 +197,7 @@ const RegisterScreen = ({navigation}) => {
           }
         />
 
-        {/* <View
+        <View
           style={{
             flexDirection: 'row',
             borderBottomColor: '#ccc',
@@ -233,7 +233,7 @@ const RegisterScreen = ({navigation}) => {
           onCancel={() => {
             setOpen(false);
           }}
-        /> */}
+        />
 
         <CustomButton label={'Register'} onPress={UserRegister} />
 
