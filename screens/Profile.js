@@ -20,6 +20,25 @@ const SectionTitle = ({ title }) => {
 }
 
 const HandleLogout = () => {
+
+  Alert.alert("Logout!", "Are you sure you want to Logout?",
+    [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      
+      },
+      {
+        text: 'Logout',
+        style: 'destructive',
+        onPress: () => {
+
+          navigation.navigate('SignIn');
+        },
+      },
+    ], { cancelable: false }
+  )
+
   Alert.alert("Logout!", "Are you sure you want to Logout?", [
     {
       text: 'Cencal',
@@ -27,9 +46,10 @@ const HandleLogout = () => {
     },
     {
       text: 'OK',
-      // onPress: () = {},
+      onPress: () => { navigation.navigate('Login')},
     },
   ])
+
 
 }
 <Button onPress={HandleLogout} title="Logout" />

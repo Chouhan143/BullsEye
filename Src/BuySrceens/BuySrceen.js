@@ -4,7 +4,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import Overnight from './Overnight';
 import Intraday from './Intraday';
 
-const Tab = createMaterialTopTabNavigator();
+const Tab = createMaterialTopTabNavigator(); 
 
 const BuySrceen = () => {
   return (
