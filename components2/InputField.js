@@ -1,6 +1,10 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, TextInput} from 'react-native';
 
+
+
+
+
 const InputField = ({
   label,
   icon,

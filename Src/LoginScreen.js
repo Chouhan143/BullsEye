@@ -25,36 +25,38 @@ const baseUrl = "https://scripts.bulleyetrade.com/api/signin";
 
 
 const LoginScreen = () => {
-const navigation = useNavigation();
+  const navigation = useNavigation();
   // const [inputs,setInputs]=useState({email:'',password:''})
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
-
-
-
-const login = async() =>{
-  const payload = {
-    email:email,
-    password:password,
-  }
-  try {
-    const res = await postData(baseUrl,payload)
-    const accessToken = res.data.payload.access_token;
-    await AsyncStorage.setItem('accessToken', accessToken);
-    if(res.status==200){
-      navigation.navigate('MainLayout')
-    }
-    
-  } catch (error) {
-    console.error(error);
-    
-  }
-}
-
-  
-
  
+ 
+
+
+
+  const login = async () => {
+    const payload = {
+      email: email,
+      password: password,
+    }
+    try {
+      const res = await postData(baseUrl, payload)
+      const accessToken = res.data.payload.access_token;
+      await AsyncStorage.setItem('accessToken', accessToken);
+      if (res.status == 200) {
+        navigation.navigate('MainLayout')
+      }
+
+    } catch (error) {
+      console.error(error);
+
+    }
+  }
+
+
+
+
   return (
     <SafeAreaView
       style={{
@@ -123,7 +125,7 @@ const login = async() =>{
           }
           inputType="password"
           fieldButtonLabel={'Forgot?'}
-          fieldButtonFunction={() => {}}
+          fieldButtonFunction={() => { }}
         />
 
         <CustomButton label={'Login'} onPress={login} />
@@ -145,4 +147,4 @@ const login = async() =>{
   );
 };
 
-export default LoginScreen;
+export default LoginScreen; 

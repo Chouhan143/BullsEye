@@ -273,7 +273,7 @@ const MainLayout = ({ children, props }) => {
             <Text
               style={{
                 color: '#138F6A',
-                fontSize: 16,
+                fontSize: 16, 
                 fontWeight: '700',
                 paddingHorizontal: 10,
               }}>

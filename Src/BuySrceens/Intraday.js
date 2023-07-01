@@ -12,37 +12,7 @@ const Intraday = () => {
   const [isPressed2, setIsPressed2] = useState(false);
   const [selectedButton, setSelectedButton] = useState(null);
 
-  const InterpolateXInput = [0, 150]
-  const X = useSharedValue(10);
-  const animatedGesturehandler = useAnimatedGestureHandler({
-    onActive: e => {
-      X.value = e.translationX;
-    },
-    onEnd: () => {
-      if (X.value > 150) {
-        X.value = withSpring(230);
-      }
-      else {
-        X.value = withSpring(10);
-      }
-    }
-  })
-
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateX: X.value }]
-    }
-  })
-
-  const TextStyle = useAnimatedStyle(() => {
-    return {
-      opacity: interpolate(
-        X.value, InterpolateXInput, [0.8, 0], Extrapolate.CLAMP),
-      transform: [
-        { translateX: interpolate(X.value, InterpolateXInput, [0, 150, Extrapolate.CLAMP,]) }]
-    }
-  })
-
+  
   const handleButtonPress = (buttonId) => {
     setSelectedButton(buttonId);
   };

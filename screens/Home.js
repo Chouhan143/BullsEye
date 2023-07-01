@@ -43,13 +43,12 @@ import { forVerticalIOS } from '@react-navigation/stack/lib/typescript/src/Trans
 //   );
 // }
 
+
 const renderItem = ({ item, props }) => {
-
-
   return (
     <View style={{ flex: 1 }}>
       <TouchableOpacity style={[styles.container, styles.searchCommodityBox]}
-        onPress={() => props.navigation.navigate("MainLayout")}>
+        onPress={() =>props.navigation.navigate("Home")}>
         <View
           style={[
             styles.sideLine,
@@ -110,7 +109,7 @@ const Home = (item) => {
         style={[
           styles.searchEluation,
           {
-            paddingVertical: 15,backgroundColor:COLORS.bgColor,
+            paddingVertical: 15, backgroundColor: COLORS.bgColor,
           },
         ]}>
         <View
@@ -121,23 +120,23 @@ const Home = (item) => {
             flexDirection: 'row',
             paddingHorizontal: 10,
           }}>
-          <Text style={{ color: COLORS.textColor,fontWeight:'600',fontSize:15 }}> Trade on Commodity</Text>
+          <Text style={{ color: COLORS.textColor, fontWeight: '600', fontSize: 15 }}> Trade on Commodity</Text>
 
-          
+
         </View>
       </View>
-      <View style={{ marginTop:10 }}>
+      <View style={{ marginTop: 10 }}>
         <FlatList
           data={coinsData}
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
-          numColumns={2} 
-          // horizontal={true}
+          numColumns={2}
+        // horizontal={true}
         />
       </View>
 
-     <View>
-       {/* <View
+      <View>
+        {/* <View
         style={{
           display: 'flex',
           justifyContent: 'center',
@@ -183,7 +182,7 @@ const Home = (item) => {
         />
       </View> */}
 
-      {/* <ScrollView >
+        {/* <ScrollView >
         {coinsData.map((item, index,) => (
           
           <View key={index[0]}>
@@ -200,9 +199,9 @@ const Home = (item) => {
             </View>
           </View>
         ))}
-      </ScrollView> */} 
-     </View>
-      
+      </ScrollView> */}
+      </View>
+
 
 
     </ScrollView>
@@ -221,7 +220,7 @@ const styles = StyleSheet.create({
     width: 160,
     height: 90,
     borderRadius: 5,
-    marginBottom:10
+    marginBottom: 10
   },
   sideLine: {
     width: 3,
