@@ -48,6 +48,11 @@ const SearchData = () => {
       setFilterData(tempList);
     }
   };
+
+
+
+
+
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
@@ -212,7 +217,13 @@ const SearchData = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <TouchableOpacity style={styles.modalInner}>
+              <TouchableOpacity style={styles.modalInner} onPress={()=>{
+                let tempList = filterData.sort((a,b)=>
+                  a.trade_name > b.trade_name ? 1 :-1
+                );
+                setFilterData(tempList)
+
+              }} >
                 <Text style={styles.modalText}>Sort By Trade_name</Text>
               </TouchableOpacity>
               <TouchableOpacity

@@ -18,24 +18,18 @@ const SectionTitle = ({ title }) => {
     </View>
   )
 }
-const HandleLogout = () => {
-  Alert.alert("Logout!", "Are you sure you want to Logout?",
-    [
-      {
-        text: 'Cancel',
-        style: 'cancel',
-      
-      },
-      {
-        text: 'Logout',
-        style: 'destructive',
-        onPress: () => {
 
-          navigation.navigate('SignIn');
-        },
-      },
-    ], { cancelable: false }
-  )
+const HandleLogout = () => {
+  Alert.alert("Logout!", "Are you sure you want to Logout?", [
+    {
+      text: 'Cencal',
+      // onPress: () = {},
+    },
+    {
+      text: 'OK',
+      // onPress: () = {},
+    },
+  ])
 
 }
 <Button onPress={HandleLogout} title="Logout" />
