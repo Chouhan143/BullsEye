@@ -21,10 +21,18 @@ const MainLayout = ({ children, selectedItem }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       dispatch(fetchCoinData());
+
     }, 1000); // 1000 milliseconds = 1 second
 
     return () => clearInterval(interval); // Cleanup function to clear the interval on unmount
   }, []);
+
+  const handleItemSelect = (coinsData) => {
+    dispatch(setIsTradeModalVisible(false));
+    navigation.navigate('BuyScreen', { selectedItem:coinsData });
+  };
+
+ 
 
 
 
@@ -53,7 +61,8 @@ const MainLayout = ({ children, selectedItem }) => {
     outputRange: [height, height - 300],
   });
 
-  function Test({ coinsData }) {
+  function Test({ coinsData}) {
+   
     return (
       <View style={[styles.searchEluation, { paddingVertical: 15 }]}>
         <View style={{ display: 'flex', flexDirection: 'row', paddingHorizontal: 10, justifyContent: 'space-between' }}>
@@ -109,6 +118,10 @@ const MainLayout = ({ children, selectedItem }) => {
           />
         )}
 
+{
+  selectedItem && (
+
+ 
         <Animated.View
           style={{
             position: 'absolute',
@@ -123,7 +136,7 @@ const MainLayout = ({ children, selectedItem }) => {
           }}
         >
           {selectedItem && <Test coinsData={selectedItem} selectedItem={selectedItem} />}
-
+         
           <View style={{
             display: 'flex',
             flexDirection: 'row',
@@ -135,24 +148,19 @@ const MainLayout = ({ children, selectedItem }) => {
           }}>
             <BuySellButton
               label="Buy"
-              onPress={() => {
-                dispatch(setIsTradeModalVisible(false));
-                navigation.navigate("BuyScreen");
-              }}
+              onPress={() => handleItemSelect(selectedItem)}
               backgroundColor={'#138F6A'}
             />
 
             <BuySellButton
               label="Sell"
-              onPress={() => {
-                dispatch(setIsTradeModalVisible(false));
-                navigation.navigate("BuyScreen");
-              }}
+              onPress={() => handleItemSelect(selectedItem)}
               backgroundColor={'red'}
             />
           </View>
          
         </Animated.View>
+         )}
       </View>
     </TouchableOpacity>
   );

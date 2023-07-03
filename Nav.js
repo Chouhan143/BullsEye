@@ -48,10 +48,6 @@ const Nav = () => {
           name="MainLayout"
           component={Tabs}
           options={{ headerShown: false }}
-<<<<<<< HEAD
-=======
-         
->>>>>>> eec257ad36cbecdba23e2e31a1a7cd87fa90ea88
         />
         <Stack.Screen
           options={{
