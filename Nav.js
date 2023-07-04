@@ -12,6 +12,7 @@ import SearchData from './Src/SearchData';
 import LoginScreen from './Src/LoginScreen';
 import RegisterScreen from './Src/RegisterScreen';
 import { Home } from './screens';
+import Button1 from './Src/BuySrceens/Button';
 
 const Stack = createStackNavigator();
 
@@ -77,11 +78,11 @@ const Nav = () => {
           name="BuyScreen"
           component={BuySrceen}
         />
-         {/* <Stack.Screen
-          options={{ title: 'Home', headerShown: false }}
-          name="Home"
-          component={Home}
-        /> */}
+         <Stack.Screen
+          options={{ title: 'button', headerShown: false }}
+          name="Button1"
+          component={Button1}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

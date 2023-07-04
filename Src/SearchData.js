@@ -8,7 +8,7 @@ import {
   FlatList,
   Modal,
 } from 'react-native';
-import React, {useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/Feather';
 import Icon3 from 'react-native-vector-icons/AntDesign';
@@ -16,12 +16,20 @@ import Icon4 from 'react-native-vector-icons/MaterialIcons';
 import Icon5 from 'react-native-vector-icons/FontAwesome';
 import Icon6 from 'react-native-vector-icons/AntDesign';
 
-import {COLORS} from '../constants';
-import {useNavigation} from '@react-navigation/native';
-import {useSelector, useDispatch} from 'react-redux';
-import {fetchCoinData} from '../Src/redux/market/coinSlice';
+import { COLORS } from '../constants';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCoinData } from '../Src/redux/market/coinSlice';
+import { addCardItem } from './redux/market/coinSlice2';
 
 const SearchData = () => {
+
+  // const dispatch = useDispatch();
+  const addedItems = useSelector(state =>state);
+  // console.log(addedItems);
+  const addItem = (item) => {
+    dispatch(addCardItem(item))
+  }
   const [modalVisible, setModalVisible] = useState(false);
   const openModal = () => {
     setModalVisible(true);
@@ -53,7 +61,7 @@ const SearchData = () => {
 
 
 
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     return (
       <TouchableOpacity
         style={{
@@ -88,7 +96,7 @@ const SearchData = () => {
                 borderRadius: 2,
                 marginRight: 10,
               }}>
-              <Text style={{color: COLORS.white}}>
+              <Text style={{ color: COLORS.white }}>
                 {item.trade_name.charAt(0)}
               </Text>
             </View>
@@ -121,7 +129,10 @@ const SearchData = () => {
             <TouchableOpacity>
               <Icon5 name="shopping-bag" size={20} color="#1B1A1A" />
             </TouchableOpacity>
-            <TouchableOpacity style={{paddingLeft: 10}}>
+            <TouchableOpacity style={{ paddingLeft: 10 }}
+              onPress={() => {
+                addItem(item)
+              }}>
               <Icon4 name="favorite" size={20} color="#1B1A1A" />
             </TouchableOpacity>
           </View>
@@ -131,7 +142,7 @@ const SearchData = () => {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
+    <View style={{ flex: 1, backgroundColor: COLORS.mainBgColor }}>
       <View style={styles.searchContainer}>
         <TouchableOpacity onPress={() => navigation.navigate('Watchlist')}>
           <Icon name="arrowleft" size={25} color="#000" />
@@ -194,7 +205,7 @@ const SearchData = () => {
             <Text style={styles.topText1}>Stock Name</Text>
           </View>
           <View style={styles.topLast}>
-            <Text style={[styles.topText1, {paddingRight: 20}]}>Price</Text>
+            <Text style={[styles.topText1, { paddingRight: 20 }]}>Price</Text>
             <Text style={styles.topText1}>Change / Vol</Text>
           </View>
         </View>
@@ -217,9 +228,9 @@ const SearchData = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <TouchableOpacity style={styles.modalInner} onPress={()=>{
-                let tempList = filterData.sort((a,b)=>
-                  a.trade_name > b.trade_name ? 1 :-1
+              <TouchableOpacity style={styles.modalInner} onPress={() => {
+                let tempList = filterData.sort((a, b) =>
+                  a.trade_name > b.trade_name ? 1 : -1
                 );
                 setFilterData(tempList)
 
@@ -231,12 +242,12 @@ const SearchData = () => {
                 <Text style={styles.modalText}>Low to High Price</Text>
               </TouchableOpacity>
               <TouchableOpacity
-               style={styles.modalInner}>
+                style={styles.modalInner}>
                 <Text style={styles.modalText}>High to Low Price</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-               style={styles.closIcon} onPress={closeModal}>
+                style={styles.closIcon} onPress={closeModal}>
                 <Icon6 name="closesquare" size={25} color="#1B1A1A" />
               </TouchableOpacity>
 
@@ -337,10 +348,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     justifyContent: 'center',
   },
-  closIcon:{
-    display:'flex',
-    position:'absolute',
-    top:-60,
-    right:-45
+  closIcon: {
+    display: 'flex',
+    position: 'absolute',
+    top: -60,
+    right: -45
   }
 });

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import {
   View,
   useWindowDimensions,
@@ -9,12 +9,13 @@ import {
   ScrollView,
   Text,
 } from 'react-native';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import {COLORS} from '../../constants';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { COLORS } from '../../constants';
 import Icon from 'react-native-vector-icons/Entypo';
-import {useNavigation} from '@react-navigation/native';
-import {useSelector, useDispatch} from 'react-redux';
-import {fetchCoinData} from '../redux/market/coinSlice';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCoinData } from '../redux/market/coinSlice';
+import { removeCartItem } from '../redux/market/coinSlice2';
 
 const My_Stocks = () => {
   const coinsData = useSelector(state => state.coin.data);
@@ -26,7 +27,7 @@ const My_Stocks = () => {
   const navigationHandle = () => {
     navigation.navigate('SearchData');
   };
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     return (
       // <ScrollView style={{flex: 1}}>
       <TouchableOpacity
@@ -50,10 +51,10 @@ const My_Stocks = () => {
             </Text>
           </View>
           <View style={styles.topLast}>
-            <Text style={[styles.topText,item.percent_chg > 1 ? styles.redText : styles.greenText, {paddingRight: 60}]}>
+            <Text style={[styles.topText, item.percent_chg > 1 ? styles.redText : styles.greenText, { paddingRight: 60 }]}>
               {item.price.toLocaleString()}
             </Text>
-            <Text style={[styles.topText,item.percent_chg > 1 ? styles.redText : styles.greenText,]}>{item.percent_chg}%</Text>
+            <Text style={[styles.topText, item.percent_chg > 1 ? styles.redText : styles.greenText,]}>{item.percent_chg}%</Text>
           </View>
         </View>
         {/* </View> */}
@@ -63,14 +64,14 @@ const My_Stocks = () => {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
+    <View style={{ flex: 1, backgroundColor: COLORS.mainBgColor }}>
       <View style={styles.topContainer}>
         <View style={styles.topMiddle}>
           <View>
             <Text style={styles.topText}>Stock Name</Text>
           </View>
           <View style={styles.topLast}>
-            <Text style={[styles.topText, {paddingRight: 20}]}>Price</Text>
+            <Text style={[styles.topText, { paddingRight: 20 }]}>Price</Text>
             <Text style={styles.topText}>Change / Vol</Text>
           </View>
         </View>
@@ -91,10 +92,15 @@ const My_Watchlist = () => {
     dispatch(fetchCoinData());
   }, []);
   const navigation = useNavigation();
+  const Items = useSelector(state => state.coin.name);
+  // console.log(addedItems);
+  const removeItem = (item) => {
+    dispatch(removeCartItem(item))
+  }
   const navigationHandle = () => {
     navigation.navigate('SearchData');
   };
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     return (
       // <ScrollView style={{flex: 1}}>
       <TouchableOpacity
@@ -112,7 +118,7 @@ const My_Watchlist = () => {
             <Text style={styles.topText}>{item.trade_name}</Text>
           </View>
           <View style={styles.topLast}>
-            <Text style={[styles.topText, {paddingRight: 60}]}>
+            <Text style={[styles.topText, { paddingRight: 60 }]}>
               {item.price.toLocaleString()}
             </Text>
             <Text style={styles.topText}>{item.percent_chg}%</Text>
@@ -124,14 +130,14 @@ const My_Watchlist = () => {
     );
   };
   return (
-    <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
+    <View style={{ flex: 1, backgroundColor: COLORS.mainBgColor }}>
       <View style={styles.topContainer}>
         <View style={styles.topMiddle}>
           <View>
             <Text style={styles.topText}>Stock Name</Text>
           </View>
           <View style={styles.topLast}>
-            <Text style={[styles.topText, {paddingRight: 20}]}>Price</Text>
+            <Text style={[styles.topText, { paddingRight: 20 }]}>Price</Text>
             <Text style={styles.topText}>Change / Vol</Text>
           </View>
         </View>
@@ -150,7 +156,7 @@ const My_Watchlist = () => {
 
 const Watchlist2 = () => {
   return (
-    <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
+    <View style={{ flex: 1, backgroundColor: COLORS.mainBgColor }}>
       <TouchableOpacity style={styles.addBox}>
         <Icon name="plus" size={25} color="#fff" />
       </TouchableOpacity>
@@ -160,7 +166,7 @@ const Watchlist2 = () => {
             <Text style={styles.topText}>Stock Name</Text>
           </View>
           <View style={styles.topLast}>
-            <Text style={[styles.topText, {paddingRight: 20}]}>Price</Text>
+            <Text style={[styles.topText, { paddingRight: 20 }]}>Price</Text>
             <Text style={styles.topText}>Change / Vol</Text>
           </View>
         </View>
@@ -180,27 +186,27 @@ export default function Tab_View() {
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    {key: 'first', title: 'My Stocks'},
-    {key: 'second', title: 'My Watchlist'},
-    {key: 'third', title: 'Watchlist2'},
+    { key: 'first', title: 'My Stocks' },
+    { key: 'second', title: 'My Watchlist' },
+    { key: 'third', title: 'Watchlist2' },
   ]);
 
   const renderTabBar = props => (
     <TabBar
       {...props}
-      style={{backgroundColor: COLORS.bgColor, height: 40}} // Set your desired header color here
-      labelStyle={{color: COLORS.textColor, fontSize: 11, fontWeight: '700'}}
-      indicatorStyle={{backgroundColor: '#1A6164'}}
+      style={{ backgroundColor: COLORS.bgColor, height: 40 }} // Set your desired header color here
+      labelStyle={{ color: COLORS.textColor, fontSize: 11, fontWeight: '700' }}
+      indicatorStyle={{ backgroundColor: '#1A6164' }}
       activeColor="#1A6164"
     />
   );
 
   return (
     <TabView
-      navigationState={{index, routes}}
+      navigationState={{ index, routes }}
       renderScene={renderScene}
       onIndexChange={setIndex}
-      initialLayout={{width: layout.width}}
+      initialLayout={{ width: layout.width }}
       renderTabBar={renderTabBar}
     />
   );
