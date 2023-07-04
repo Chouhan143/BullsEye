@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView, Switch, title, onPress,Button,Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, Switch, title, onPress, Button, Alert } from 'react-native';
 import { MainLayout } from './';
 import { HeaderBar } from "../components"
 import { FONTS, COLORS, SIZES, dummyData, icons } from "../constants";
@@ -26,7 +26,7 @@ const HandleLogout = () => {
       {
         text: 'Cancel',
         style: 'cancel',
-      
+
       },
       {
         text: 'Logout',
@@ -46,7 +46,7 @@ const HandleLogout = () => {
     },
     {
       text: 'OK',
-      onPress: () => { navigation.navigate('Login')},
+      onPress: () => { navigation.navigate('Login') },
     },
   ])
 
@@ -211,6 +211,7 @@ const Profile = (props) => {
                 style={{ height: 25, width: 25, tintColor: "#B1C3BB" }} />
             </View>
           </TouchableOpacity>
+         
 
           <TouchableOpacity
             onPress={() => props.navigation.navigate("BuySrceen")}>

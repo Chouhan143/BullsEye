@@ -27,6 +27,10 @@ const pencil = require("../assets/icons/pencil.png")
 const pens = require("../assets/icons/pens.png")
 const arrowDown = require("../assets/icons/arrow-down.png")
 const arrowup = require("../assets/icons/arrow-up.png")
+const email = require("../assets/icons/email.png")
+const padlock = require("../assets/icons/padlock.png")
+const mail = require("../assets/icons/mail.png")
+const smartphone = require("../assets/icons/smartphone.png")
 
 
 
@@ -62,5 +66,8 @@ export default {
     pencil,
     pens,
     arrowDown,arrowup,
-    
+    email,
+    padlock,
+    mail,
+    smartphone,
 }
