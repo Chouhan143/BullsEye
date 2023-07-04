@@ -1,7 +1,7 @@
 import {createSlice, createSelector} from '@reduxjs/toolkit';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
-import {getData} from '../../../constants/hooks/ApiHelper';
+
 
 export const fetchCoinData = createAsyncThunk('fetchCoin', async () => {
   try {
@@ -21,11 +21,19 @@ export const coinSlice = createSlice({
     isLoader: false,
     isError: false,
     isTradeModalVisible: false,
+    counter:1,
   },
   reducers: {
     setIsTradeModalVisible: (state, action) => {
       state.isTradeModalVisible = action.payload;
     },
+    incrementCounter : (state,action)=>{
+        state.counter +=1;
+    },
+    decrementCounter : (state,action)=>{
+      state.counter -=1;
+  },
+
   },
   extraReducers: builder => {
     builder.addCase(fetchCoinData.pending, (state, action) => {
@@ -43,7 +51,7 @@ export const coinSlice = createSlice({
   },
 });
 
-export const {setIsTradeModalVisible} = coinSlice.actions;
+export const {setIsTradeModalVisible,incrementCounter,decrementCounter} = coinSlice.actions;
 export default coinSlice.reducer;
 export const selectIsTradeModalVisible = state =>
   state.coin.isTradeModalVisible;

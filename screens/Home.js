@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, FlatList, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { fetchCoinData, setIsTradeModalVisible, selectIsTradeModalVisible } from '../Src/redux/market/coinSlice';
 import MainLayout from './MainLayout';
 import { COLORS } from '../constants';
+
+const {width,height}=Dimensions.get("window")
 
 const renderItem = ({ item, onPress }) => {
   const handleItemPress = () => {
@@ -54,7 +56,7 @@ const Home = () => {
 
   return (
     <MainLayout selectedItem={selectedItem}>
-      <ScrollView style={{ flex: 1, color: COLORS.mainBgColor }}>
+      {/* <ScrollView style={{ flex: 1, color: COLORS.mainBgColor }}> */}
         <View
           style={[
             styles.searchEluation,
@@ -68,7 +70,7 @@ const Home = () => {
             <Text style={{ color: COLORS.textColor, fontWeight: '600', fontSize: 15 }}>Trade on Commodity</Text>
           </View>
         </View>
-        <View style={{ marginTop: 10 }}>
+        <View style={{ marginTop: 15,alignSelf:'center',display:'flex',justifyContent:'center' }}>
           <FlatList
             data={coinsData}
             renderItem={({ item }) => renderItem({ item, onPress: handleItemPress })}
@@ -76,7 +78,7 @@ const Home = () => {
             numColumns={2}
           />
         </View>
-      </ScrollView>
+      {/* </ScrollView> */}
     </MainLayout>
   );
 };
@@ -90,8 +92,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 7,
     backgroundColor: COLORS.bgColor,
-    width: 160,
-    height: 90,
+    width: width/2-20,
+    height: height/5-70,
     borderRadius: 5,
     marginBottom: 10,
   },

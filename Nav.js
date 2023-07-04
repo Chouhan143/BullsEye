@@ -50,7 +50,6 @@ const Nav = () => {
           component={Tabs}
           options={{ headerShown: false }}
 
-
         />
         <Stack.Screen
           options={{
