@@ -62,7 +62,7 @@ const Mobile2 = (onPress) => {
                                 marginLeft:220
                             }}
                         >
-                            <Text style={{ fontSize: 15, color: '#000' }}>RESEND OTP</Text>
+                            <Text style={{ fontSize: 13, color: '#000' }}>RESEND OTP</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
