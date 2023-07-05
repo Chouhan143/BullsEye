@@ -6,26 +6,26 @@ import { useNavigation } from '@react-navigation/native';
 
 
 
-const Button1 = (onPress) => {
+const Mobile = (onPress) => {
   const navigation = useNavigation();
   return (
     <View style={{ flex: 1, backgroundColor: '#d6e4f2' }}>
       <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 100 }}>
-        <Image source={icons.mail} style={{ width: 150, height: 150 }} />
+        <Image source={icons.smartphone} style={{ width: 150, height: 150 }} />
       </View>
 
       <View style={{ marginTop: 10, alignSelf: 'center' }}>
-        <Text style={{ fontSize: 25, color: '#000', textDecorationLine: 'underline', }}>Email Verification</Text>
+        <Text style={{ fontSize: 25, color: '#000', textDecorationLine: 'underline', }}>Mobile Verification</Text>
 
 
       </View>
       <View>
-        <Text style={{ fontSize: 20, color: '#000', paddingLeft: 20, marginTop: 50, }}> Verification code on your Email ID</Text>
+        <Text style={{ fontSize: 18, color: '#000', paddingLeft: 15, marginTop: 50, }} numberOfLines={1}> Verification code on your Mobile Number</Text>
       </View>
       <View style={{ flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center' }}>
         <Text style={{ fontSize: 25, paddingLeft: 20, marginTop: 20, alignSelf: 'center', fontWeight: '200' }}
           numberOfLines={2}>
-          We will send verification code on this Email ID
+          We will send verification code on this mobile no.
         </Text>
       </View>
 
@@ -43,12 +43,12 @@ const Button1 = (onPress) => {
             paddingHorizontal: 10,
 
           }}
-          placeholder="Enter your valid Email ID"
+          placeholder="Enter your valid mobile number"
         />
 
 
       </View>
-      <TouchableOpacity onPress={() => navigation.navigate("Email2")}>
+      <TouchableOpacity onPress={() => navigation.navigate("Mobile2")}>
         <View
           style={{
             width: 320,
@@ -66,43 +66,11 @@ const Button1 = (onPress) => {
           <Text style={{ fontSize: 15, color: '#000' }}>GET OTP</Text>
         </View>
       </TouchableOpacity>
-      {/* <View style={{ marginLeft: 10, marginTop: 30, flexDirection: 'row' }}>
-        <TextInput
-          style={{
-            borderRadius: 10,
-            borderWidth: 0.5,
-            borderColor: "#757575",
-            width: 180,
-            height: 50,
-            marginLeft: 10,
-            paddingHorizontal: 10,
-          }}
-          placeholder="Submit OTP"
-        />
-        <TouchableOpacity onPress={otpScreen}>
-          <View
-            style={{
-              width: 110,
-              height: 50,
-              borderRadius: 10,
-              borderWidth: 0.5,
-              borderColor: "#757575",
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginLeft: 30,
-              alignSelf: 'center',
-              backgroundColor: '#ACC8E5',
-            }}
-          >
-            <Text style={{ fontSize: 15, color: '#000' }}>SUBMIT OTP</Text>
-          </View>
-        </TouchableOpacity>
-      </View> */}
-      {/* <View style={{ borderBottomColor: '#757575', borderBottomWidth: 0.5, marginTop: 40 }}></View> */}
+      
 
 
     </View>
   );
 };
 
-export default Button1;
+export default Mobile ;

@@ -13,7 +13,11 @@ import LoginScreen from './Src/LoginScreen';
 import RegisterScreen from './Src/RegisterScreen';
 import SellScreen from './Src/BuySrceens/SellScreen';
 import { Home } from './screens';
-
+import Button1 from './Src/BuySrceens/Button';
+import Email2 from './Src/BuySrceens/Email2';
+import Mobile from './Src/BuySrceens/Mobile';
+import Mobile2 from './Src/BuySrceens/Mobile2';
+import Document from './Src/BuySrceens/Document';
 const Stack = createStackNavigator();
 
 const Nav = () => {
@@ -49,6 +53,7 @@ const Nav = () => {
           name="MainLayout"
           component={Tabs}
           options={{ headerShown: false }}
+
         />
         <Stack.Screen
           options={{
@@ -76,6 +81,7 @@ const Nav = () => {
           name="BuyScreen"
           component={BuySrceen}
         />
+<<<<<<< HEAD
         <Stack.Screen
           options={{ title: 'SellScreen', headerShown: false }}
           name="SellScreen"
@@ -86,6 +92,33 @@ const Nav = () => {
           name="Home"
           component={Home}
         /> */}
+=======
+         <Stack.Screen
+          options={{ title: 'button', headerShown: false }}
+          name="Button1"
+          component={Button1}
+        />
+        <Stack.Screen
+          options={{ title: 'Email2', headerShown: false }}
+          name="Email2"
+          component={Email2}
+        />
+        <Stack.Screen
+          options={{ title: 'Mobile', headerShown: false }}
+          name="Mobile"
+          component={Mobile}
+        />
+        <Stack.Screen
+          options={{ title: 'Mobile2', headerShown: false }}
+          name="Mobile2"
+          component={Mobile2}
+        /> 
+        <Stack.Screen
+          options={{ title: 'Document', headerShown: false }}
+          name="Document"
+          component={Document}
+        />
+>>>>>>> eee704d014189c81b97d442931cc0d88c1d8bcbb
       </Stack.Navigator>
     </NavigationContainer>
   );
