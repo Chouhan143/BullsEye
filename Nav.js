@@ -35,7 +35,7 @@ const Nav = () => {
         }}
         initialRouteName="Login" // Set initial route to Login
       >
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Login"
           component={LoginScreen}
           options={{
@@ -48,7 +48,7 @@ const Nav = () => {
           options={{
             title: 'Register',
           }}
-        /> */}
+        />
         <Stack.Screen
           name="MainLayout"
           component={Tabs}
@@ -81,7 +81,7 @@ const Nav = () => {
           name="BuyScreen"
           component={BuySrceen}
         />
-<<<<<<< HEAD
+
         <Stack.Screen
           options={{ title: 'SellScreen', headerShown: false }}
           name="SellScreen"
@@ -92,7 +92,7 @@ const Nav = () => {
           name="Home"
           component={Home}
         /> */}
-=======
+
          <Stack.Screen
           options={{ title: 'button', headerShown: false }}
           name="Button1"
@@ -118,7 +118,7 @@ const Nav = () => {
           name="Document"
           component={Document}
         />
->>>>>>> eee704d014189c81b97d442931cc0d88c1d8bcbb
+
       </Stack.Navigator>
     </NavigationContainer>
   );
