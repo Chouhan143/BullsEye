@@ -32,6 +32,12 @@ const MainLayout = ({ children, selectedItem }) => {
     navigation.navigate('BuyScreen', { selectedItem:coinsData });
   };
 
+  const handleItemSelect1 = (coinsData) => {
+    dispatch(setIsTradeModalVisible(false));
+    navigation.navigate('SellScreen', { selectedItem:coinsData });
+  };
+
+
  
 
 
@@ -154,7 +160,7 @@ const MainLayout = ({ children, selectedItem }) => {
 
             <BuySellButton
               label="Sell"
-              onPress={() => handleItemSelect(selectedItem)}
+              onPress={() => handleItemSelect1(selectedItem)}
               backgroundColor={'red'}
             />
           </View>

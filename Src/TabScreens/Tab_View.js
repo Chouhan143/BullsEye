@@ -14,7 +14,12 @@ import {COLORS} from '../../constants';
 import Icon from 'react-native-vector-icons/Entypo';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
-import {fetchCoinData} from '../redux/market/coinSlice';
+import {
+  fetchCoinData,
+  removeAllFromWatchlist,
+  selectWatchlistData,
+  removeFromWatchlist,
+} from '../redux/market/coinSlice';
 
 const My_Stocks = () => {
   const coinsData = useSelector(state => state.coin.data);
@@ -22,45 +27,42 @@ const My_Stocks = () => {
   useEffect(() => {
     dispatch(fetchCoinData());
   }, []);
-  const navigation = useNavigation();
-  const navigationHandle = () => {
-    navigation.navigate('SearchData');
-  };
-  const renderItem = ({item}) => {
-    return (
-      // <ScrollView style={{flex: 1}}>
-      <TouchableOpacity
-        style={{
-          width: '100%',
-          height: 60,
-          backgroundColor: COLORS.bgColor,
-          marginVertical: 1,
-          justifyContent: 'center',
-          paddingHorizontal: 20,
-        }}>
-        {/* <View style={styles.topContainer}> */}
-        <View style={styles.topMiddle}>
-          <View>
-            <Text
-              style={[
-                styles.topText,
-                item.percent_chg > 1 ? styles.redText : styles.greenText,
-              ]}>
-              {item.trade_name}
-            </Text>
-          </View>
-          <View style={styles.topLast}>
-            <Text style={[styles.topText,item.percent_chg > 1 ? styles.redText : styles.greenText, {paddingRight: 60}]}>
-              {item.price.toLocaleString()}
-            </Text>
-            <Text style={[styles.topText,item.percent_chg > 1 ? styles.redText : styles.greenText,]}>{item.percent_chg}%</Text>
-          </View>
-        </View>
-        {/* </View> */}
-      </TouchableOpacity>
-      // </ScrollView>
-    );
-  };
+
+  // const renderItem = ({item}) => {
+  //   return (
+  //     // <ScrollView style={{flex: 1}}>
+  //     <TouchableOpacity
+  //       style={{
+  //         width: '100%',
+  //         height: 60,
+  //         backgroundColor: COLORS.bgColor,
+  //         marginVertical: 1,
+  //         justifyContent: 'center',
+  //         paddingHorizontal: 20,
+  //       }}>
+  //       {/* <View style={styles.topContainer}> */}
+  //       <View style={styles.topMiddle}>
+  //         <View>
+  //           <Text
+  //             style={[
+  //               styles.topText,
+  //               item.percent_chg > 1 ? styles.redText : styles.greenText,
+  //             ]}>
+  //             {item.trade_name}
+  //           </Text>
+  //         </View>
+  //         <View style={styles.topLast}>
+  //           <Text style={[styles.topText,item.percent_chg > 1 ? styles.redText : styles.greenText, {paddingRight: 60}]}>
+  //             {item.price.toLocaleString()}
+  //           </Text>
+  //           <Text style={[styles.topText,item.percent_chg > 1 ? styles.redText : styles.greenText,]}>{item.percent_chg}%</Text>
+  //         </View>
+  //       </View>
+  //       {/* </View> */}
+  //     </TouchableOpacity>
+  //     // </ScrollView>
+  //   );
+  // };
 
   return (
     <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
@@ -75,21 +77,31 @@ const My_Stocks = () => {
           </View>
         </View>
       </View>
-      <FlatList
+      {/* <FlatList
         data={coinsData}
         renderItem={renderItem}
         keyExtractor={item => item.id}
-      />
+      /> */}
     </View>
   );
 };
 
 const My_Watchlist = () => {
+  const watchlistData = useSelector(selectWatchlistData);
   const coinsData = useSelector(state => state.coin.data);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCoinData());
   }, []);
+
+  const handleRemoveAll = () => {
+    dispatch(removeAllFromWatchlist());
+  };
+
+  const removeFromFromWatchlist = () => {
+    dispatch(removeFromWatchlist());
+  };
+
   const navigation = useNavigation();
   const navigationHandle = () => {
     navigation.navigate('SearchData');
@@ -113,16 +125,20 @@ const My_Watchlist = () => {
           </View>
           <View style={styles.topLast}>
             <Text style={[styles.topText, {paddingRight: 60}]}>
-              {item.price.toLocaleString()}
+              {item.price}
             </Text>
             <Text style={styles.topText}>{item.percent_chg}%</Text>
           </View>
         </View>
+        <TouchableOpacity onPress={removeFromFromWatchlist(item)}>
+          <Text>Remove</Text>
+        </TouchableOpacity>
         {/* </View> */}
       </TouchableOpacity>
       // </ScrollView>
     );
   };
+
   return (
     <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
       <View style={styles.topContainer}>
@@ -136,11 +152,21 @@ const My_Watchlist = () => {
           </View>
         </View>
       </View>
-      {/* <FlatList
-        data={coinsData}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      /> */}
+
+      {watchlistData.length > 0 ? (
+        <FlatList
+          data={watchlistData}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+      ) : (
+        <View style={{display:"flex",justifyContent:'center',alignItems:"center"}}>
+        <Text>No items in watchlist</Text>
+        </View>
+      )}
+      <TouchableOpacity onPress={handleRemoveAll}>
+        <Text>remove all</Text>
+      </TouchableOpacity>
       <TouchableOpacity style={styles.addBox} onPress={navigationHandle}>
         <Icon name="plus" size={25} color="#fff" />
       </TouchableOpacity>
@@ -148,31 +174,31 @@ const My_Watchlist = () => {
   );
 };
 
-const Watchlist2 = () => {
-  return (
-    <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
-      <TouchableOpacity style={styles.addBox}>
-        <Icon name="plus" size={25} color="#fff" />
-      </TouchableOpacity>
-      <View style={styles.topContainer}>
-        <View style={styles.topMiddle}>
-          <View>
-            <Text style={styles.topText}>Stock Name</Text>
-          </View>
-          <View style={styles.topLast}>
-            <Text style={[styles.topText, {paddingRight: 20}]}>Price</Text>
-            <Text style={styles.topText}>Change / Vol</Text>
-          </View>
-        </View>
-      </View>
-    </View>
-  );
-};
+// const Watchlist2 = () => {
+//   return (
+//     <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
+//       <TouchableOpacity style={styles.addBox}>
+//         <Icon name="plus" size={25} color="#fff" />
+//       </TouchableOpacity>
+//       <View style={styles.topContainer}>
+//         <View style={styles.topMiddle}>
+//           <View>
+//             <Text style={styles.topText}>Stock Name</Text>
+//           </View>
+//           <View style={styles.topLast}>
+//             <Text style={[styles.topText, {paddingRight: 20}]}>Price</Text>
+//             <Text style={styles.topText}>Change / Vol</Text>
+//           </View>
+//         </View>
+//       </View>
+//     </View>
+//   );
+// };
 
 const renderScene = SceneMap({
   first: My_Stocks,
   second: My_Watchlist,
-  third: Watchlist2,
+  // third: Watchlist2,
 });
 
 export default function Tab_View() {
@@ -182,7 +208,7 @@ export default function Tab_View() {
   const [routes] = React.useState([
     {key: 'first', title: 'My Stocks'},
     {key: 'second', title: 'My Watchlist'},
-    {key: 'third', title: 'Watchlist2'},
+    // {key: 'third', title: 'Watchlist2'},
   ]);
 
   const renderTabBar = props => (

@@ -11,6 +11,7 @@ import BuySrceen from './Src/BuySrceens/BuySrceen';
 import SearchData from './Src/SearchData';
 import LoginScreen from './Src/LoginScreen';
 import RegisterScreen from './Src/RegisterScreen';
+import SellScreen from './Src/BuySrceens/SellScreen';
 import { Home } from './screens';
 
 const Stack = createStackNavigator();
@@ -74,6 +75,11 @@ const Nav = () => {
           options={{ title: 'BuyScreen', headerShown: false }}
           name="BuyScreen"
           component={BuySrceen}
+        />
+        <Stack.Screen
+          options={{ title: 'SellScreen', headerShown: false }}
+          name="SellScreen"
+          component={SellScreen}
         />
          {/* <Stack.Screen
           options={{ title: 'Home', headerShown: false }}

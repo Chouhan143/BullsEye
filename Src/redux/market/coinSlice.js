@@ -22,6 +22,7 @@ export const coinSlice = createSlice({
     isError: false,
     isTradeModalVisible: false,
     counter:1,
+    watchlistData:[],
   },
   reducers: {
     setIsTradeModalVisible: (state, action) => {
@@ -32,6 +33,19 @@ export const coinSlice = createSlice({
     },
     decrementCounter : (state,action)=>{
       state.counter -=1;
+  },
+  addToWatchlist: (state, action) => {
+    const newItem = action.payload;
+    const existingItem = state.watchlistData.find((item) => item.id === newItem.id);
+    if (!existingItem) {
+      state.watchlistData.push(newItem);
+    }
+  },
+  removeFromWatchlist: (state, action) => {
+    state.watchlistData = state.watchlistData.filter((item) => item.id !== action.payload);
+  },
+  removeAllFromWatchlist: (state) => {
+    state.watchlistData = [];
   },
 
   },
@@ -51,7 +65,8 @@ export const coinSlice = createSlice({
   },
 });
 
-export const {setIsTradeModalVisible,incrementCounter,decrementCounter} = coinSlice.actions;
+export const {setIsTradeModalVisible,incrementCounter,decrementCounter,addToWatchlist,removeFromWatchlist,removeAllFromWatchlist} = coinSlice.actions;
 export default coinSlice.reducer;
 export const selectIsTradeModalVisible = state =>
   state.coin.isTradeModalVisible;
+ export const selectWatchlistData = (state) => state.coin.watchlistData;
