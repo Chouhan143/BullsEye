@@ -11,6 +11,7 @@ import BuySrceen from './Src/BuySrceens/BuySrceen';
 import SearchData from './Src/SearchData';
 import LoginScreen from './Src/LoginScreen';
 import RegisterScreen from './Src/RegisterScreen';
+import SellScreen from './Src/BuySrceens/SellScreen';
 import { Home } from './screens';
 import Button1 from './Src/BuySrceens/Button';
 import Email2 from './Src/BuySrceens/Email2';
@@ -80,6 +81,18 @@ const Nav = () => {
           name="BuyScreen"
           component={BuySrceen}
         />
+<<<<<<< HEAD
+        <Stack.Screen
+          options={{ title: 'SellScreen', headerShown: false }}
+          name="SellScreen"
+          component={SellScreen}
+        />
+         {/* <Stack.Screen
+          options={{ title: 'Home', headerShown: false }}
+          name="Home"
+          component={Home}
+        /> */}
+=======
          <Stack.Screen
           options={{ title: 'button', headerShown: false }}
           name="Button1"
@@ -105,6 +118,7 @@ const Nav = () => {
           name="Document"
           component={Document}
         />
+>>>>>>> eee704d014189c81b97d442931cc0d88c1d8bcbb
       </Stack.Navigator>
     </NavigationContainer>
   );

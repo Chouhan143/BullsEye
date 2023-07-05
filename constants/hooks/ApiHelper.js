@@ -20,9 +20,10 @@ export const getData2 = async url => {
 };
 
 // Make a POST request
-export const postData = async (url, data) => {
+export const postData = async (url, data,) => {
   try {
     const response = await axios.post(url, data);
+    console.log("check res",response)
     return response;
   } catch (error) {
     console.error(error);

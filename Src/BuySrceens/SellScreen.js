@@ -35,7 +35,7 @@ LogBox.ignoreLogs([
 ]);
 const {width, height} = Dimensions.get('window');
 
-const BuyScreen = () => {
+const SellScreen = () => {
   const route = useRoute();
   const selectedItem = route.params?.selectedItem; // Retrieve the selected item from the route parameters
   const counter = useSelector(state => state.coin.counter);
@@ -179,7 +179,7 @@ const BuyScreen = () => {
     }
 
     const payload = {
-      trade_mode: 'buy',
+      trade_mode: 'sell',
       trade_name: selectedItem ? selectedItem.trade_name : '',
       max_lot: counter.toString(),
       market_price,
@@ -497,7 +497,7 @@ const BuyScreen = () => {
 
           <TouchableOpacity
             style={{
-              backgroundColor: 'green',
+              backgroundColor: 'red',
               width: width - 30,
               height: 50,
               display: 'flex',
@@ -508,7 +508,7 @@ const BuyScreen = () => {
               marginTop: height / 3 - 180,
             }}
             onPress={BuyKnow}>
-            <Text style={{color: '#ffff'}}>Buy</Text>
+            <Text style={{color: '#ffff'}}>Sell</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -599,4 +599,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BuyScreen;
+export default SellScreen;

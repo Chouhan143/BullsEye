@@ -16,11 +16,10 @@ import Icon4 from 'react-native-vector-icons/MaterialIcons';
 import Icon5 from 'react-native-vector-icons/FontAwesome';
 import Icon6 from 'react-native-vector-icons/AntDesign';
 
-import { COLORS } from '../constants';
-import { useNavigation } from '@react-navigation/native';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchCoinData } from '../Src/redux/market/coinSlice';
-import { addCardItem } from './redux/market/coinSlice2';
+import {COLORS} from '../constants';
+import {useNavigation} from '@react-navigation/native';
+import {useSelector, useDispatch} from 'react-redux';
+import {fetchCoinData, addToWatchlist} from '../Src/redux/market/coinSlice';
 
 const SearchData = () => {
 
@@ -44,6 +43,18 @@ const SearchData = () => {
   useEffect(() => {
     dispatch(fetchCoinData());
   }, []);
+
+  
+  
+
+  const handleAddToWatchlist = (item) => {
+    dispatch(addToWatchlist(item));
+    setTimeout(() => {
+      navigation.navigate('MainLayout');
+    }, 3000); // You can adjust the delay (in milliseconds) if needed
+  };
+  
+
   const navigation = useNavigation();
   const [filterData, setFilterData] = useState([]);
   const onSearch = text => {
@@ -56,12 +67,13 @@ const SearchData = () => {
       setFilterData(tempList);
     }
   };
+  
 
 
+ 
 
+  const renderItem = ({item}) => {
 
-
-  const renderItem = ({ item }) => {
     return (
       <TouchableOpacity
         style={{
@@ -71,7 +83,8 @@ const SearchData = () => {
           marginVertical: 1,
           justifyContent: 'center',
           paddingHorizontal: 20,
-        }}>
+        }}
+        >
         <View
           style={{
             display: 'flex',
@@ -129,14 +142,14 @@ const SearchData = () => {
             <TouchableOpacity>
               <Icon5 name="shopping-bag" size={20} color="#1B1A1A" />
             </TouchableOpacity>
-            <TouchableOpacity style={{ paddingLeft: 10 }}
-              onPress={() => {
-                addItem(item)
-              }}>
+            <TouchableOpacity
+              style={{paddingLeft: 10}}
+              onPress={() => handleAddToWatchlist(item)}>
               <Icon4 name="favorite" size={20} color="#1B1A1A" />
             </TouchableOpacity>
           </View>
         </View>
+      
       </TouchableOpacity>
     );
   };
@@ -214,7 +227,7 @@ const SearchData = () => {
       <FlatList
         data={filterData}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.id.toString()}
       />
 
       {/* model---------------- */}
@@ -228,29 +241,26 @@ const SearchData = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <TouchableOpacity style={styles.modalInner} onPress={() => {
-                let tempList = filterData.sort((a, b) =>
-                  a.trade_name > b.trade_name ? 1 : -1
-                );
-                setFilterData(tempList)
-
-              }} >
+              <TouchableOpacity
+                style={styles.modalInner}
+                onPress={() => {
+                  let tempList = filterData.sort((a, b) =>
+                    a.trade_name > b.trade_name ? 1 : -1,
+                  );
+                  setFilterData(tempList);
+                }}>
                 <Text style={styles.modalText}>Sort By Trade_name</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.modalInner}>
+              <TouchableOpacity style={styles.modalInner}>
                 <Text style={styles.modalText}>Low to High Price</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.modalInner}>
+              <TouchableOpacity style={styles.modalInner}>
                 <Text style={styles.modalText}>High to Low Price</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                style={styles.closIcon} onPress={closeModal}>
+              <TouchableOpacity style={styles.closIcon} onPress={closeModal}>
                 <Icon6 name="closesquare" size={25} color="#1B1A1A" />
               </TouchableOpacity>
-
             </View>
           </View>
         </View>
@@ -352,6 +362,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     position: 'absolute',
     top: -60,
-    right: -45
-  }
+    right: -45,
+  },
 });
