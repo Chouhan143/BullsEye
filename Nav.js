@@ -31,7 +31,7 @@ const Nav = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerShown: false,
+          // headerShown: false,
         }}
         initialRouteName="Login" // Set initial route to Login
       >
@@ -94,12 +94,12 @@ const Nav = () => {
         /> */}
 
          <Stack.Screen
-          options={{ title: 'button', headerShown: false }}
+          options={{ title: 'button', headerShown: true }}
           name="Button1"
           component={Button1}
         />
         <Stack.Screen
-          options={{ title: 'Email2', headerShown: false }}
+          options={{ title: 'Email2', headerShown: true }}
           name="Email2"
           component={Email2}
         />
