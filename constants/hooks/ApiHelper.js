@@ -38,3 +38,14 @@ export const postData2 = async (url, data) => {
     console.error(error);
   }
 };
+
+
+export const postData3 = async (url, data, header) => {
+  try {
+    const response = await axios.post(url, data,header);
+    console.log("check res",response)
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -9,20 +9,18 @@ import {
   Keyboard,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import EmailVarification from './BuySrceens/EmailVarification';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CustomButton from '../components2/CustomButton';
 import InputField from '../components2/InputField';
-import { COLORS } from '../constants';
+import {COLORS} from '../constants';
 import Lottie from 'lottie-react-native';
 import axios from 'axios';
-import { postData } from '../constants/hooks/ApiHelper';
-import { useNavigation } from '@react-navigation/native';
+import {postData} from '../constants/hooks/ApiHelper';
+import {useNavigation} from '@react-navigation/native';
 
-
-const baseUrl = "https://scripts.bulleyetrade.com/api/signin";
-
+const baseUrl = 'https://scripts.bulleyetrade.com/api/signin';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -30,32 +28,70 @@ const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
- 
- 
 
+  // const login = async () => {
+  //   const payload = {
+  //     email: email,
+  //     password: password,
+  //   }
+  //   try {
+  //     const res = await postData(baseUrl, payload)
+  //     const accessToken = res.data.payload.access_token;
+  //     await AsyncStorage.setItem('accessToken', accessToken);
+  //     if (res.status == 200) {
+  //       navigation.navigate('MainLayout')
+  //     }
 
+  //   } catch (error) {
+  //     console.error(error);
+
+  //   }
+  // }
 
   const login = async () => {
     const payload = {
       email: email,
       password: password,
-    }
-    try {
-      const res = await postData(baseUrl, payload)
-      const accessToken = res.data.payload.access_token;
-      await AsyncStorage.setItem('accessToken', accessToken);
-      if (res.status == 200) {
-        navigation.navigate('MainLayout')
-      }
+    };
 
+    try {
+      const res = await postData(baseUrl, payload);
+      const accessToken = res.data.payload.access_token;
+      const id = res.data.payload.id;
+      await AsyncStorage.setItem('accessToken', accessToken.toString());
+      await AsyncStorage.setItem('id', id.toString());
+      
+      const {status, payload: responseData} = res.data;
+
+      if (status === 200) {
+        const {email_verified_at, mobile_verified_at, aadhar_verified_at} =
+          responseData;
+
+        // Check email verification
+        if (email_verified_at === null) {
+          navigation.navigate('email', {email: email});
+          return;
+        }
+
+        // Check mobile verification
+        if (mobile_verified_at === null) {
+          navigation.navigate('Mobile');
+          return;
+        }
+
+        // Check Aadhar verification
+        if (aadhar_verified_at === null) {
+          navigation.navigate('Document');
+          return;
+        }
+
+        // All verifications passed, navigate to the main screen
+        navigation.navigate('MainLayout');
+      }
     } catch (error) {
       console.error(error);
-
     }
-  }
-
-
-
+  };
 
   return (
     <SafeAreaView
@@ -63,16 +99,15 @@ const LoginScreen = () => {
         flex: 1,
         justifyContent: 'center',
         backgroundColor: COLORS.mainBgColor,
-      }}
-    >
-      <View style={{ paddingHorizontal: 25 }}>
-        <View style={{ alignItems: 'center' }}>
+      }}>
+      <View style={{paddingHorizontal: 25}}>
+        <View style={{alignItems: 'center'}}>
           {/* <Image source={require('../assets/Image/logo.png')} style={{width:'80%',height:70,marginBottom:30}} /> */}
           <Lottie
             source={require('../assets/loginlogo.json')}
             autoPlay
             loop
-            style={{ width: 100, height: 100 }}
+            style={{width: 100, height: 100}}
           />
         </View>
 
@@ -84,17 +119,16 @@ const LoginScreen = () => {
             color: '#333',
             marginBottom: 30,
             marginTop: 20,
-          }}
-        >
+          }}>
           Login
         </Text>
 
         <InputField
           label={'Email ID'}
-          labelStyle={{ color: 'red' }}
+          labelStyle={{color: 'red'}}
           placeholderTextColor="#000"
           value={email}
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={text => setEmail(text)}
           error={errors.email}
           // onBlur={validateForm}
           icon={
@@ -102,17 +136,17 @@ const LoginScreen = () => {
               name="alternate-email"
               size={20}
               color="#666"
-              style={{ marginRight: 5 }}
+              style={{marginRight: 5}}
             />
           }
-          inputStyle={{ color: 'blue' }}
+          inputStyle={{color: 'blue'}}
           keyboardType="email-address"
         />
 
         <InputField
           label={'Password'}
           value={password}
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={text => setPassword(text)}
           error={errors.password}
           // onBlur={validateForm}
           icon={
@@ -120,12 +154,12 @@ const LoginScreen = () => {
               name="ios-lock-closed-outline"
               size={20}
               color="#666"
-              style={{ marginRight: 5 }}
+              style={{marginRight: 5}}
             />
           }
           inputType="password"
           fieldButtonLabel={'Forgot?'}
-          fieldButtonFunction={() => { }}
+          fieldButtonFunction={() => {}}
         />
 
         <CustomButton label={'Login'} onPress={login} />
@@ -135,11 +169,10 @@ const LoginScreen = () => {
             flexDirection: 'row',
             justifyContent: 'center',
             marginBottom: 30,
-          }}
-        >
-          <Text style={{ color: COLORS.textColor }}>New to the app?</Text>
+          }}>
+          <Text style={{color: COLORS.textColor}}>New to the app?</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text style={{ color: '#f6b248', fontWeight: '700' }}> Register</Text>
+            <Text style={{color: '#f6b248', fontWeight: '700'}}> Register</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -147,4 +180,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen; 
+export default LoginScreen;

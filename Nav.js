@@ -13,7 +13,7 @@ import LoginScreen from './Src/LoginScreen';
 import RegisterScreen from './Src/RegisterScreen';
 import SellScreen from './Src/BuySrceens/SellScreen';
 import {Home} from './screens';
-import Button1 from './Src/BuySrceens/Button';
+import EmailVarification from './Src/BuySrceens/EmailVarification';
 import Email2 from './Src/BuySrceens/Email2';
 import Mobile from './Src/BuySrceens/Mobile';
 import Mobile2 from './Src/BuySrceens/Mobile2';
@@ -83,16 +83,12 @@ const Nav = () => {
           name="SellScreen"
           component={SellScreen}
         />
-         {/* <Stack.Screen
-          options={{ title: 'Home', headerShown: false }}
-          name="Home"
-          component={Home}
-        /> */}
+     
 
          <Stack.Screen
-          options={{ title: 'button', headerShown: false }}
-          name="Button1"
-          component={Button1}
+          options={{ title: 'EmailVarification', headerShown: false }}
+          name="email"
+          component={EmailVarification}
         />
         <Stack.Screen
           options={{ title: 'Email2', headerShown: false }}
