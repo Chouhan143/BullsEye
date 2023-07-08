@@ -8,8 +8,10 @@ import { BuySellButton } from '../components';
 import { COLORS, SIZES } from '../constants';
 import Icon from 'react-native-vector-icons/Foundation';
 import Icon2 from 'react-native-vector-icons/AntDesign';
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions"
 
-const { height,width } = Dimensions.get('window');
+
+const { height, width } = Dimensions.get('window');
 
 const MainLayout = ({ children, selectedItem }) => {
   const dispatch = useDispatch();
@@ -29,16 +31,16 @@ const MainLayout = ({ children, selectedItem }) => {
 
   const handleItemSelect = (coinsData) => {
     dispatch(setIsTradeModalVisible(false));
-    navigation.navigate('BuyScreen', { selectedItem:coinsData });
+    navigation.navigate('BuyScreen', { selectedItem: coinsData });
   };
 
   const handleItemSelect1 = (coinsData) => {
     dispatch(setIsTradeModalVisible(false));
-    navigation.navigate('SellScreen', { selectedItem:coinsData });
+    navigation.navigate('SellScreen', { selectedItem: coinsData });
   };
 
 
- 
+
 
 
 
@@ -67,38 +69,38 @@ const MainLayout = ({ children, selectedItem }) => {
     outputRange: [height, height - 300],
   });
 
-  function Test({ coinsData}) {
-   
+  function Test({ coinsData }) {
+
     return (
-      <View style={[styles.searchEluation, { paddingVertical: 15 }]}>
-        <View style={{ display: 'flex', flexDirection: 'row', paddingHorizontal: 10, justifyContent: 'space-between' }}>
-          <View style={{ display: 'flex', flexDirection: 'row', paddingHorizontal: 20 }}>
-            <View style={{ display: 'flex',gap:5  }}>
+      <View style={[styles.searchEvaluation, { paddingVertical: responsiveHeight(3) }]}>
+        <View style={{ display: 'flex', flexDirection: 'row', paddingHorizontal: responsiveWidth(1), justifyContent: 'space-between' }}>
+          <View style={{ display: 'flex', flexDirection: 'row', paddingHorizontal: responsiveWidth(5) }}>
+            <View style={{ display: 'flex', gap: 5 }}>
               {/* <Text style={{ color: 'black' }}>Trade_name</Text> */}
-              <Text style={{ color: 'black',fontSize:18,fontWeight:'700' }}>{coinsData ? coinsData.trade_name : ''}</Text>
-              <Text style={{ color: 'black',fontSize:12 }}> Exp. {coinsData ? coinsData.expiry_date : ''}</Text>
+              <Text style={{ color: 'black', fontSize: responsiveFontSize(2.3), fontWeight: '700' }}>{coinsData ? coinsData.trade_name : ''}</Text>
+              <Text style={{ color: 'black', fontSize: responsiveFontSize(1.7) }}> Exp. {coinsData ? coinsData.expiry_date : ''}</Text>
             </View>
           </View>
-          <View style={{ display: 'flex', flexDirection: 'row', paddingHorizontal: 20 }}>
-            <View style={{ display: 'flex',justifyContent:'center',alignItems:'center',gap:5  }}>
-              <Text style={{ color: 'black',fontWeight:'700' }}>INR {coinsData ? coinsData.price.toLocaleString() : ''}</Text>
-              <Text style={{ color: 'green',fontSize:12 }}>({coinsData ? coinsData.percent_chg : ''}%)</Text>
+          <View style={{ display: 'flex', flexDirection: 'row', paddingHorizontal: responsiveWidth(5) }}>
+            <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 5 }}>
+              <Text style={{ color: 'black', fontWeight: '700' }}>INR {coinsData ? coinsData.price.toLocaleString() : ''}</Text>
+              <Text style={{ color: 'green', fontSize: responsiveFontSize(1.8) }}>({coinsData ? coinsData.percent_chg : ''}%)</Text>
             </View>
           </View>
         </View>
 
         <View style={{ display: 'flex', flexDirection: 'row', padding: 10, justifyContent: 'space-between' }}>
-          <View style={{ display: 'flex',alignItems:'center',justifyContent:'center',backgroundColor:COLORS.mainBgColor,width:80,height:50,borderRadius:3  }}>
-              <Text style={{ color: 'black', fontSize:14 }}>Open</Text>
-              <Text style={{ color: 'black', }}>{coinsData ? coinsData.open : ''}</Text>
+          <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: COLORS.mainBgColor, width: 80, height: 50, borderRadius: 3 }}>
+            <Text style={{ color: 'black', fontSize: responsiveFontSize(1.8) }}>Open</Text>
+            <Text style={{ color: 'black', }}>{coinsData ? coinsData.open : ''}</Text>
           </View>
-          <View style={{ display: 'flex',alignItems:'center',justifyContent:'center',backgroundColor:COLORS.mainBgColor,width:80,height:50 ,borderRadius:3 }}>
-              <Text style={{ color: 'black', fontSize:14 }}>High</Text>
-              <Text style={{ color: 'black', }}>{coinsData ? coinsData.high : ''}</Text>
+          <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: COLORS.mainBgColor, width: 80, height: 50, borderRadius: 3 }}>
+            <Text style={{ color: 'black', fontSize: responsiveFontSize(1.8) }}>High</Text>
+            <Text style={{ color: 'black', }}>{coinsData ? coinsData.high : ''}</Text>
           </View>
-           <View style={{ display: 'flex',alignItems:'center',justifyContent:'center',backgroundColor:COLORS.mainBgColor,width:80,height:50,borderRadius:3  }}>
-              <Text style={{ color: 'black', fontSize:14 }}>Low</Text>
-              <Text style={{ color: 'black', }}>{coinsData ? coinsData.low : ''}</Text>
+          <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: COLORS.mainBgColor, width: 80, height: 50, borderRadius: 3 }}>
+            <Text style={{ color: 'black', fontSize: responsiveFontSize(1.8) }}>Low</Text>
+            <Text style={{ color: 'black', }}>{coinsData ? coinsData.low : ''}</Text>
           </View>
         </View>
       </View>
@@ -124,49 +126,49 @@ const MainLayout = ({ children, selectedItem }) => {
           />
         )}
 
-{
-  selectedItem && (
+        {
+          selectedItem && (
 
- 
-        <Animated.View
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: modalY,
-            width: '100%',
-            height: 700,
-            size: SIZES.padding,
-            backgroundColor: COLORS.bgColor,
-            borderTopRightRadius: 15,
-            borderTopLeftRadius: 15,
-          }}
-        >
-          {selectedItem && <Test coinsData={selectedItem} selectedItem={selectedItem} />}
-         
-          <View style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            borderTopRightRadius: 15,
-            borderTopLeftRadius: 15,
-            // paddingTop: 15,
-          }}>
-            <BuySellButton
-              label="Buy"
-              onPress={() => handleItemSelect(selectedItem)}
-              backgroundColor={'#138F6A'}
-            />
 
-            <BuySellButton
-              label="Sell"
-              onPress={() => handleItemSelect1(selectedItem)}
-              backgroundColor={'red'}
-            />
-          </View>
-         
-        </Animated.View>
-         )}
+            <Animated.View
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: modalY,
+                width: '100%',
+                height: 700,
+                size: SIZES.padding,
+                backgroundColor: COLORS.bgColor,
+                borderTopRightRadius: 15,
+                borderTopLeftRadius: 15,
+              }}
+            >
+              {selectedItem && <Test coinsData={selectedItem} selectedItem={selectedItem} />}
+
+              <View style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-around',
+                borderTopRightRadius: responsiveWidth(2),
+                borderTopLeftRadius: responsiveWidth(2),
+                // paddingTop: 15,
+              }}>
+                <BuySellButton
+                  label="Buy"
+                  onPress={() => handleItemSelect(selectedItem)}
+                  backgroundColor={'#138F6A'}
+                />
+
+                <BuySellButton
+                  label="Sell"
+                  onPress={() => handleItemSelect1(selectedItem)}
+                  backgroundColor={'red'}
+                />
+              </View>
+
+            </Animated.View>
+          )}
       </View>
     </TouchableOpacity>
   );

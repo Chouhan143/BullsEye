@@ -12,12 +12,13 @@ import SearchData from './Src/SearchData';
 import LoginScreen from './Src/LoginScreen';
 import RegisterScreen from './Src/RegisterScreen';
 import SellScreen from './Src/BuySrceens/SellScreen';
-import { Home } from './screens';
-import Button1 from './Src/BuySrceens/Button';
+
+
 import Email2 from './Src/BuySrceens/Email2';
 import Mobile from './Src/BuySrceens/Mobile';
 import Mobile2 from './Src/BuySrceens/Mobile2';
 import Document from './Src/BuySrceens/Document';
+import EmailVerification from './Src/BuySrceens/EmailVarification';
 const Stack = createStackNavigator();
 
 const Nav = () => {
@@ -87,16 +88,12 @@ const Nav = () => {
           name="SellScreen"
           component={SellScreen}
         />
-        {/* <Stack.Screen
-          options={{ title: 'Home', headerShown: false }}
-          name="Home"
-          component={Home}add
-        /> */}
+       
 
         <Stack.Screen
           options={{ title: 'EmailVarification', headerShown: false }}
-          name="email"
-          component={EmailVarification}
+          name="EmailVerification"
+          component={EmailVerification}
 
         />
         <Stack.Screen

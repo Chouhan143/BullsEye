@@ -1,56 +1,61 @@
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
 import React from 'react'
 import { SIZES, COLORS, icons, } from '../../constants';
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions"
 
+// all pages responsive
 
 const UserProfile = (onPress) => {
 
 
     return (
-        <ScrollView style={{ backgroundColor: COLORS.mainBgColor }}>
-            <View style={{ flex:1,}}>
+        <ScrollView style={{ flex: 1, backgroundColor: COLORS.mainBgColor }}>
+            <View style={{paddingHorizontal:responsiveWidth(1)}}>
+                <Text style={{ color: 'black', fontSize: responsiveFontSize(3.5), paddingLeft: responsiveWidth(3) }}>UserProfile</Text>
 
-                <View style={{ backgroundColor: COLORS.mainBgColor, marginTop: 10 }}>
+                <View style={{ backgroundColor: COLORS.mainBgColor, marginTop: responsiveHeight(2) }}>
                     <View style={{
-                        height: 130, backgroundColor: COLORS.bgColor, width: '95%', justifyContent: 'space-between',
-                        borderBottomWidth: 0.3, borderBottomColor: COLORS.lightGray3, alignSelf: 'center', flexDirection: 'row', borderRadius: 10
+                        height: responsiveWidth(30), backgroundColor: COLORS.bgColor, width: responsiveWidth(93),
+                        justifyContent: 'space-between',
+                        borderBottomWidth: 0.3, borderBottomColor: COLORS.lightGray3, alignSelf: 'center',
+                        flexDirection: 'row', borderRadius: responsiveWidth(2)
                     }}>
-                        <View style={{ marginTop: 25 }}>
-                            <Text style={{ fontSize: 25, marginLeft: 15, }}>kapil kachhawa</Text>
-                            <Text style={{ fontSize: 15, marginLeft: 15 }}>kas25014</Text>
+                        <View style={{ marginTop: responsiveHeight(3) }}>
+                            <Text style={{ fontSize: responsiveFontSize(3), marginLeft: responsiveWidth(4), }}>kapil kachhawa</Text>
+                            <Text style={{ fontSize: responsiveFontSize(2), marginLeft: responsiveWidth(4), }}>kas25014</Text>
 
                         </View>
 
                         <View
                             style={{
-                                width: 50,
-                                height: 50,
-                                borderRadius: 50,
-                                marginTop: 20,
-                                marginRight: 50
+                                width: responsiveWidth(15),
+                                height: responsiveWidth(15),
+                                borderRadius: responsiveWidth(2),
+                                marginTop: responsiveHeight(2),
+                                marginRight: responsiveWidth(10),
                             }}>
                             <Image
                                 source={icons.profile}
                                 style={{
-                                    width: 70,
-                                    height: 70,
-                                    borderWidth: 1,
+                                    width: responsiveWidth(20),
+                                    height: responsiveWidth(20),
+                                    borderWidth: 0.5,
                                     borderColor: '#000',
-                                    borderRadius: 50,
+                                    borderRadius: responsiveWidth(10),
                                 }}
                             />
                             <View
                                 style={{
-                                    width: 30,
-                                    height: 12,
+                                    width: responsiveWidth(8),
+                                    height: responsiveWidth(4),
                                     backgroundColor: 'red',
                                     position: 'absolute',
-                                    right: -20,
-                                    top: 40,
-                                    borderRadius: 15,
+                                    right: responsiveWidth(-5),
+                                    top: responsiveHeight(5),
+                                    borderRadius: responsiveWidth(2),
                                 }}>
                                 <TouchableOpacity>
-                                    <Text style={{ color: '#fff', fontSize: 9, alignSelf: 'center' }}>
+                                    <Text style={{ color: '#fff', fontSize: responsiveFontSize(1.3), alignSelf: 'center' }}>
                                         Edit
                                     </Text>
                                 </TouchableOpacity>
@@ -63,13 +68,13 @@ const UserProfile = (onPress) => {
 
                 <View style={{
                     flexDirection: 'row', justifyContent: 'space-between',
-                    paddingLeft: 20, paddingRight: 20, marginTop: 30
+                    paddingLeft:responsiveWidth(3), paddingRight: responsiveWidth(3), marginTop: responsiveHeight(4)
                 }}>
-                    <Text style={{ fontSize: 17 }}>
+                    <Text style={{ fontSize: responsiveFontSize(2.5) }}>
                         Password
                     </Text>
                     <TouchableOpacity>
-                        <Text style={{ fontSize: 17, color: 'blue' }}>
+                        <Text style={{ fontSize: responsiveFontSize(2.5), color: 'blue' }}>
                             change
                         </Text>
                     </TouchableOpacity>
@@ -105,7 +110,7 @@ const UserProfile = (onPress) => {
                         <Text>12454***45***58**</Text>
                     </View>
                 </View>
-                
+
 
 
 
