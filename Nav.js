@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
+import React, { useState } from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 
 import SignIn from './screens/SignIn';
 import Funds from './Src/ProfilePages/Funds';
@@ -12,12 +12,13 @@ import SearchData from './Src/SearchData';
 import LoginScreen from './Src/LoginScreen';
 import RegisterScreen from './Src/RegisterScreen';
 import SellScreen from './Src/BuySrceens/SellScreen';
-import {Home} from './screens';
-import EmailVarification from './Src/BuySrceens/EmailVarification';
+
+
 import Email2 from './Src/BuySrceens/Email2';
 import Mobile from './Src/BuySrceens/Mobile';
 import Mobile2 from './Src/BuySrceens/Mobile2';
 import Document from './Src/BuySrceens/Document';
+import EmailVerification from './Src/BuySrceens/EmailVarification';
 const Stack = createStackNavigator();
 
 const Nav = () => {
@@ -31,7 +32,7 @@ const Nav = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerShown: false,
+          // headerShown: false,
         }}
         initialRouteName="Login" // Set initial route to Login
       >
@@ -52,7 +53,8 @@ const Nav = () => {
         <Stack.Screen
           name="MainLayout"
           component={Tabs}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
+
         />
         <Stack.Screen
           options={{
@@ -62,36 +64,40 @@ const Nav = () => {
           component={Funds}
         />
         <Stack.Screen
-          options={{title: 'Profile', headerShown: false}}
+          options={{ title: 'Profile', headerShown: false }}
           name="UserProfile"
           component={UserProfile}
         />
-        <Stack.Screen name="SearchData" component={SearchData} />
         <Stack.Screen
-          options={{title: 'Setting', headerShown: false}}
+          name="SearchData"
+          component={SearchData}
+        />
+        <Stack.Screen
+          options={{ title: 'Setting', headerShown: false }}
           name="Setting"
           component={Setting}
         />
         <Stack.Screen
-          options={{title: 'BuyScreen', headerShown: false}}
+          options={{ title: 'BuyScreen', headerShown: false }}
           name="BuyScreen"
           component={BuySrceen}
         />
 
         <Stack.Screen
-          options={{title: 'SellScreen', headerShown: false}}
+          options={{ title: 'SellScreen', headerShown: false }}
           name="SellScreen"
           component={SellScreen}
         />
-     
+       
 
-         <Stack.Screen
+        <Stack.Screen
           options={{ title: 'EmailVarification', headerShown: false }}
-          name="email"
-          component={EmailVarification}
+          name="EmailVerification"
+          component={EmailVerification}
+
         />
         <Stack.Screen
-          options={{ title: 'Email2', headerShown: false }}
+          options={{ title: 'Email2', headerShown: true }}
           name="Email2"
           component={Email2}
         />
@@ -104,7 +110,7 @@ const Nav = () => {
           options={{ title: 'Mobile2', headerShown: false }}
           name="Mobile2"
           component={Mobile2}
-        /> 
+        />
         <Stack.Screen
           options={{ title: 'Document', headerShown: false }}
           name="Document"

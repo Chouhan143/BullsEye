@@ -4,6 +4,10 @@ import { useNavigation } from '@react-navigation/native';
 import { postData } from '../../constants/hooks/ApiHelper';
 import { icons } from '../../constants';
 import { ScrollView } from 'react-native-gesture-handler';
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions"
+
+// all pages responsive
+
 
 const EmailVerification = ({ route }) => {
   const navigation = useNavigation();
@@ -23,7 +27,7 @@ const EmailVerification = ({ route }) => {
         payload
       );
 
-      if(response.data.status === 200) {
+      if (response.data.status === 200) {
         navigation.navigate('Email2')
       }
       // console.log('Response:', response.data);
@@ -36,33 +40,37 @@ const EmailVerification = ({ route }) => {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: '#d6e4f2' }}>
-      <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 100 }}>
-        <Image source={icons.mail} style={{ width: 150, height: 150 }} />
+      <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: responsiveHeight(20) }}>
+        <Image source={icons.mail} style={{ width: responsiveWidth(40), height: responsiveWidth(40) }} />
       </View>
 
-      <View style={{ marginTop: 10, alignSelf: 'center' }}>
-        <Text style={{ fontSize: 25, color: '#000', textDecorationLine: 'underline' }}>Email Verification</Text>
+      <View style={{ marginTop: responsiveHeight(2), alignSelf: 'center' }}>
+        <Text style={{ fontSize: responsiveHeight(3.5), color: '#000', textDecorationLine: 'underline' }}>Email Verification</Text>
       </View>
 
       <View>
-        <Text style={{ fontSize: 20, color: '#000', paddingLeft: 20, marginTop: 50 }}>Verification code on your Email ID</Text>
+        <Text style={{ fontSize: responsiveFontSize(2.8), color: '#000', paddingLeft: responsiveWidth(5), marginTop: responsiveHeight(3) }}>Verification code on your Email ID</Text>
       </View>
 
       <View style={{ flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ fontSize: 18, paddingLeft: 20, marginTop: 20, alignSelf: 'center', fontWeight: '200',color:'#000' }} numberOfLines={2}>
+        <Text style={{
+          fontSize: responsiveFontSize(3.5), paddingLeft: responsiveWidth(5), marginTop: responsiveHeight(2),
+          alignSelf: 'center', fontWeight: '200', color: '#000'
+        }} numberOfLines={2}>
           We will send the verification code to this Email ID
         </Text>
       </View>
 
-      <View style={{ marginLeft: 10, marginTop: 30, width: 320, height: 70 }}>
+      <View style={{ marginLeft: responsiveWidth(3), marginTop: responsiveHeight(3), width: responsiveWidth(90),
+         height: responsiveWidth(20) }}>
         <TextInput
           style={{
-            borderRadius: 5,
+            borderRadius: responsiveWidth(2),
             borderWidth: 0.5,
             borderColor: '#757575',
-            marginLeft: 10,
-            paddingHorizontal: 10,
-            color:"#000"
+            marginLeft: responsiveWidth(2),
+            paddingHorizontal: responsiveWidth(3),
+            color: "#000"
           }}
           placeholder="Enter your valid Email ID"
           value={email}
@@ -73,14 +81,14 @@ const EmailVerification = ({ route }) => {
       <TouchableOpacity onPress={handleGetOTP}>
         <View
           style={{
-            width: 320,
-            height: 50,
-            borderRadius: 5,
+            width: responsiveWidth(90),
+            height: responsiveWidth(15),
+            borderRadius: responsiveWidth(2),
             borderWidth: 0.5,
             borderColor: '#757575',
             alignItems: 'center',
             justifyContent: 'center',
-            marginTop: 10,
+            marginTop: responsiveHeight(2),
             alignSelf: 'center',
             backgroundColor: '#ACC8E5',
           }}

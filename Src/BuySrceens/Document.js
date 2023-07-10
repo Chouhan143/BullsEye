@@ -1,13 +1,16 @@
-import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
-import React, {useState} from 'react';
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import React, { useState } from 'react';
 import DocumentPicker from 'react-native-document-picker';
-import {TextInput} from 'react-native-gesture-handler';
-import {postData3} from '../../constants/hooks/ApiHelper';
+import { TextInput } from 'react-native-gesture-handler';
+import { postData3 } from '../../constants/hooks/ApiHelper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions'
 // import { useNavigation } from '@react-navigation/native';
 
-const Document = ({navigation}) => {
+//  All page responsive
+
+const Document = ({ navigation }) => {
   // navigation=useNavigation();
   const [doc, setDoc] = useState();
   const [doc1, setDoc1] = useState();
@@ -150,195 +153,205 @@ const Document = ({navigation}) => {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: '#d6e4f2'}}>
+    <View style={{ flex: 1, backgroundColor: '#d6e4f2' }}>
       {loading && (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <ActivityIndicator size="large" color="#0000ff" />
         </View>
       )}
 
       {!loading && (
-        <View style={{alignSelf: 'center'}}>
-          <View style={{marginTop: 60, marginLeft: 20}}>
-            <Text style={{fontSize: 25, color: '#000'}}>
+        <View style={{ alignSelf: 'center' }}>
+          <View style={{ marginTop: responsiveHeight(5), marginLeft: responsiveWidth(3) }}>
+            <Text style={{ fontSize: responsiveFontSize(3.5), color: '#000' }}>
               Documents verification
             </Text>
           </View>
-          <View style={{marginLeft: 20, marginTop: 20}}>
-            <Text style={{fontSize: 18, color: '#757575'}}>
-              Aadhar image upload (font side)
+          <View style={{ marginLeft: responsiveWidth(3), marginTop: responsiveHeight(3) }}>
+            <Text style={{ fontSize: responsiveFontSize(2.5), color: '#757575' }}>
+              Aadhar image upload (Font side)
             </Text>
           </View>
 
           <View
             style={{
-              width: 320,
-              height: 60,
-              borderRadius: 10,
+              width: responsiveWidth(90),
+              height: responsiveHeight(8.5),
+              borderRadius: responsiveWidth(3),
               borderWidth: 0.5,
               borderColor: '#757575',
-              marginTop: 10,
-              marginLeft: 10,
+              marginTop: responsiveHeight(2),
+              marginLeft: responsiveWidth(3),
               flexDirection: 'row',
             }}>
             <TouchableOpacity onPress={SelectDOC}>
               <View
                 style={{
-                  width: 100,
-                  height: 50,
-                  borderRadius: 10,
+                  width: responsiveWidth(27),
+                  height: responsiveWidth(14),
+                  borderRadius: responsiveWidth(3),
                   borderWidth: 0.5,
                   borderColor: '#757575',
-                  marginLeft: 5,
-                  marginTop: 5,
+                  marginLeft: responsiveWidth(1.5),
+                  marginTop: responsiveHeight(0.6),
                   backgroundColor: '#ACC8E5',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}>
-                <Text style={{color: '#000'}}>upload</Text>
+                <Text style={{ color: '#000', fontSize: responsiveFontSize(2) }}>upload</Text>
               </View>
             </TouchableOpacity>
-            <View style={{paddingHorizontal: 10}}>
+            <View style={{ paddingHorizontal: 10 }}>
               <TextInput
                 value={doc ? doc.name : ''}
                 onChangeText={handleDocInputChange}
-                numberOfLines={4}
-                style={{color: doc ? 'black' : 'red'}}
+                numberOfLines={2}
+                maxLength={15}
+                multiline={true}
+                style={{ color: doc ? 'black' : 'red' }}
               />
             </View>
           </View>
           {!doc && (
-            <Text style={{fontSize: 12, color: 'red',margin:10}}>
+            <Text style={{ fontSize: responsiveFontSize(1.6), color: 'red', margin: responsiveWidth(3) }}>
               {!doc
                 ? 'Please select a document'
                 : doc === 'User cancelled the upload'
-                ? 'User cancelled the upload'
-                : 'Error selecting document'}
+                  ? 'User cancelled the upload'
+                  : 'Error selecting document'}
             </Text>
           )}
 
 
-          <View style={{marginLeft: 20, marginTop: 30}}>
-            <Text style={{fontSize: 18, color: '#757575'}}>
+          {/* copy above code */}
+
+          <View style={{ marginLeft: responsiveWidth(3), marginTop: responsiveHeight(3) }}>
+            <Text style={{ fontSize: responsiveFontSize(2.5), color: '#757575' }}>
               Aadhar image upload (Back side)
             </Text>
           </View>
           <View
             style={{
-              width: 320,
-              height: 60,
-              borderRadius: 10,
+              width: responsiveWidth(90),
+              height: responsiveHeight(8.5),
+              borderRadius: responsiveWidth(3),
               borderWidth: 0.5,
               borderColor: '#757575',
-              marginTop: 10,
-              marginLeft: 10,
+              marginTop: responsiveHeight(2),
+              marginLeft: responsiveWidth(3),
               flexDirection: 'row',
             }}>
             <TouchableOpacity onPress={SelectDOC1}>
               <View
                 style={{
-                  width: 100,
-                  height: 50,
-                  borderRadius: 10,
+                  width: responsiveWidth(27),
+                  height: responsiveWidth(14),
+                  borderRadius: responsiveWidth(3),
                   borderWidth: 0.5,
                   borderColor: '#757575',
-                  marginLeft: 5,
-                  marginTop: 5,
+                  marginLeft: responsiveWidth(1.5),
+                  marginTop: responsiveHeight(0.6),
                   backgroundColor: '#ACC8E5',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}>
-                <Text style={{color: '#000'}}>upload</Text>
+                <Text style={{ color: '#000', fontSize: responsiveFontSize(2) }}>upload</Text>
               </View>
             </TouchableOpacity>
-            <View style={{paddingHorizontal: 10}}>
+            <View style={{ paddingHorizontal: 10 }}>
               <TextInput
                 value={doc1 ? doc1.name : ''}
                 onChangeText={handleDoc1InputChange}
                 numberOfLines={4}
-                style={{color: doc1 ? 'black' : 'red'}}
+                maxLength={15}
+                multiline={true}
+                style={{ color: doc1 ? 'black' : 'red' }}
               />
             </View>
           </View>
 
           {!doc1 && (
-            <Text style={{fontSize: 12, color: 'red',margin:10}}>
+            <Text style={{ fontSize: responsiveFontSize(1.6), color: 'red', margin: responsiveWidth(3) }}>
               {!doc1
                 ? 'Please select a document'
                 : doc1 === 'User cancelled the upload'
-                ? 'User cancelled the upload'
-                : 'Error selecting document'}
+                  ? 'User cancelled the upload'
+                  : 'Error selecting document'}
             </Text>
           )}
 
 
-          <View style={{marginLeft: 20, marginTop: 30}}>
-            <Text style={{fontSize: 18, color: '#757575'}}>
-              PAN image upload (font side)
+          <View style={{ marginLeft: responsiveWidth(3), marginTop: responsiveHeight(3) }}>
+            <Text style={{ fontSize: responsiveFontSize(2.5), color: '#757575' }}>
+              PanCard image upload (Font side)
             </Text>
           </View>
           <View
             style={{
-              width: 320,
-              height: 60,
-              borderRadius: 10,
+              width: responsiveWidth(90),
+              height: responsiveHeight(8.5),
+              borderRadius: responsiveWidth(3),
               borderWidth: 0.5,
               borderColor: '#757575',
-              marginTop: 10,
-              marginLeft: 10,
+              marginTop: responsiveHeight(2),
+              marginLeft: responsiveWidth(3),
               flexDirection: 'row',
             }}>
             <TouchableOpacity onPress={SelectDOC2}>
               <View
                 style={{
-                  width: 100,
-                  height: 50,
-                  borderRadius: 10,
+                  width: responsiveWidth(27),
+                  height: responsiveWidth(14),
+                  borderRadius: responsiveWidth(3),
                   borderWidth: 0.5,
                   borderColor: '#757575',
-                  marginLeft: 5,
-                  marginTop: 5,
+                  marginLeft: responsiveWidth(1.5),
+                  marginTop: responsiveHeight(0.6),
                   backgroundColor: '#ACC8E5',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}>
-                <Text style={{color: '#000'}}>upload</Text>
+                <Text style={{ color: '#000', fontSize: responsiveFontSize(2) }}>upload</Text>
               </View>
             </TouchableOpacity>
-            <View style={{paddingHorizontal: 10}}>
+            <View style={{ paddingHorizontal: 10 }}>
               <TextInput
                 value={doc2 ? doc2.name : ''}
-                onChangeText={handleDoc2InputChange}
+                onChangeText={handleDoc1InputChange}
                 numberOfLines={4}
-                style={{color: doc2 ? 'black' : 'red'}}
+                maxLength={15}
+                multiline={true}
+                style={{ color: doc2 ? 'black' : 'red' }}
               />
             </View>
           </View>
+
           {!doc2 && (
-            <Text style={{fontSize: 12, color: 'red',margin:10}}>
+            <Text style={{ fontSize: responsiveFontSize(1.6), color: 'red', margin: responsiveWidth(3) }}>
               {!doc2
                 ? 'Please select a document'
                 : doc2 === 'User cancelled the upload'
-                ? 'User cancelled the upload'
-                : 'Error selecting document'}
+                  ? 'User cancelled the upload'
+                  : 'Error selecting document'}
             </Text>
           )}
 
           <TouchableOpacity onPress={handleDocumentSubmit}>
             <View
               style={{
-                width: 320,
-                height: 50,
-                borderRadius: 5,
+                width: responsiveWidth(90),
+                height: responsiveHeight(8),
+                borderRadius: responsiveWidth(1.5),
                 borderWidth: 0.5,
                 borderColor: '#757575',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginTop: 80,
+                marginTop: responsiveHeight(4),
                 alignSelf: 'center',
                 backgroundColor: '#ACC8E5',
+                marginLeft: responsiveWidth(3)
               }}>
-              <Text style={{fontSize: 15, color: '#000'}}>DOCUMENT SUBMIT</Text>
+              <Text style={{ fontSize: responsiveFontSize(2.2), color: '#000' }}>DOCUMENT SUBMIT</Text>
             </View>
           </TouchableOpacity>
         </View>

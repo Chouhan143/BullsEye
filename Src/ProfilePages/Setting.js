@@ -1,6 +1,9 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import React, { useState } from 'react';
 import { SIZES, icons,COLORS } from '../../constants';
+import{ responsiveFontSize,responsiveHeight,responsiveWidth} from "react-native-responsive-dimensions"
+
+//  ALL pages responsive
 
 const Setting = () => {
     const [isClicked, SetIsClicked] = useState(false)
@@ -9,11 +12,12 @@ const Setting = () => {
         return (
             <View style={{
                 flexDirection: 'row', marginTop: SIZES.radius,
-                height: 50, justifyContent: 'space-between', backgroundColor: COLORS.mainBgColor, alignItems: 'center'
+                height: responsiveWidth(15), justifyContent: 'space-between',
+                 backgroundColor: COLORS.mainBgColor, alignItems: 'center',marginTop:responsiveHeight(2)
             }}>
-                <Text style={{ marginLeft: 20 }}>{title}</Text>
+                <Text style={{ marginLeft: responsiveWidth(5) }}>{title}</Text>
                 <TouchableOpacity>
-                    <Text style={{ fontSize: 15, color: 'blue', marginRight: 20 }}>{value} </Text>
+                    <Text style={{ fontSize: responsiveFontSize(2), color: 'blue', marginRight:responsiveWidth(5) }}>{value} </Text>
                 </TouchableOpacity>
 
             </View>
@@ -25,7 +29,7 @@ const Setting = () => {
 
 
     return (
-        <View style={{flex:1 ,backgroundColor:COLORS.mainBgColor}}>
+        <View style={{flex:1 ,backgroundColor:COLORS.mainBgColor ,}}>
             <UserRow title={'Passward'} value={"Change"} />
             <UserRow title={'M-PIN'} value={"Change"} />
 
@@ -68,22 +72,22 @@ const Setting = () => {
 
 export default Setting
 
-const styles = StyleSheet.create({
-    dropdown: {
-        width: "100%",
-        height: 50, backgroundColor: COLORS.mainBgColor ,
-        alignSelf: 'center', marginTop: 50,
-        flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
-        paddingLeft: 20, paddingRight: 20,
+// const styles = StyleSheet.create({
+//     dropdown: {
+//         width: responsiveWidth(100),
+//         height: responsiveWidth(15), backgroundColor: COLORS.mainBgColor ,
+//         alignSelf: 'center', marginTop: responsiveHeight(20),
+//         flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
+//         paddingLeft: responsiveHeight(2), paddingRight: responsiveHeight(2),
 
-    },
-    icon: {
-        width: 20, height: 20
-    },
-    dropdown2: {
-        width: '100%', height: 40, alignSelf: 'center', backgroundColor: COLORS.mainBgColor
-    },
-    droptext: {
-        marginLeft: 20, marginTop: 10,
-    }
-})
+//     },
+//     icon: {
+//         width: 20, height: 20
+//     },
+//     dropdown2: {
+//         width: '100%', height: 40, alignSelf: 'center', backgroundColor: COLORS.mainBgColor
+//     },
+//     droptext: {
+//         marginLeft: 20, marginTop: 10,
+//     }
+// })
