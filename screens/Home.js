@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, FlatList, ScrollView, TouchableOpacity, Dimensi
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { fetchCoinData, setIsTradeModalVisible, selectIsTradeModalVisible } from '../Src/redux/market/coinSlice';
+import { responsiveHeight,responsiveWidth,responsiveFontSize } from 'react-native-responsive-dimensions';
 import MainLayout from './MainLayout';
 import { COLORS } from '../constants';
 
@@ -92,8 +93,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 7,
     backgroundColor: COLORS.bgColor,
-    width: width/2-20,
-    height: height/5-70,
+    width: responsiveWidth(45),
+    height: responsiveHeight(12),
     borderRadius: 5,
     marginBottom: 10,
   },

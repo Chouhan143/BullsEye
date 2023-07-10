@@ -7,16 +7,26 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import {TabView, SceneMap,TabBar} from 'react-native-tab-view';
+import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import MainLayout from './MainLayout';
-import { COLORS } from '../constants';
+import {COLORS} from '../constants';
 import SearchBar from '../Src/SearchBar';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {
   setIsTradeModalVisible,
   selectIsTradeModalVisible,
+  getLiveTrade,
+  getPastTrade,
 } from '../Src/redux/market/coinSlice';
 import {useSelector, useDispatch} from 'react-redux';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {FlatList} from 'react-native-gesture-handler';
+import {
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
+// import getLiveTrade from '../Src/redux/market/coinSlice';
 
 const {height, width} = Dimensions.get('window');
 
@@ -37,6 +47,7 @@ function Test(props) {
           paddingHorizontal: 10,
           justifyContent: 'space-between',
         }}>
+        Portfolio
         <View
           style={{
             display: 'flex',
@@ -135,247 +146,326 @@ function Test(props) {
 }
 
 const FirstRoute = () => {
-  const data = {
-    qty: 2,
-    avg: 66.65,
-    percentage: '+5.30%',
-    stockName: 'BHEL',
-    invested: 2781.85,
-    ltp: 90.0,
-    ltpPercentage: '-0.48%',
-  };
-
-  const data_1 = {
-    qty: 16,
-    avg: 98.65,
-    percentage: '+12.30%',
-    stockName: 'GAIL',
-    invested: 1570.85,
-    ltp: 30.0,
-    ltpPercentage: '-0.90%',
-  };
-
-  const data_2 = {
-    qty: 50,
-    avg: 70.65,
-    percentage: '+12.30%',
-    stockName: 'IDEA',
-    invested: 5000.85,
-    ltp: 40.0,
-    ltpPercentage: '-0.63%',
-  };
-
   const navigation = useNavigation();
   const isTradeModalVisible = useSelector(selectIsTradeModalVisible);
   const dispatch = useDispatch();
-
+  const liveTradedata = useSelector(state => state.coin.liveTradedata);
   const handleTradeButtonPress = () => {
     dispatch(setIsTradeModalVisible(!isTradeModalVisible));
   };
 
-  const TabBarCustomButton = ({children, onPress}) => {
-    return (
-      <TouchableOpacity
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        onPress={onPress}>
-        {children}
-      </TouchableOpacity>
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      dispatch(getLiveTrade()).catch(error => {
+        console.log('Error fetching coin TradeLivedata:', error);
+      });
+    }, 2000); // 2000 milliseconds = 2 seconds
+
+    return () => {
+      clearInterval(timer); // Clear the interval when the component unmounts
+    };
+  }, []);
+
+
+
+   const SquareOff = async (tradeId) => {
+  try {
+    console.log("trad",tradeId)
+    const token = await AsyncStorage.getItem('accessToken');
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios.get(
+      `https://scripts.bulleyetrade.com/api/square_off/${tradeId}`,
+      config,
     );
-  };
+    console.log('past Trade', response);
+  } catch (error) {
+    console.log('error', error);
+  }
+};
 
 
 
-  return (
-    <MainLayout>
-    <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
-      <View style={styles.container}>
-        <View style={styles.sub_container_holdings}>
+const squreOffhandle = (tradeId) => {
+  SquareOff(tradeId);
+};
+
+  
+
+ 
+
+
+  const renderItemLiveTradeUi = ({item}) => {
+    // Render the data for each item in the FlatList
+    return (
+      <View
+        style={[
+          styles.searchEluation,
+          {
+            paddingVertical: 15,
+          },
+        ]}>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            paddingHorizontal: 10,
+            justifyContent: 'space-between',
+          }}>
           <View
             style={{
               display: 'flex',
               flexDirection: 'row',
               paddingHorizontal: 20,
-              justifyContent: 'space-between',
-              paddingVertical: 20,
             }}>
-            <View style={{display: 'flex'}}>
-              <Text style={{color: 'gray'}}>Invested</Text>
-              <Text style={{color: 'black', paddingTop: 7}}>32,235.05</Text>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              <Text style={{color: 'gray'}}>Lot </Text>
+              <Text style={{color: 'black'}}>{item.max_lot}</Text>
             </View>
 
             <View
               style={{
                 display: 'flex',
+                flexDirection: 'row',
                 paddingHorizontal: 20,
               }}>
-              <Text style={{color: 'gray'}}>Current</Text>
-              <Text style={{color: 'black', paddingTop: 7}}>15,725.20</Text>
+              <View style={{display: 'flex', flexDirection: 'row'}}>
+                <Text style={{color: 'black', fontWeight: '700'}}>
+                  {item.trade_name}
+                </Text>
+              </View>
             </View>
           </View>
           <View
             style={{
               display: 'flex',
-              justifyContent: 'space-between',
-              paddingHorizontal: 20,
               flexDirection: 'row',
+              paddingHorizontal: 20,
             }}>
-            <Text style={{color: 'gray', fontSize: 16}}>P&L</Text>
-            <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',}}>
-            <Text style={{color: 'green',paddingRight:5}}>+2,530.16</Text>
-            <View
-              style={{
-                backgroundColor: '#a9c0a6',
-                paddingHorizontal: 10,
-                paddingVertical: 7,
-                borderRadius: 5,
-              }}>
-              <Text style={{color: 'green'}}>+19.13%</Text>
-            </View>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              <Text style={{color: 'gray'}}>Limit </Text>
+              <Text style={{color: 'green'}}>{item.limit}</Text>
             </View>
           </View>
         </View>
 
         <View
-          style={[
-            styles.searchEluation,
-            {
-              paddingVertical: 5,
-              marginTop: 75,
-            },
-          ]}>
-          <SearchBar />
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            paddingHorizontal: 10,
+            justifyContent: 'space-between',
+            paddingVertical: 15,
+          }}>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              paddingHorizontal: 20,
+            }}>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              <Text style={{color: 'gray', paddingRight: 5}}>Stop Loss</Text>
+              <Text style={{color: 'black'}}>{item.stop_loss}</Text>
+            </View>
+          </View>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              paddingHorizontal: 20,
+            }}>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              <Text style={{color: 'gray'}}>Target </Text>
+              <Text style={{color: 'black'}}>{item.target}</Text>
+              {/* <Text style={{color: 'red'}}> ({})</Text> */}
+            </View>
+          </View>
         </View>
-
-        <TouchableOpacity onPress={()=>handleTradeButtonPress()} >
-          
-          <Test {...data} />
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Test {...data_1} />
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Test {...data_2} />
-        </TouchableOpacity>
+        <View
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            paddingHorizontal: responsiveWidth(8),
+          }}>
+          <TouchableOpacity style={styles.squareOffBtn} onPress={() => squreOffhandle(item.id)} >
+            <Text
+              style={{
+                color: '#fff',
+                display: 'flex',
+                alignSelf: 'center',
+                justifyContent: 'center',
+              }}>
+              Square off
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.squareOffBtn,
+              {
+                width: responsiveWidth(15),
+              },
+            ]}>
+            <Text
+              style={{
+                color: '#fff',
+                display: 'flex',
+                alignSelf: 'center',
+                justifyContent: 'center',
+              }}>
+              Edit
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
-    </MainLayout>
-  );
-};
-
-
-const SecondRoute = () => {
-  const data = {
-    qty: 2,
-    avg: 66.65,
-    percentage: '+5.30%',
-    stockName: 'BHEL',
-    invested: 2781.85,
-    ltp: 90.0,
-    ltpPercentage: '-0.48%',
-  };
-
-  const data_1 = {
-    qty: 16,
-    avg: 98.65,
-    percentage: '+12.30%',
-    stockName: 'GAIL',
-    invested: 1570.85,
-    ltp: 30.0,
-    ltpPercentage: '-0.90%',
-  };
-
-  const data_2 = {
-    qty: 50,
-    avg: 70.65,
-    percentage: '+12.30%',
-    stockName: 'IDEA',
-    invested: 5000.85,
-    ltp: 40.0,
-    ltpPercentage: '-0.63%',
-  };
-
-  const navigation = useNavigation();
-  const isTradeModalVisible = useSelector(selectIsTradeModalVisible);
-  const dispatch = useDispatch();
-
-  const handleTradeButtonPress = () => {
-    dispatch(setIsTradeModalVisible(!isTradeModalVisible));
-  };
-
-  const TabBarCustomButton = ({children, onPress}) => {
-    return (
-      <TouchableOpacity
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        onPress={onPress}>
-        {children}
-      </TouchableOpacity>
     );
   };
 
-
-
   return (
-    <MainLayout>
+    //  <MainLayout>
     <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
       <View style={styles.container}>
-        <View style={styles.sub_container_position}>
-          
+        <View style={{paddingVertical: 10, marginTop: 5}}>
+          <FlatList
+            data={liveTradedata}
+            renderItem={renderItemLiveTradeUi}
+            keyExtractor={item => item.id}
+          />
+        </View>
+      </View>
+    </View>
+    // </MainLayout>
+  );
+};
+
+const SecondRoute = () => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      dispatch(getPastTrade()).catch(error => {
+        console.log('Error fetching coin TradeLivedata:', error);
+      });
+    }, 2000); // 2000 milliseconds = 2 seconds
+
+    return () => {
+      clearInterval(timer); // Clear the interval when the component unmounts
+    };
+  }, []);
+
+  const pastTradedata = useSelector(state => state.coin.pastTradedata);
+
+
+
+  const renderItemLiveTradeUi = ({item}) => {
+    // Render the data for each item in the FlatList
+    return (
+      <View
+        style={[
+          styles.searchEluation,
+          {
+            paddingVertical: 15,
+          },
+        ]}>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            paddingHorizontal: 10,
+            justifyContent: 'space-between',
+          }}>
           <View
             style={{
               display: 'flex',
-              justifyContent: 'space-between',
+              flexDirection: 'row',
               paddingHorizontal: 20,
-             alignItems:'center'
             }}>
-            <Text style={{color: 'gray', fontSize: 16}}>Total P&L</Text>
-            <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',}}>
-            <Text style={{color: 'red',paddingRight:5}}>-230.16</Text>
-          
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              <Text style={{color: 'gray'}}>Lot </Text>
+              <Text style={{color: 'black'}}>{item.max_lot}</Text>
+            </View>
+
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                paddingHorizontal: 20,
+              }}>
+              <View style={{display: 'flex', flexDirection: 'row'}}>
+                <Text style={{color: 'black', fontWeight: '700'}}>
+                  {item.trade_name}
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              paddingHorizontal: 20,
+            }}>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              <Text style={{color: 'gray'}}>Limit </Text>
+              <Text style={{color: 'green'}}>{item.limit}</Text>
             </View>
           </View>
         </View>
 
         <View
-          style={[
-            styles.searchEluation,
-            {
-              paddingVertical: 5,
-              marginTop: 75,
-            },
-          ]}>
-          {/* <SearchBar /> */}
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            paddingHorizontal: 10,
+            justifyContent: 'space-between',
+            paddingVertical: 15,
+          }}>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              paddingHorizontal: 20,
+            }}>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              <Text style={{color: 'gray', paddingRight: 5}}>Stop Loss</Text>
+              <Text style={{color: 'black'}}>{item.stop_loss}</Text>
+            </View>
+          </View>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              paddingHorizontal: 20,
+            }}>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              <Text style={{color: 'gray'}}>Target </Text>
+              <Text style={{color: 'black'}}>{item.target}</Text>
+              {/* <Text style={{color: 'red'}}> ({})</Text> */}
+            </View>
+          </View>
         </View>
+      </View>
+    );
+  };
 
-        <TouchableOpacity onPress={()=>handleTradeButtonPress()} >
-          
-          <Test {...data} />
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Test {...data_1} />
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Test {...data_2} />
-        </TouchableOpacity>
+  return (
+    <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
+      <View style={styles.container}>
+        <View style={{paddingVertical: 10, marginTop: 5}}>
+          <FlatList
+            data={pastTradedata}
+            renderItem={renderItemLiveTradeUi}
+            keyExtractor={item => item.id}
+          />
+        </View>
       </View>
     </View>
-    </MainLayout>
   );
 };
-
-
-
 
 // const SecondRoute = () => {
 //   return (
@@ -410,7 +500,6 @@ export default function Portfolio() {
       activeColor="#1A6164"
     />
   );
-  
 
   return (
     <TabView
@@ -424,14 +513,14 @@ export default function Portfolio() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width: width,
-    height: height - 200,
-    marginTop: 80,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    backgroundColor: '#ffff',
-  },
+  // container: {
+  //   width: width,
+  //   height: height,
+  //   marginTop: 80,
+  //   borderTopLeftRadius: 20,
+  //   borderTopRightRadius: 20,
+  //   backgroundColor: '#ffff',
+  // },
   sub_container_holdings: {
     width: '90%',
     height: height - 600,
@@ -479,13 +568,21 @@ const styles = StyleSheet.create({
 
   searchEluation: {
     borderBottomWidth: 0.1,
-    shadowColor: '#b3b3b3',
+    shadowColor: '#b3b3',
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 2,
+    elevation: 3,
+  },
+  squareOffBtn: {
+    width: responsiveWidth(30),
+    height: responsiveHeight(5),
+    backgroundColor: COLORS.BottomTab,
+    display: 'flex',
+    justifyContent: 'center',
+    borderRadius: responsiveWidth(2),
   },
 });

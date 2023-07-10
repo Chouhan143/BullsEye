@@ -8,7 +8,7 @@ import {
   FlatList,
   Modal,
 } from 'react-native';
-import React, { useEffect, useState, useRef } from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/Feather';
 import Icon3 from 'react-native-vector-icons/AntDesign';
@@ -22,13 +22,12 @@ import {useSelector, useDispatch} from 'react-redux';
 import {fetchCoinData, addToWatchlist} from '../Src/redux/market/coinSlice';
 
 const SearchData = () => {
-
   // const dispatch = useDispatch();
-  const addedItems = useSelector(state =>state);
+  const addedItems = useSelector(state => state);
   // console.log(addedItems);
-  const addItem = (item) => {
-    dispatch(addCardItem(item))
-  }
+  const addItem = item => {
+    dispatch(addCardItem(item));
+  };
   const [modalVisible, setModalVisible] = useState(false);
   const openModal = () => {
     setModalVisible(true);
@@ -44,16 +43,11 @@ const SearchData = () => {
     dispatch(fetchCoinData());
   }, []);
 
-  
-  
-
-  const handleAddToWatchlist = (item) => {
+  const handleAddToWatchlist = item => {
     dispatch(addToWatchlist(item));
-    setTimeout(() => {
-      navigation.navigate('MainLayout');
-    }, 3000); // You can adjust the delay (in milliseconds) if needed
+
+    navigation.navigate('MainLayout');
   };
-  
 
   const navigation = useNavigation();
   const [filterData, setFilterData] = useState([]);
@@ -67,13 +61,14 @@ const SearchData = () => {
       setFilterData(tempList);
     }
   };
-  
 
-
- 
+  const watchlistData = useSelector(state => state.coin.watchlistData);
 
   const renderItem = ({item}) => {
-
+    const isAddedToWatchlist = watchlistData.some(
+      watchlistItem => watchlistItem.id === item.id,
+    );
+ 
     return (
       <TouchableOpacity
         style={{
@@ -83,8 +78,7 @@ const SearchData = () => {
           marginVertical: 1,
           justifyContent: 'center',
           paddingHorizontal: 20,
-        }}
-        >
+        }}>
         <View
           style={{
             display: 'flex',
@@ -109,7 +103,7 @@ const SearchData = () => {
                 borderRadius: 2,
                 marginRight: 10,
               }}>
-              <Text style={{ color: COLORS.white }}>
+              <Text style={{color: COLORS.white}}>
                 {item.trade_name.charAt(0)}
               </Text>
             </View>
@@ -145,19 +139,22 @@ const SearchData = () => {
             <TouchableOpacity
               style={{paddingLeft: 10}}
               onPress={() => handleAddToWatchlist(item)}>
-              <Icon4 name="favorite" size={20} color="#1B1A1A" />
+              {isAddedToWatchlist ? (
+                <Icon4 name="favorite" size={20} color="green" />
+              ) : (
+                <Icon4 name="favorite" size={20} color="#1B1A1A" />
+              )}
             </TouchableOpacity>
           </View>
         </View>
-      
       </TouchableOpacity>
     );
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.mainBgColor }}>
+    <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
       <View style={styles.searchContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('Watchlist')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Watchlist2')}>
           <Icon name="arrowleft" size={25} color="#000" />
         </TouchableOpacity>
 
@@ -170,6 +167,7 @@ const SearchData = () => {
               paddingRight: 30,
               width: '100%',
               alignSelf: 'center',
+              color: '#000',
             }}
             placeholder="Search"
             placeholderTextColor="#000"
@@ -218,7 +216,7 @@ const SearchData = () => {
             <Text style={styles.topText1}>Stock Name</Text>
           </View>
           <View style={styles.topLast}>
-            <Text style={[styles.topText1, { paddingRight: 20 }]}>Price</Text>
+            <Text style={[styles.topText1, {paddingRight: 20}]}>Price</Text>
             <Text style={styles.topText1}>Change / Vol</Text>
           </View>
         </View>

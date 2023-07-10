@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Keyboard,
 } from 'react-native';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import EmailVarification from './BuySrceens/EmailVarification';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
