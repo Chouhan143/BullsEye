@@ -12,6 +12,8 @@ import {
 } from '../Src/redux/market/coinSlice';
 import Watchlist from '../screens/Watchlist';
 import Watchlist2 from '../screens/Watchlist2';
+import {responsiveFontSize, responsiveHeight, responsiveWidth,} from 'react-native-responsive-dimensions';
+
 const Tab = createBottomTabNavigator();
 const TabBarCustomButton = ({children, onPress}) => {
   return (
@@ -39,7 +41,7 @@ const Tabs = () => {
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {
-          height: 70,
+          height: responsiveWidth(16),
           backgroundColor: COLORS.bgColor,
           borderTopColor: 'transparent',
         },

@@ -12,7 +12,7 @@ const BuySellButton = ({label, icon, containerStyle, onPress,backgroundColor}) =
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        height: responsiveWidth(14),
+        height: responsiveWidth(13),
         width:responsiveWidth(40),
         borderRadius: responsiveWidth(2),
         backgroundColor: backgroundColor,
