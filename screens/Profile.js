@@ -134,21 +134,21 @@ const Profile = (props) => {
 
           <SectionTitle title="ACCOUNT" />
 
-          {/* <TouchableOpacity
+          <TouchableOpacity
             onPress={() => props.navigation.navigate("Funds")} >
             <View style={{
               flex: 1, justifyContent: 'space-between',
               flexDirection: "row", marginTop: SIZES.radius,
-              borderBottomWidth: 0.8, height: 50, borderBottomColor: '#D6EDF0',
+              borderBottomWidth: 0.8, height:responsiveWidth(15), borderBottomColor: '#D6EDF0',
               alignItems: 'center'
             }}>
-              <Text style={{ color: COLORS.black, ...FONTS.h3 }}>
+              <Text style={{ color: COLORS.black,  fontSize:responsiveFontSize(2.3)  }}>
                 Funds
               </Text>
               <Image source={icons.funds}
-                style={{ height: 20, width: 20, tintColor: "#B1C3BB" }} />
+                  style={{ height: responsiveWidth(8), width:responsiveWidth(8), tintColor: "#B1C3BB" }}  />
             </View>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => props.navigation.navigate("UserProfile")}>
@@ -162,7 +162,7 @@ const Profile = (props) => {
                 Profile
               </Text>
               <Image source={icons.profile}
-                style={{ height: responsiveWidth(12), width:responsiveWidth(12), tintColor: "#B1C3BB" }} />
+                style={{ height: responsiveWidth(8), width:responsiveWidth(8), tintColor: "#B1C3BB" }} />
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -178,7 +178,7 @@ const Profile = (props) => {
                 Setting
               </Text>
               <Image source={icons.setting}
-                style={{height: responsiveWidth(12), width:responsiveWidth(12), tintColor: "#B1C3BB" }} />
+                style={{height: responsiveWidth(8), width:responsiveWidth(8), tintColor: "#B1C3BB" }} />
             </View>
           </TouchableOpacity>
 
@@ -194,7 +194,7 @@ const Profile = (props) => {
                 Logout
               </Text>
               <Image source={icons.logout}
-                style={{ height: responsiveWidth(12), width:responsiveWidth(12), tintColor: "#B1C3BB" }} />
+                style={{ height: responsiveWidth(8), width:responsiveWidth(8), tintColor: "#B1C3BB" }} />
             </View>
           </TouchableOpacity>
           <SectionTitle title="SUPPORT" />
@@ -211,7 +211,7 @@ const Profile = (props) => {
                 Support portal
               </Text>
               <Image source={icons.customersupport}
-                style={{ height: responsiveWidth(12), width:responsiveWidth(12), tintColor: "#B1C3BB" }} />
+                style={{ height: responsiveWidth(8), width:responsiveWidth(8), tintColor: "#B1C3BB" }} />
             </View>
           </TouchableOpacity>
 
@@ -228,7 +228,7 @@ const Profile = (props) => {
                 Contact
               </Text>
               <Image source={icons.contect}
-                style={{height: responsiveWidth(12), width:responsiveWidth(12), tintColor: "#B1C3BB"  }} />
+                style={{height: responsiveWidth(8), width:responsiveWidth(8), tintColor: "#B1C3BB"  }} />
             </View>
           </TouchableOpacity>
 

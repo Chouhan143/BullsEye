@@ -66,7 +66,7 @@ const MainLayout = ({ children, selectedItem }) => {
 
   const modalY = modalAnimatedValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [height, height - 300],
+    outputRange: [height, height - 320],
   });
 
   function Test({ coinsData }) {
@@ -152,7 +152,7 @@ const MainLayout = ({ children, selectedItem }) => {
                 justifyContent: 'space-around',
                 borderTopRightRadius: responsiveWidth(2),
                 borderTopLeftRadius: responsiveWidth(2),
-                // paddingTop: 15,
+                paddingTop: responsiveHeight(-2)
               }}>
                 <BuySellButton
                   label="Buy"

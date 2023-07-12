@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import {
   View,
   useWindowDimensions,
@@ -27,126 +28,14 @@ import {
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 // import getLiveTrade from '../Src/redux/market/coinSlice';
-
+import ModalComponents from './ModalComponents';
 const {height, width} = Dimensions.get('window');
 
-function Test(props) {
-  const {qty, avg, percentage, stockName, invested, ltp, ltpPercentage} = props;
-  return (
-    <View
-      style={[
-        styles.searchEluation,
-        {
-          paddingVertical: 15,
-        },
-      ]}>
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          paddingHorizontal: 10,
-          justifyContent: 'space-between',
-        }}>
-        Portfolio
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            paddingHorizontal: 20,
-          }}>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <Text style={{color: 'gray'}}>Qty.</Text>
-            <Text style={{color: 'black'}}>{qty}</Text>
-          </View>
-
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              paddingHorizontal: 20,
-            }}>
-            <Text style={{color: 'gray'}}>Avg.</Text>
-            <Text style={{color: 'black'}}>{avg}</Text>
-          </View>
-        </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            paddingHorizontal: 20,
-          }}>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <Text style={{color: 'green'}}>{percentage}</Text>
-          </View>
-        </View>
-      </View>
-
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          padding: 10,
-          justifyContent: 'space-between',
-        }}>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            paddingHorizontal: 20,
-          }}>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <Text style={{color: 'black', fontWeight: '700'}}>{stockName}</Text>
-          </View>
-        </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            paddingHorizontal: 20,
-          }}>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <Text style={{color: 'green'}}>{ltpPercentage}</Text>
-          </View>
-        </View>
-      </View>
-
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          paddingHorizontal: 10,
-          justifyContent: 'space-between',
-        }}>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            paddingHorizontal: 20,
-          }}>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <Text style={{color: 'gray', paddingRight: 5}}>Invested</Text>
-            <Text style={{color: 'black'}}>{invested}</Text>
-          </View>
-        </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            paddingHorizontal: 20,
-          }}>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <Text style={{color: 'gray'}}>LTP </Text>
-            <Text style={{color: 'black'}}>{ltp}</Text>
-            <Text style={{color: 'red'}}> ({ltpPercentage})</Text>
-          </View>
-        </View>
-      </View>
-    </View>
-  );
-}
 
 const FirstRoute = () => {
   const navigation = useNavigation();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedTradeId, setSelectedTradeId] = useState('');
   const isTradeModalVisible = useSelector(selectIsTradeModalVisible);
   const dispatch = useDispatch();
   const liveTradedata = useSelector(state => state.coin.liveTradedata);
@@ -194,7 +83,46 @@ const squreOffhandle = (tradeId) => {
   SquareOff(tradeId);
 };
 
-  
+
+
+
+
+const toggleModal = (tradeId) => {
+  setIsModalVisible(!isModalVisible);
+  setSelectedTradeId(tradeId);
+};
+
+const onSaveEdit = async (tradeId, editedValues) => {
+  try {
+    console.log('trad', tradeId);
+    const token = await AsyncStorage.getItem('accessToken');
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const payload = {
+      stop_loss: editedValues.txtEditStopLoss,
+      target: editedValues.txtEditTarget,
+    };
+
+    const response = await axios.put(
+      `https://scripts.bulleyetrade.com/api/trades/${tradeId}`,
+      payload,
+      config,
+    );
+
+    console.log('past Trade', response);
+
+    // Perform any necessary actions or state updates after the API call is successful
+
+  } catch (error) {
+    console.log('error', error);
+  }
+
+  toggleModal(); // Close the modal
+};
 
  
 
@@ -309,7 +237,7 @@ const squreOffhandle = (tradeId) => {
               {
                 width: responsiveWidth(15),
               },
-            ]}>
+            ]} onPress={() => toggleModal(item.id)}>
             <Text
               style={{
                 color: '#fff',
@@ -335,8 +263,14 @@ const squreOffhandle = (tradeId) => {
             renderItem={renderItemLiveTradeUi}
             keyExtractor={item => item.id}
           />
+
+   
+
         </View>
       </View>
+      {isModalVisible && (
+        <ModalComponents tradeId={selectedTradeId} onSave={onSaveEdit} liveTradedata ={liveTradedata } />
+      )}
     </View>
     // </MainLayout>
   );

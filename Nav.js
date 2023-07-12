@@ -19,6 +19,7 @@ import Mobile from './Src/BuySrceens/Mobile';
 import Mobile2 from './Src/BuySrceens/Mobile2';
 import Document from './Src/BuySrceens/Document';
 import EmailVerification from './Src/BuySrceens/EmailVarification';
+import { COLORS } from './constants';
 const Stack = createStackNavigator();
 
 const Nav = () => {
@@ -59,6 +60,7 @@ const Nav = () => {
         <Stack.Screen
           options={{
             headerShown: true,
+            headerStyle: { backgroundColor: COLORS.bgColor },
           }}
           name="Funds"
           component={Funds}
