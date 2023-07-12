@@ -23,6 +23,8 @@ import {useRoute} from '@react-navigation/native';
 import {COLORS} from '../../constants';
 import {postData} from '../../constants/hooks/ApiHelper';
 import Toast from 'react-native-toast-message';
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions"
+
 import {
   incrementCounter,
   decrementCounter,
@@ -233,7 +235,7 @@ const SellScreen = () => {
               display: 'flex',
               justifyContent: 'space-between',
               flexDirection: 'row',
-              paddingHorizontal: 15,
+              paddingHorizontal: responsiveWidth(3),
               backgroundColor: COLORS.bgColor,
               paddingVertical: 15,
             }}>
@@ -284,8 +286,8 @@ const SellScreen = () => {
             }}>
             <View
               style={{
-                paddingVertical: 10,
-                width: 150,
+                paddingVertical:responsiveHeight(1),
+                width: responsiveWidth(42),
                 justifyContent: 'center',
                 display: 'flex',
                 alignSelf: 'center',
@@ -304,7 +306,7 @@ const SellScreen = () => {
                       name="minuscircleo"
                       size={20}
                       color="#000"
-                      style={{marginRight: 5}}
+                      style={{marginRight: responsiveWidth(5)}}
                     />
                   </TouchableOpacity>
                   <TextInput
@@ -325,7 +327,7 @@ const SellScreen = () => {
                       name="pluscircleo"
                       size={20}
                       color="#000"
-                      style={{marginRight: 5}}
+                      style={{marginRight: responsiveWidth(1)}}
                     />
                   </TouchableOpacity>
                 </View>
@@ -334,13 +336,13 @@ const SellScreen = () => {
 
             <View
               style={{
-                paddingVertical: 10,
-                width: 150,
+                paddingVertical:responsiveHeight(1),
+                width: responsiveWidth(42),
                 justifyContent: 'center',
                 display: 'flex',
                 alignSelf: 'center',
               }}>
-              <Text style={{color: '#000'}}>Buying Price</Text>
+              <Text style={{color: '#000'}}>Selling Price</Text>
               <View
                 style={[
                   styles.inputWrapper,
@@ -365,7 +367,7 @@ const SellScreen = () => {
             </View>
           </View>
           <View style={styles.separator}></View>
-          <View style={[styles.sectionHeader, {marginTop: 15}]}>
+          <View style={[styles.sectionHeader, {marginTop: responsiveHeight(1)}]}>
             <Text style={styles.sectionHeaderText}>Order Type</Text>
           </View>
           <View style={styles.buttonContainer}>
@@ -381,7 +383,7 @@ const SellScreen = () => {
               justifyContent: 'space-between',
               flexDirection: 'row',
               alignItems: 'center',
-              paddingHorizontal: 10,
+              paddingHorizontal: responsiveWidth(3),
             }}>
             <View>
               <Text style={[styles.sectionHeaderText, {display: 'flex'}]}>
@@ -405,15 +407,15 @@ const SellScreen = () => {
               display: 'flex',
               justifyContent: 'space-between',
               flexDirection: 'row',
-              marginHorizontal: 15,
-              marginTop: 15,
+              marginHorizontal: responsiveWidth(4),
+              marginTop: responsiveHeight(3),
             }}>
             <View style={{display: 'flex', justifyContent: 'center'}}>
-              <Text style={{color: '#000', fontSize: 16}}>Stop Loss</Text>
+              <Text style={{color: '#000', fontSize: responsiveFontSize(2.3)}}>Stop Loss</Text>
               <View
                 style={{
-                  paddingVertical: 10,
-                  width: 150,
+                  paddingVertical: responsiveHeight(1),
+                  width: responsiveWidth(42),
                   justifyContent: 'center',
                   display: 'flex',
                   alignSelf: 'center',
@@ -425,7 +427,7 @@ const SellScreen = () => {
                   ]}>
                   <View style={styles.inputContainer}>
                     <TextInput
-                      style={{fontSize: 16, fontWeight: '500'}}
+                      style={{fontSize: responsiveFontSize(2.3), fontWeight: '500'}}
                       placeholder="Enter stop loss"
                       value={stop_loss}
                       onChangeText={value =>
@@ -438,11 +440,11 @@ const SellScreen = () => {
             </View>
 
             <View style={{display: 'flex', justifyContent: 'center'}}>
-              <Text style={{color: '#000', fontSize: 16}}>Target</Text>
+              <Text style={{color: '#000', fontSize: responsiveFontSize(2.3)}}>Target</Text>
               <View
                 style={{
-                  paddingVertical: 10,
-                  width: 150,
+                  paddingVertical: responsiveHeight(1),
+                  width: responsiveWidth(42),
                   justifyContent: 'center',
                   display: 'flex',
                   alignSelf: 'center',
@@ -475,17 +477,17 @@ const SellScreen = () => {
           <View style={[styles.textInput]}>
             <Text
               style={{
-                fontSize: 16,
+                fontSize: responsiveFontSize(2.3),
                 fontWeight: '600',
                 color: COLORS.secondary,
-                marginBottom: 15,
+                marginBottom: responsiveHeight(2),
               }}>
               Wallet Pin
             </Text>
             <TextInput
               style={[
                 styles.inputContainer,
-                {color: 'gray', paddingHorizontal: 60, borderRadius: 15},
+                {color: 'gray', paddingHorizontal: responsiveWidth(10), borderRadius:  responsiveWidth(3)},
               ]}
               placeholderTextColor={'#000'}
               secureTextEntry
@@ -498,14 +500,14 @@ const SellScreen = () => {
           <TouchableOpacity
             style={{
               backgroundColor: 'red',
-              width: width - 30,
-              height: 50,
+              width: responsiveWidth(90),
+              height: responsiveWidth(15),
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               alignSelf: 'center',
-              borderRadius: 30,
-              marginTop: height / 3 - 180,
+              borderRadius: responsiveWidth(5),
+              marginTop: responsiveHeight(3),
             }}
             onPress={BuyKnow}>
             <Text style={{color: '#ffff'}}>Sell</Text>
@@ -526,14 +528,14 @@ const styles = StyleSheet.create({
 
   intradayBox: {
     backgroundColor: '#112A46',
-    width: 80,
-    paddingVertical: 10,
-    marginLeft: 10,
-    marginVertical: 10,
+    width: responsiveWidth(20),
+    paddingVertical:  responsiveHeight(1),
+    marginLeft: responsiveWidth(3),
+    marginVertical: responsiveHeight(1),
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
+    borderRadius:  responsiveWidth(1),
   },
   inputWrapper: {
     borderColor: '#BBC7CF',
@@ -565,7 +567,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   sectionHeaderText: {
-    fontSize: 16,
+    fontSize: responsiveFontSize(2.5),
     fontWeight: '600',
     color: '#000',
   },

@@ -1,9 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, TextInput} from 'react-native';
-
-
-
-
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions"
 
 const InputField = ({
   label,
@@ -14,16 +11,17 @@ const InputField = ({
   keyboardType,
   fieldButtonLabel,
   fieldButtonFunction,
+  
 }) => (
   <View
     style={{
       flexDirection: 'row',
       borderBottomColor: '#ccc',
       borderBottomWidth: 1,
-      paddingBottom: 8,
-      marginBottom: 25,
+      paddingBottom: responsiveHeight(2),
+      marginBottom: responsiveHeight(3),
     }}>
-    {icon && <View style={{marginRight: 5}}>{icon}</View>}
+    {icon && <View style={{marginRight: responsiveWidth(2)}}>{icon}</View>}
     {inputType === 'password' ? (
       <TextInput
         placeholder={label}
@@ -42,6 +40,7 @@ const InputField = ({
         placeholderTextColor="gray"
         value={value}
         onChangeText={onChangeText}
+        autoCapitalize=''
       />
     )}
     {fieldButtonLabel && fieldButtonFunction && (
