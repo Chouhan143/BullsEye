@@ -25,10 +25,10 @@ const renderItem = ({ item, onPress }) => {
         ]}
       ></View>
       <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 3 }}>
-        <Text style={{ color: COLORS.textColor, fontSize: 14, fontWeight: '500' }}>{item.trade_name}</Text>
-        <Text style={{ color: COLORS.textColor, fontSize: 11 }}>{item.expiry_date}</Text>
-        <Text style={{ color: COLORS.textColor, fontSize: 11, fontWeight: '500' }}>{item.price}</Text>
-        <Text style={{ color: item.percent_chg < 1 ? 'red' : 'green', fontSize: 11 }}>{item.percent_chg}%</Text>
+        <Text style={{ color: COLORS.textColor, fontSize: responsiveFontSize(1.8), fontWeight: '500' }}>{item.trade_name}</Text>
+        <Text style={{ color: COLORS.textColor, fontSize: responsiveFontSize(1.5) }}>{item.expiry_date}</Text>
+        <Text style={{ color: COLORS.textColor, fontSize: responsiveFontSize(1.4), fontWeight: '500' }}>{item.price}</Text>
+        <Text style={{ color: item.percent_chg < 1 ? 'red' : 'green', fontSize: responsiveFontSize(1.4) }}>{item.percent_chg}%</Text>
       </View>
     </TouchableOpacity>
   );
@@ -68,7 +68,7 @@ const Home = () => {
           ]}
         >
           <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row', paddingHorizontal: 10 }}>
-            <Text style={{ color: COLORS.textColor, fontWeight: '600', fontSize: 15 }}>Trade on Commodity</Text>
+            <Text style={{ color: COLORS.textColor, fontWeight: '600', fontSize: responsiveFontSize(2) }}>Trade on Commodity</Text>
           </View>
         </View>
         <View style={{ marginTop: 15,alignSelf:'center',display:'flex',justifyContent:'center' }}>
@@ -99,8 +99,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   sideLine: {
-    width: 3,
-    height: 40,
+    width: responsiveWidth(0.7),
+    height: responsiveWidth(10),
     position: 'absolute',
     left: 0,
     borderRadius: 10,

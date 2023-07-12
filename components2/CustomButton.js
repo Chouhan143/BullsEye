@@ -9,7 +9,7 @@ const CustomButton = ({ label, onPress }) => (
   onPress={() => onPress()}
     style={{
       backgroundColor: "blue",
-      padding: responsiveWidth(5),
+      padding: responsiveWidth(3.5),
       borderRadius: responsiveWidth(2),
       marginBottom: responsiveHeight(2),
     }}>

@@ -13,6 +13,8 @@ import {
   initWatchlistData
 } from '../Src/redux/market/coinSlice';
 import {COLORS} from '../constants';
+import{ responsiveFontSize,responsiveHeight,responsiveWidth} from "react-native-responsive-dimensions"
+
 
 const Watchlist2 = () => {
   const navigation = useNavigation();
@@ -52,12 +54,12 @@ const Watchlist2 = () => {
     return (
       <TouchableOpacity
         style={{
-          width: '100%',
-          height: 60,
+          width:responsiveWidth(100) ,
+          height: responsiveWidth(20),
           backgroundColor: COLORS.bgColor,
           marginVertical: 1,
           justifyContent: 'center',
-          paddingHorizontal: 20,
+          paddingHorizontal: responsiveWidth(3),
         }}>
         <View style={styles.topMiddle}>
           <View>
@@ -86,12 +88,12 @@ const Watchlist2 = () => {
         <TouchableOpacity
           style={styles.searchInputContainer}
           onPress={navigationHandle}>
-          <Icon2 name="search" size={18} color="#fff" />
-          <Text style={styles.searchInput}>Search</Text>
+          <Icon2 name="search" size={responsiveFontSize(2.5)} color="#fff" />
+          <Text style={[styles.searchInput,{fontSize:responsiveFontSize(2.1)}]}>Search</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
           <View style={styles.profileIconContainer}>
-            <Icon3 name="user" size={25} color="#000" />
+            <Icon3 name="user" size={responsiveFontSize(4)} color="#000" />
           </View>
         </TouchableOpacity>
       </View>
@@ -101,7 +103,7 @@ const Watchlist2 = () => {
             <Text style={styles.topText1}>Stock Name</Text>
           </View>
           <View style={styles.topLast}>
-            <Text style={[styles.topText1, { paddingRight: 20 }]}>Price</Text>
+            <Text style={[styles.topText1,]}>Price</Text>
             <Text style={styles.topText1}>Change / Vol</Text>
           </View>
           <View style={styles.topLast}>
@@ -119,12 +121,12 @@ const Watchlist2 = () => {
         />
       ) : (
         <View style={styles.noItemsContainer}>
-          <Text style={{color:'#000'}}>No items in watchlist</Text>
+          <Text style={{color:'#000',fontSize:responsiveFontSize(2.5)}}>No items in watchlist</Text>
         </View>
       )}
    
       <TouchableOpacity style={styles.addBox} onPress={navigationHandle}>
-        <Icon name="plus" size={25} color="#fff" />
+        <Icon name="plus" size={responsiveFontSize(2.5)} color="#fff" />
       </TouchableOpacity>
     </View>
   );
@@ -141,38 +143,38 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 15,
-    marginHorizontal:20
+    marginVertical: responsiveHeight(2),
+    marginHorizontal:responsiveWidth(5)
   },
   searchInputContainer: {
-    width: 220,
-    height: 35,
+    width: responsiveWidth(55),
+    height: responsiveWidth(10),
     backgroundColor: COLORS.bgColor,
-    borderRadius: 5,
+    borderRadius: responsiveWidth(1),
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 10,
+    paddingLeft: responsiveWidth(3),
   },
   addBox: {
     position: 'absolute',
-    bottom: 20,
-    right: 20,
-    width: 40,
-    height: 40,
+    bottom: responsiveHeight(5),
+    right: responsiveWidth(5),
+    width: responsiveWidth(12),
+    height: responsiveWidth(12),
     backgroundColor: '#1A6164',
-    borderRadius: 5,
+    borderRadius: responsiveWidth(2),
     justifyContent: 'center',
     alignItems: 'center',
   },
   searchInput: {
     flex: 1,
-    paddingLeft: 10,
+    paddingLeft: responsiveWidth(3),
     color: COLORS.white,
   },
   profileIconContainer: {
-    width: 35,
-    height: 35,
-    borderRadius: 17,
+    width: responsiveWidth(11),
+    height: responsiveWidth(11),
+    borderRadius: responsiveWidth(5),
     backgroundColor: COLORS.bgColor,
     justifyContent: 'center',
     alignItems: 'center',
@@ -198,12 +200,12 @@ const styles = StyleSheet.create({
   },
 
   topContainer: {
-    width: '100%',
-    height: 40,
+    width: responsiveWidth(100),
+    height: responsiveWidth(10),
     backgroundColor: '#6799CE',
     justifyContent: 'center',
     alignSelf: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: responsiveWidth(5),
   },
   topMiddle: {
     display: 'flex',
@@ -220,8 +222,9 @@ const styles = StyleSheet.create({
   },
   topText1: {
     color: COLORS.textColor,
-    fontSize: 12,
+    fontSize: responsiveWidth(3.5),
     fontWeight: '500',
+    paddingRight: responsiveWidth(5),
   },
   topText: {
     color: COLORS.textColor,

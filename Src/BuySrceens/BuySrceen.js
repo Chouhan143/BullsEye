@@ -28,7 +28,11 @@ import {
   decrementCounter,
 } from '../../Src/redux/market/coinSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { responsiveFontSize, responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions"
+import {
+  responsiveFontSize,
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
 
 import axios from 'axios';
 // import SwitchToggle from "react-native-switch-toggle";
@@ -151,7 +155,11 @@ const BuyScreen = () => {
       underlayColor={selectedButton === buttonId ? 'green' : buttonColor}
       onPress={() => handleButtonPress(buttonId)}>
       <View>
-        <Text style={{color: selectedButton === buttonId ? 'white' : 'white'}}>
+        <Text
+          style={{
+            color: selectedButton === buttonId ? 'white' : 'white',
+            fontSize: responsiveFontSize(2),
+          }}>
           {title}
         </Text>
       </View>
@@ -218,7 +226,6 @@ const BuyScreen = () => {
             text2: 'Please enter valid wallet pin',
           });
           console.log('res 422', res);
-       
         }
     } catch (error) {
       console.error('dsfds', error);
@@ -243,12 +250,17 @@ const BuyScreen = () => {
               <TouchableOpacity onPress={goBack}>
                 <AntDesign
                   name="arrowleft"
-                  size={20}
+                  size={responsiveFontSize(3)}
                   color="#000"
-                  style={{marginRight: 5}}
+                  style={{marginRight: responsiveWidth(2)}}
                 />
               </TouchableOpacity>
-              <Text style={{color: '#000', fontWeight: '700', fontSize: 15}}>
+              <Text
+                style={{
+                  color: '#000',
+                  fontWeight: '700',
+                  fontSize: responsiveFontSize(2),
+                }}>
                 {selectedItem ? selectedItem.trade_name : ''}
               </Text>
             </View>
@@ -261,11 +273,17 @@ const BuyScreen = () => {
               }}>
               <FontAwesome
                 name="inr"
-                size={15}
+                size={responsiveFontSize(2.5)}
                 color="#000"
-                style={{marginRight: 5}}
+                style={{marginRight: responsiveWidth(2)}}
               />
-              <Text style={{color: '#000', fontWeight: '700', marginRight: 5}}>
+              <Text
+                style={{
+                  color: '#000',
+                  fontWeight: '700',
+                  marginRight: responsiveWidth(2),
+                  fontSize: responsiveFontSize(2),
+                }}>
                 {selectedItem ? selectedItem.price : ''}
               </Text>
             </View>
@@ -273,7 +291,9 @@ const BuyScreen = () => {
           {/* intraday part ........... */}
 
           <View style={styles.intradayBox}>
-            <Text style={{color: '#fff'}}>Intraday</Text>
+            <Text style={{color: '#fff', fontSize: responsiveFontSize(2)}}>
+              Intraday
+            </Text>
           </View>
 
           {/* Buying price & lots .............. */}
@@ -282,7 +302,7 @@ const BuyScreen = () => {
               display: 'flex',
               justifyContent: 'space-between',
               flexDirection: 'row',
-              marginHorizontal: 15,
+              marginHorizontal: responsiveWidth(4),
             }}>
             <View
               style={{
@@ -292,26 +312,31 @@ const BuyScreen = () => {
                 display: 'flex',
                 alignSelf: 'center',
               }}>
-              <Text style={{color: '#000'}}>Max Lot</Text>
+              <Text style={{color: '#000', fontSize: responsiveFontSize(1.8)}}>
+                Max Lot
+              </Text>
               <View
                 onPressIn={handlePressIn}
                 onPressOut={handlePressOut}
                 style={[
-                  styles.inputWrapper,
+                  styles.inputWrrapper,
                   {borderColor: isPressed ? '#BBC7CF' : COLORS.TopBox},
                 ]}>
                 <View style={styles.inputContainer}>
                   <TouchableOpacity onPress={handleDecrement}>
                     <AntDesign
                       name="minuscircleo"
-                      size={20}
+                      size={responsiveFontSize(2.5)}
                       color="#000"
                       style={{marginRight: responsiveWidth(5)}}
                     />
                   </TouchableOpacity>
                   <TextInput
                     style={[
-                      [styles.textInput, {flex: 1 / 2, paddingHorizontal: responsiveWidth(3)}],
+                      [
+                        styles.textInput,
+                        {flex: 1 / 2, paddingHorizontal: responsiveWidth(3)},
+                      ],
                     ]}
                     value={counter.toString()} // Convert the counter value to a string before passing it to the text input
                     onChangeText={value =>
@@ -325,7 +350,7 @@ const BuyScreen = () => {
                   <TouchableOpacity onPress={handleIncrement}>
                     <AntDesign
                       name="pluscircleo"
-                      size={20}
+                      size={responsiveFontSize(2.5)}
                       color="#000"
                       style={{marginRight: responsiveWidth(1)}}
                     />
@@ -342,10 +367,12 @@ const BuyScreen = () => {
                 display: 'flex',
                 alignSelf: 'center',
               }}>
-              <Text style={{color: '#000'}}>Buying Price</Text>
+              <Text style={{color: '#000', fontSize: responsiveFontSize(1.8)}}>
+                Buying Price
+              </Text>
               <View
                 style={[
-                  styles.inputWrapper,
+                  styles.inputWrrapper,
                   {borderColor: isPressed ? 'red' : COLORS.TopBox},
                 ]}>
                 <View
@@ -367,7 +394,8 @@ const BuyScreen = () => {
             </View>
           </View>
           <View style={styles.separator}></View>
-          <View style={[styles.sectionHeader, {marginTop: responsiveHeight(1)}]}>
+          <View
+            style={[styles.sectionHeader, {marginTop: responsiveHeight(1)}]}>
             <Text style={styles.sectionHeaderText}>Order Type</Text>
           </View>
           <View style={styles.buttonContainer}>
@@ -411,7 +439,9 @@ const BuyScreen = () => {
               marginTop: responsiveHeight(3),
             }}>
             <View style={{display: 'flex', justifyContent: 'center'}}>
-              <Text style={{color: '#000', fontSize: responsiveFontSize(2.3)}}>Stop Loss</Text>
+              <Text style={{color: '#000', fontSize: responsiveFontSize(2.3)}}>
+                Stop Loss
+              </Text>
               <View
                 style={{
                   paddingVertical: responsiveHeight(1),
@@ -422,12 +452,15 @@ const BuyScreen = () => {
                 }}>
                 <View
                   style={[
-                    styles.inputWrapper,
+                    styles.inputWrrapper,
                     {borderColor: isPressed ? 'red' : COLORS.TopBox},
                   ]}>
                   <View style={styles.inputContainer}>
                     <TextInput
-                      style={{fontSize: responsiveFontSize(2.3), fontWeight: '500'}}
+                      style={{
+                        fontSize: responsiveFontSize(2.3),
+                        fontWeight: '500',
+                      }}
                       placeholder="Enter stop loss"
                       value={stop_loss}
                       onChangeText={value =>
@@ -440,7 +473,9 @@ const BuyScreen = () => {
             </View>
 
             <View style={{display: 'flex', justifyContent: 'center'}}>
-              <Text style={{color: '#000', fontSize: responsiveFontSize(2.3)}}>Target</Text>
+              <Text style={{color: '#000', fontSize: responsiveFontSize(2.3)}}>
+                Target
+              </Text>
               <View
                 style={{
                   paddingVertical: responsiveHeight(1),
@@ -453,12 +488,15 @@ const BuyScreen = () => {
                   onPressIn={handlePressIn}
                   onPressOut={handlePressOut}
                   style={[
-                    styles.inputWrapper,
+                    styles.inputWrrapper,
                     {borderColor: isPressed ? '#BBC7CF' : COLORS.TopBox},
                   ]}>
                   <View style={styles.inputContainer}>
                     <TextInput
-                      style={{fontSize: responsiveFontSize(2.3), fontWeight: '500'}}
+                      style={{
+                        fontSize: responsiveFontSize(2.3),
+                        fontWeight: '500',
+                      }}
                       placeholder="Enter target"
                       value={target}
                       onChangeText={value => handleInputChange('target', value)}
@@ -477,40 +515,51 @@ const BuyScreen = () => {
           <View style={[styles.textInput]}>
             <Text
               style={{
-                fontSize: responsiveFontSize(2.3),
+                fontSize: responsiveFontSize(2.5),
                 fontWeight: '600',
                 color: COLORS.secondary,
-                marginBottom: responsiveHeight(2)
+                marginBottom: responsiveHeight(1),
               }}>
               Wallet Pin
             </Text>
-            <TextInput
-              style={[
-                styles.inputContainer,
-                {color: 'gray', paddingHorizontal: responsiveWidth(10), borderRadius: responsiveWidth(3)},
-              ]}
-              placeholderTextColor={'#000'}
-              secureTextEntry
-              placeholder="Enter wallet PIN"
-              value={wallet_pin}
-              onChangeText={value => handleInputChange('wallet_pin', value)}
-            />
+            <View style={{alignItems:'center',justifyContent:"center",
+            marginHorizontal:responsiveWidth(2)}}>
+              <TextInput
+                style={[
+                  styles.inputContainer,
+                  {
+                    color: 'gray',
+                    paddingHorizontal: responsiveWidth(1),
+                    borderRadius: responsiveWidth(3),
+                    fontSize: responsiveFontSize(1.5),
+                    paddingVertical:responsiveHeight(1)
+                    // // paddingLeft: responsiveWidth(3),
+                  },
+                ]}
+                placeholderTextColor={'#000'}
+                secureTextEntry
+                placeholder="Enter wallet PIN"
+                value={wallet_pin}
+                onChangeText={value => handleInputChange('wallet_pin', value)}
+              />
+            </View>
           </View>
 
           <TouchableOpacity
             style={{
               backgroundColor: 'green',
               width: responsiveWidth(90),
-              height: responsiveWidth(15),
+              height: responsiveWidth(14),
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               alignSelf: 'center',
-              borderRadius: responsiveWidth(5),
+              borderRadius: responsiveWidth(3),
               marginTop: responsiveHeight(3),
+              marginBottom:responsiveHeight(2)
             }}
             onPress={BuyKnow}>
-            <Text style={{color: '#ffff'}}>Buy</Text>
+            <Text style={{color: '#ffff' ,fontSize:responsiveFontSize(2)}}>Buy</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -531,27 +580,27 @@ const styles = StyleSheet.create({
     width: responsiveWidth(20),
     paddingVertical: responsiveHeight(1),
     marginLeft: responsiveWidth(3),
-    marginVertical:responsiveHeight(1),
+    marginVertical: responsiveHeight(1),
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: responsiveWidth(1),
   },
-  inputWrapper: {
+  inputWrrapper: {
     borderColor: '#BBC7CF',
-    borderWidth: 1,
-    borderRadius: 3,
-    marginTop: 10,
+    borderWidth: 0.5,
+    borderRadius: responsiveWidth(1),
+    marginTop: responsiveHeight(2),
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 10,
+    paddingHorizontal: responsiveWidth(2),
     backgroundColor: '#bdd3ea',
   },
   textInput: {
-    fontSize: 18,
+    fontSize: responsiveFontSize(2.5),
     flex: 1,
     color: '#000',
     justifyContent: 'center',
@@ -560,11 +609,11 @@ const styles = StyleSheet.create({
   separator: {
     borderBottomColor: '#BBC7CF',
     borderBottomWidth: 0.5,
-    marginVertical: 15,
-    marginHorizontal: 10,
+    marginVertical: responsiveHeight(2),
+    marginHorizontal: responsiveWidth(2),
   },
   sectionHeader: {
-    marginLeft: 10,
+    marginLeft: responsiveWidth(3),
   },
   sectionHeaderText: {
     fontSize: responsiveFontSize(2.5),
@@ -573,14 +622,14 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginVertical: 15,
-    marginLeft: 10,
+    marginVertical: responsiveHeight(2),
+    marginLeft: responsiveWidth(5),
   },
   button: {
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 10,
-    marginRight: 10,
+    padding: responsiveHeight(1.8),
+    borderRadius: responsiveWidth(1),
+    marginBottom: responsiveHeight(1),
+    marginRight: responsiveWidth(5),
   },
   buyButton: {
     display: 'flex',

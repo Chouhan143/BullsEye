@@ -120,7 +120,7 @@ const LoginScreen = () => {
               icon={
                 <MaterialIcons
                   name="alternate-email"
-                  size={20}
+                  size={responsiveFontSize(3)}
                   color="#666"
                   style={{ marginRight: responsiveWidth(2) }}
                 />
@@ -129,7 +129,7 @@ const LoginScreen = () => {
               keyboardType="email-address"
             />
             {touched.email && errors.email && (
-              <Text style={{ color: 'red', marginBottom: responsiveHeight(5), paddingLeft: responsiveWidth(5), paddingBottom: responsiveHeight(1) }}>
+              <Text style={{ color: 'red', marginBottom: responsiveHeight(5), paddingLeft: responsiveWidth(5), paddingBottom: responsiveHeight(1),fontSize:responsiveFontSize(1.5) }}>
                 {errors.email}
               </Text>
             )}
@@ -143,17 +143,17 @@ const LoginScreen = () => {
               icon={
                 <Ionicons
                   name="ios-lock-closed-outline"
-                  size={20}
+                  size={responsiveFontSize(3)}
                   color="#666"
                   style={{ marginRight: responsiveWidth(2) }}
                 />
               }
               inputType="password"
-              fieldButtonLabel={'Forgot?'}
+              // fieldButtonLabel={'Forgot?'}
               fieldButtonFunction={() => { }}
             />
             {touched.password && errors.password && (
-              <Text style={{ color: 'red', marginBottom: responsiveHeight(5), paddingLeft: responsiveWidth(5), paddingBottom: responsiveHeight(1) }}>
+              <Text style={{ color: 'red', marginBottom: responsiveHeight(5), paddingLeft: responsiveWidth(5), paddingBottom: responsiveHeight(1),fontSize:responsiveFontSize(1.5) }}>
                 {errors.password}
               </Text>
             )}
@@ -161,9 +161,9 @@ const LoginScreen = () => {
             <CustomButton label={'Login'} onPress={handleSubmit} />
 
             <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: responsiveHeight(3) }}>
-              <Text style={{ color: COLORS.textColor }}>New to the app?</Text>
+              <Text style={{ color: COLORS.textColor,fontSize:responsiveFontSize(1.7) }}>New to the app?</Text>
               <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                <Text style={{ color: '#f6b248', fontWeight: '700' }}> Register</Text>
+                <Text style={{ color: '#f6b248', fontWeight: '700',fontSize:responsiveFontSize(1.7) }}> Register</Text>
               </TouchableOpacity>
             </View>
           </View>

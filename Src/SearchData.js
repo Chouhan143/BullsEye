@@ -20,7 +20,11 @@ import {COLORS} from '../constants';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchCoinData, addToWatchlist} from '../Src/redux/market/coinSlice';
-
+import {
+  responsiveFontSize,
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
 const SearchData = () => {
   // const dispatch = useDispatch();
   const addedItems = useSelector(state => state);
@@ -72,12 +76,12 @@ const SearchData = () => {
     return (
       <TouchableOpacity
         style={{
-          width: '100%',
-          height: 60,
+          width: responsiveWidth(100),
+          height: responsiveWidth(18),
           backgroundColor: COLORS.bgColor,
-          marginVertical: 1,
+          marginVertical: responsiveHeight(0.2),
           justifyContent: 'center',
-          paddingHorizontal: 20,
+          paddingHorizontal: responsiveWidth(5),
         }}>
         <View
           style={{
@@ -95,22 +99,22 @@ const SearchData = () => {
             }}>
             <View
               style={{
-                width: 35,
-                height: 35,
+                width: responsiveWidth(10),
+                height: responsiveWidth(10),
                 backgroundColor: COLORS.BottomTab,
                 justifyContent: 'center',
                 alignItems: 'center',
-                borderRadius: 2,
-                marginRight: 10,
+                borderRadius: responsiveWidth(1),
+                marginRight: responsiveWidth(3),
               }}>
-              <Text style={{color: COLORS.white}}>
+              <Text style={{color: COLORS.white,fontSize:responsiveFontSize(2)}}>
                 {item.trade_name.charAt(0)}
               </Text>
             </View>
             <Text
               style={{
                 color: COLORS.textColor,
-                fontSize: 12,
+                fontSize: responsiveFontSize(1.8),
                 fontWeight: '400',
               }}>
               {item.trade_name}
@@ -126,23 +130,23 @@ const SearchData = () => {
             }}>
             <Text
               style={{
-                paddingRight: 40,
+                paddingRight: responsiveWidth(10),
                 color: COLORS.textColor,
-                fontSize: 12,
+                fontSize: responsiveFontSize(1.8),
                 fontWeight: '400',
               }}>
               {item.price}
             </Text>
             <TouchableOpacity>
-              <Icon5 name="shopping-bag" size={20} color="#1B1A1A" />
+              <Icon5 name="shopping-bag" size={responsiveFontSize(2.6)} color="#1B1A1A" />
             </TouchableOpacity>
             <TouchableOpacity
-              style={{paddingLeft: 10}}
+              style={{paddingLeft: responsiveWidth(5)}}
               onPress={() => handleAddToWatchlist(item)}>
               {isAddedToWatchlist ? (
-                <Icon4 name="favorite" size={20} color="green" />
+                <Icon4 name="favorite" size={responsiveFontSize(2.6)} color="green" />
               ) : (
-                <Icon4 name="favorite" size={20} color="#1B1A1A" />
+                <Icon4 name="favorite" size={responsiveFontSize(2.6)} color="#1B1A1A" />
               )}
             </TouchableOpacity>
           </View>
@@ -155,19 +159,20 @@ const SearchData = () => {
     <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
       <View style={styles.searchContainer}>
         <TouchableOpacity onPress={() => navigation.navigate('Watchlist2')}>
-          <Icon name="arrowleft" size={25} color="#000" />
+          <Icon name="arrowleft" size={responsiveFontSize(3)} color="#000" />
         </TouchableOpacity>
 
         <View style={styles.searchInputContainer}>
-          <Icon2 name="search" size={18} color="#000" />
+          <Icon2 name="search" size={responsiveFontSize(2.6)} color="#000" />
           <TextInput
             ref={searchRef}
             style={{
-              paddingLeft: 15,
-              paddingRight: 30,
+              paddingLeft: responsiveWidth(4),
+              // paddingRight: responsiveWidth(5),
               width: '100%',
               alignSelf: 'center',
               color: '#000',
+              fontSize:responsiveFontSize(1.8)
             }}
             placeholder="Search"
             placeholderTextColor="#000"
@@ -178,34 +183,34 @@ const SearchData = () => {
         </View>
         <TouchableOpacity
           style={{
-            width: 35,
-            height: 35,
-            borderRadius: 17,
+            width: responsiveWidth(10),
+            height: responsiveWidth(10),
+            borderRadius: responsiveWidth(2),
             backgroundColor: COLORS.bgColor,
             justifyContent: 'center',
             alignItems: 'center',
           }}
           onPress={openModal}>
-          <Icon3 name="filter" size={25} color="#000" />
+          <Icon3 name="filter" size={responsiveFontSize(2.5)} color="#000" />
         </TouchableOpacity>
       </View>
       <View
         style={{
-          marginHorizontal: 10,
-          marginVertical: 10,
-          width: 110,
-          height: 30,
+          marginHorizontal: responsiveWidth(2),
+          marginVertical: responsiveHeight(1),
+          width: responsiveWidth(30),
+          height: responsiveWidth(10),
           backgroundColor: COLORS.bgColor,
           alignItems: 'flex-start',
           justifyContent: 'center',
-          borderRadius: 5,
+          borderRadius: responsiveWidth(1),
         }}>
         <Text
           style={{
             color: COLORS.BottomTab,
             fontWeight: '700',
-            fontSize: 14,
-            paddingLeft: 5,
+            fontSize: responsiveFontSize(2),
+            paddingLeft:responsiveWidth(2),
           }}>
           Commodity
         </Text>
@@ -277,25 +282,25 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     flexDirection: 'row',
-    marginVertical: 10,
+    marginVertical: responsiveHeight(1),
   },
   searchInputContainer: {
-    width: 220,
-    height: 35,
+    width: responsiveWidth(60),
+    height: responsiveWidth(10),
     backgroundColor: COLORS.bgColor,
-    borderRadius: 5,
+    borderRadius: responsiveWidth(1),
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'flex-start',
-    paddingLeft: 10,
+    paddingLeft: responsiveWidth(3),
   },
   topContainer: {
-    width: '100%',
-    height: 40,
+    width: responsiveWidth(100),
+    height: responsiveWidth(10),
     backgroundColor: '#6799CE',
     justifyContent: 'center',
     alignSelf: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal:responsiveWidth(5),
   },
   topMiddle: {
     display: 'flex',
@@ -312,12 +317,12 @@ const styles = StyleSheet.create({
   },
   topText1: {
     color: COLORS.textColor,
-    fontSize: 12,
+    fontSize: responsiveFontSize(1.8),
     fontWeight: '500',
   },
   topText: {
     color: COLORS.textColor,
-    fontSize: 12,
+    fontSize: responsiveFontSize(2),
     fontWeight: '500',
   },
   modalContainer: {
