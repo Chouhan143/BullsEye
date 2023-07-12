@@ -1,21 +1,23 @@
 import { Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { COLORS } from '../constants';
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions"
+
 
 const CustomButton = ({ label, onPress }) => (
   <TouchableOpacity
-    onPress={onPress}
+  onPress={() => onPress()}
     style={{
       backgroundColor: "blue",
-      padding: 20,
-      borderRadius: 10,
-      marginBottom: 20,
+      padding: responsiveWidth(5),
+      borderRadius: responsiveWidth(2),
+      marginBottom: responsiveHeight(2),
     }}>
     <Text
       style={{
         textAlign: 'center',
         fontWeight: '700',
-        fontSize: 16,
+        fontSize: responsiveFontSize(2.5),
         color: '#fff',
       }}>
       {label}

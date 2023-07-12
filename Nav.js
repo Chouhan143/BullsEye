@@ -41,7 +41,7 @@ const Nav = () => {
           name="Login"
           component={LoginScreen}
           options={{
-            title: 'Login',
+            
           }}
         />
         <Stack.Screen
@@ -99,7 +99,7 @@ const Nav = () => {
 
         />
         <Stack.Screen
-          options={{ title: 'Email2', headerShown: true }}
+          options={{ title: 'Email2', headerShown: false }}
           name="Email2"
           component={Email2}
         />
