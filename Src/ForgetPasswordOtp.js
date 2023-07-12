@@ -31,7 +31,7 @@ const ForgetPasswordOtp = () => {
 
 
                     <TouchableOpacity
-    onPress={()=>navigation.navigate('ForgotPasswordSet')}
+                        onPress={() => navigation.navigate('ForgotPasswordSet')}
                         style={{
                             backgroundColor: COLORS.TopBox,
                             padding: responsiveWidth(3),

@@ -73,12 +73,23 @@ const SellScreen = () => {
   } = buyInputeFeild;
 
   const handleInputChange = (name, value) => {
-    setBuyInputeFeild(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
+    if (!isEnabled) {
+      // If the toggle button is not enabled, set stop_loss and target to 0
+      setBuyInputeFeild(prevState => ({
+        ...prevState,
+        [name]: value,
+        stop_loss: '0',
+        target: '0',
+      }));
+    } else {
+      // If the toggle button is enabled, set the values based on the input
+      setBuyInputeFeild(prevState => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
-
+  
   const handleIncrement = () => {
     dispatch(incrementCounter());
   };
@@ -401,7 +412,7 @@ const SellScreen = () => {
               />
             </View>
           </View>
-          {/* {!isEnabled && ( */}
+          {isEnabled && (
           <View
             style={{
               display: 'flex',
@@ -427,8 +438,10 @@ const SellScreen = () => {
                   ]}>
                   <View style={styles.inputContainer}>
                     <TextInput
-                      style={{fontSize: responsiveFontSize(2.3), fontWeight: '500'}}
+                      style={{fontSize: responsiveFontSize(2), fontWeight: '400',color:'#000'}}
                       placeholder="Enter stop loss"
+                      placeholderTextColor={COLORS.gray1}
+                      keyboardType='numeric'
                       value={stop_loss}
                       onChangeText={value =>
                         handleInputChange('stop_loss', value)
@@ -458,8 +471,10 @@ const SellScreen = () => {
                   ]}>
                   <View style={styles.inputContainer}>
                     <TextInput
-                      style={{fontSize: 16, fontWeight: '500'}}
+                      style={{ fontSize: responsiveFontSize(2), fontWeight: '400',color:'#000'}}
                       placeholder="Enter target"
+                      keyboardType='numeric'
+                      placeholderTextColor={COLORS.gray1}
                       value={target}
                       onChangeText={value => handleInputChange('target', value)}
                     />
@@ -468,7 +483,7 @@ const SellScreen = () => {
               </View>
             </View>
           </View>
-          {/* )} */}
+           )} 
 
           <View style={styles.separator}></View>
 

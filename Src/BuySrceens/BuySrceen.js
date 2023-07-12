@@ -77,11 +77,23 @@ const BuyScreen = () => {
   } = buyInputeFeild;
 
   const handleInputChange = (name, value) => {
-    setBuyInputeFeild(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
+    if (!isEnabled) {
+      // If the toggle button is not enabled, set stop_loss and target to 0
+      setBuyInputeFeild(prevState => ({
+        ...prevState,
+        [name]: value,
+        stop_loss: '0',
+        target: '0',
+      }));
+    } else {
+      // If the toggle button is enabled, set the values based on the input
+      setBuyInputeFeild(prevState => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
+  
 
   const handleIncrement = () => {
     dispatch(incrementCounter());
@@ -429,7 +441,7 @@ const BuyScreen = () => {
               />
             </View>
           </View>
-          {/* {!isEnabled && ( */}
+          {isEnabled && (
           <View
             style={{
               display: 'flex',
@@ -458,10 +470,13 @@ const BuyScreen = () => {
                   <View style={styles.inputContainer}>
                     <TextInput
                       style={{
-                        fontSize: responsiveFontSize(2.3),
-                        fontWeight: '500',
+                        fontSize: responsiveFontSize(2),
+                        fontWeight: '400',
+                        
                       }}
-                      placeholder="Enter stop loss"
+                      placeholder="Set stop loss"
+                      keyboardType='numeric'
+                      placeholderTextColor={COLORS.gray1}
                       value={stop_loss}
                       onChangeText={value =>
                         handleInputChange('stop_loss', value)
@@ -494,10 +509,11 @@ const BuyScreen = () => {
                   <View style={styles.inputContainer}>
                     <TextInput
                       style={{
-                        fontSize: responsiveFontSize(2.3),
-                        fontWeight: '500',
+                        fontSize: responsiveFontSize(2),
+                        fontWeight: '400',
                       }}
                       placeholder="Enter target"
+                      placeholderTextColor={COLORS.gray1}
                       value={target}
                       onChangeText={value => handleInputChange('target', value)}
                     />
@@ -506,7 +522,7 @@ const BuyScreen = () => {
               </View>
             </View>
           </View>
-          {/* )} */}
+          )} 
 
           <View style={styles.separator}></View>
 
@@ -531,14 +547,16 @@ const BuyScreen = () => {
                     color: 'gray',
                     paddingHorizontal: responsiveWidth(1),
                     borderRadius: responsiveWidth(3),
-                    fontSize: responsiveFontSize(1.5),
-                    paddingVertical:responsiveHeight(1)
+                    fontSize: responsiveFontSize(1.9),
+                    paddingVertical:responsiveHeight(1),
+                    paddingHorizontal:responsiveWidth(6)
                     // // paddingLeft: responsiveWidth(3),
                   },
                 ]}
                 placeholderTextColor={'#000'}
                 secureTextEntry
-                placeholder="Enter wallet PIN"
+                keyboardType='numeric'
+                placeholder="Wallet PIN"
                 value={wallet_pin}
                 onChangeText={value => handleInputChange('wallet_pin', value)}
               />

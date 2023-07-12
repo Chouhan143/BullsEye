@@ -73,18 +73,12 @@ const MainLayout = ({children, selectedItem}) => {
 
   const modalY = modalAnimatedValue.interpolate({
     inputRange: [0, 1],
-<<<<<<< HEAD
 
-    outputRange: [height, height - 320],
-
-    outputRange: [height, height -320],
-
-=======
     outputRange: [
       responsiveHeight(100),
       responsiveHeight(100) - responsiveHeight(48),
     ],
->>>>>>> cb74c92a9fd1170e98608476a5fa0f53e6300f7a
+
   });
 
   function Test({coinsData}) {
