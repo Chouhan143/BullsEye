@@ -183,7 +183,7 @@ const Profile = (props) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => props.navigation.navigate(HandleLogout())}>
+            onPress={() => props.navigation.navigate("Login")}>
             <View style={{
               flex: 1, justifyContent: 'space-between',
               flexDirection: "row", marginTop: responsiveHeight(2),

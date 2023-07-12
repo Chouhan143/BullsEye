@@ -1,11 +1,42 @@
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
-import React from 'react'
+import React,{useEffect,useState } from 'react'
 import { SIZES, COLORS, icons, } from '../../constants';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // all pages responsive
 
 const UserProfile = (onPress) => {
+    const [email, setEmail] = useState('');
+    const [mobile, setMobile] = useState('');
+    const [fName, setFname] = useState('');
+    const [lName, setlname] = useState('');
+
+    const getStoredData = async () => {
+        try {
+          const storedEmail  = await AsyncStorage.getItem('email');
+          setEmail(storedEmail || '');
+          const storeMobile = await AsyncStorage.getItem('mobile');
+          setMobile(storeMobile || '');
+
+          const first_name = await AsyncStorage.getItem('first_name');
+          setFname(first_name || '')
+
+          const last_name = await AsyncStorage.getItem('last_name');
+          setlname(last_name || '')
+          
+          // Do something with the retrieved values (e.g., store them in component state)
+          // ...
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      
+      useEffect(() => {
+        getStoredData();
+      }, []);
+
 
 
     return (
@@ -21,8 +52,8 @@ const UserProfile = (onPress) => {
                         flexDirection: 'row', borderRadius: responsiveWidth(2)
                     }}>
                         <View style={{ marginTop: responsiveHeight(3) }}>
-                            <Text style={{ fontSize: responsiveFontSize(3), marginLeft: responsiveWidth(4), }}>kapil kachhawa</Text>
-                            <Text style={{ fontSize: responsiveFontSize(2), marginLeft: responsiveWidth(4), }}>kas25014</Text>
+                            <Text style={{ fontSize: responsiveFontSize(3), marginLeft: responsiveWidth(4), }}>{fName + ' ' + lName}</Text>
+                            {/* <Text style={{ fontSize: responsiveFontSize(2), marginLeft: responsiveWidth(4), }}>kas25014</Text> */}
 
                         </View>
 
@@ -84,22 +115,16 @@ const UserProfile = (onPress) => {
                     paddingLeft: 20, paddingRight: 20
                 }}>
                     <Text>E-mail</Text>
-                    <Text>kk12345@gmail.com</Text>
+                    <Text>{email}</Text>
                 </View>
                 <View style={{
                     flexDirection: 'row', justifyContent: 'space-between', marginTop: 40,
                     paddingLeft: 20, paddingRight: 20
                 }}>
                     <Text>Phone</Text>
-                    <Text>88*59****5325.com</Text>
+                    <Text>{mobile}</Text>
                 </View>
-                <View style={{
-                    flexDirection: 'row', justifyContent: 'space-between', marginTop: 40,
-                    paddingLeft: 20, paddingRight: 20
-                }}>
-                    <Text>PAN</Text>
-                    <Text>kwd**47de**</Text>
-                </View>
+            
                 <View style={{ margin: 20, }}>
                     <View style={{ marginTop: 20 }}>
                         <Text style={{ fontSize: 15 }}>Bank Account</Text>

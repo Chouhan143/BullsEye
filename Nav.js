@@ -19,7 +19,12 @@ import Mobile from './Src/BuySrceens/Mobile';
 import Mobile2 from './Src/BuySrceens/Mobile2';
 import Document from './Src/BuySrceens/Document';
 import EmailVerification from './Src/BuySrceens/EmailVarification';
+import ForgotPassword from './Src/ForgotPassword';
+import ForgetPasswordOtp from './Src/ForgetPasswordOtp';
+import ForgotPasswordSet from './Src/ForgotPasswordSet';
+import ForgotPasswordDone from './Src/ForgotPasswordDone';
 import { COLORS } from './constants';
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 const Stack = createStackNavigator();
 
 const Nav = () => {
@@ -41,7 +46,7 @@ const Nav = () => {
           name="Login"
           component={LoginScreen}
           options={{
-            
+            headerShown: false
           }}
         />
         <Stack.Screen
@@ -51,6 +56,73 @@ const Nav = () => {
             title: 'Register',
           }}
         />
+
+        <Stack.Screen
+          name="ForgotPassword"
+          component={ForgotPassword}
+          options={{
+            headerStyle: {
+              width: responsiveWidth(100),
+              height: responsiveHeight(7),
+              backgroundColor: COLORS.bgColor,
+              
+            },
+            headerTitleStyle: {
+              fontSize: responsiveFontSize(2.5), // Set the desired font size
+            },
+          }}
+        />
+         <Stack.Screen
+          name="ForgetPasswordOtp"
+          component={ForgetPasswordOtp}
+          options={{
+            headerStyle: {
+              width: responsiveWidth(100),
+              height: responsiveHeight(7),
+              backgroundColor: COLORS.bgColor,
+              
+            },
+            headerTitleStyle: {
+              fontSize: responsiveFontSize(2.5), // Set the desired font size
+            },
+          }}
+        />
+         <Stack.Screen
+          name="ForgotPasswordSet"
+          component={ForgotPasswordSet}
+          options={{
+            headerStyle: {
+              width: responsiveWidth(100),
+              height: responsiveHeight(7),
+              backgroundColor: COLORS.bgColor,
+              
+            },
+            headerTitleStyle: {
+              fontSize: responsiveFontSize(2.5), // Set the desired font size
+            },
+          }}
+        />
+           <Stack.Screen
+          name="ForgotPasswordDone"
+          component={ForgotPasswordDone}
+          options={{
+            headerShown: false,
+            headerStyle: {
+              width: responsiveWidth(100),
+              height: responsiveHeight(7),
+              backgroundColor: COLORS.bgColor,
+              
+            },
+            
+            headerTitleStyle: {
+              fontSize: responsiveFontSize(2.5), // Set the desired font size
+            },
+          }}
+        />
+
+
+
+
         <Stack.Screen
           name="MainLayout"
           component={Tabs}
@@ -90,7 +162,7 @@ const Nav = () => {
           name="SellScreen"
           component={SellScreen}
         />
-       
+
 
         <Stack.Screen
           options={{ title: 'EmailVarification', headerShown: false }}

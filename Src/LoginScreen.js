@@ -30,8 +30,16 @@ const LoginScreen = () => {
       const res = await postData(baseUrl, payload);
       const accessToken = res.data.payload.access_token;
       const id = res.data.payload.id;
+      const email = res.data.payload.email;
+      const mobile = res.data.payload.mobile;
+      const first_name = res.data.payload.first_name;
+      const last_name = res.data.payload.last_name;
       await AsyncStorage.setItem('accessToken', accessToken.toString());
       await AsyncStorage.setItem('id', id.toString());
+      await AsyncStorage.setItem('email', email.toString());
+      await AsyncStorage.setItem('mobile', mobile.toString());
+      await AsyncStorage.setItem('first_name', first_name.toString());
+      await AsyncStorage.setItem('last_name', last_name.toString());
 
       const { status, payload: responseData } = res.data;
 
@@ -159,6 +167,11 @@ const LoginScreen = () => {
             )}
 
             <CustomButton label={'Login'} onPress={handleSubmit} />
+
+            <TouchableOpacity style={{display:'flex',justifyContent:'center',alignItems:'center',marginVertical:responsiveHeight(2)}} onPress={()=>{navigation.navigate('ForgotPassword')}}>
+              <Text style={{fontSize:responsiveFontSize(2),fontWeight:'600',color:'#000'}}>Forgot Password?</Text>
+            </TouchableOpacity>
+
 
             <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: responsiveHeight(3) }}>
               <Text style={{ color: COLORS.textColor }}>New to the app?</Text>
