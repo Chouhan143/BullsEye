@@ -31,7 +31,7 @@ const Setting = () => {
         return (
             <View style={{ marginTop: responsiveHeight(3), marginLeft: responsiveWidth(3) }}>
                 <Text style={{
-                    color: "##989FA5", fontSize: responsiveFontSize(3), fontWeight: '400'
+                    color: "#989FA5", fontSize: responsiveFontSize(3), fontWeight: '400'
                 }}>{title}</Text>
             </View>
         )
@@ -99,7 +99,7 @@ const Setting = () => {
                     Chat to us</Text>
                 <Text style={{
                     marginTop: responsiveHeight(2), marginLeft: responsiveWidth(25)
-                    , fontSize: responsiveFontSize(2)
+                    , fontSize: responsiveFontSize(2),color:'#000'
                 }}>Our friendly team is here to help</Text>
             </View>
             <View>
@@ -124,11 +124,11 @@ const Setting = () => {
                 </Text>
                 <Text style={{
                     marginTop: responsiveHeight(2), marginLeft: responsiveWidth(25)
-                    , fontSize: responsiveFontSize(2)
+                    , fontSize: responsiveFontSize(2),color:'#000'
                 }}>Mon-sat from 8am to 5pm</Text>
                 <Text style={{
                     marginTop: responsiveHeight(2), marginLeft: responsiveWidth(25)
-                    , fontSize: responsiveFontSize(2)
+                    , fontSize: responsiveFontSize(2),color:'#000'
                 }}>+183000180000</Text>
             </View>
             <View>
@@ -152,7 +152,7 @@ const Setting = () => {
                     Visit us</Text>
                     <Text style={{
                     marginTop: responsiveHeight(2), marginLeft: responsiveWidth(25)
-                    , fontSize: responsiveFontSize(2)
+                    , fontSize: responsiveFontSize(2),color:'#000'
                 }}>website- Bullseye.com</Text>
             </View>
 

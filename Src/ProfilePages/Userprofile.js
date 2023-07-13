@@ -43,7 +43,7 @@ const UserProfile = (onPress) => {
         return (
           <View style={{ marginTop: responsiveHeight(3),marginLeft:responsiveWidth(2)}}>
             <Text style={{
-              color: "##989FA5", fontSize:responsiveFontSize(2),fontWeight:'500'
+              color: "#989FA5", fontSize:responsiveFontSize(2),fontWeight:'500'
             }}>{title}</Text>
           </View>
         )
@@ -121,14 +121,14 @@ const UserProfile = (onPress) => {
                     paddingLeft: responsiveWidth(5), paddingRight: responsiveWidth(5)
                 }}>
                     <Text style={{ fontSize: responsiveFontSize(2), color: '#000' }}>E-mail</Text>
-                    <Text style={{ fontSize: responsiveFontSize(2), color: '##989FA5' }}>{email}</Text>
+                    <Text style={{ fontSize: responsiveFontSize(2), color: '#989FA5' }}>{email}</Text>
                 </View>
                 <View style={{
                     flexDirection: 'row', justifyContent: 'space-between', marginTop: 40,
                     paddingLeft: 20, paddingRight: 20
                 }}>
                     <Text style={{ fontSize: responsiveFontSize(2), color: '#000' }}>Phone</Text>
-                    <Text style={{ fontSize: responsiveFontSize(2), color: '##989FA5' }}>{mobile}</Text>
+                    <Text style={{ fontSize: responsiveFontSize(2), color: '#989FA5' }}>{mobile}</Text>
                 </View>
 
                 {/* <View style={{ margin: 20, }}>
