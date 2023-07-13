@@ -129,43 +129,70 @@ const FirstRoute = () => {
           style={{
             display: 'flex',
             flexDirection: 'row',
-            paddingHorizontal: responsiveWidth(1),
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: item.trade_mode === 'buy' ? 'green' : 'red',
+            width:responsiveWidth(100),
+            height:responsiveHeight(4),
+            marginBottom:responsiveHeight(1),
+            borderTopLeftRadius:responsiveWidth(4),
+            borderTopRightRadius:responsiveWidth(4),
+
+        
+          }}>
+          <Text
+            style={{
+              color: '#fff',
+              fontWeight: '700',
+              fontSize: responsiveFontSize(1.5),
+            }}>
+           {item.trade_mode.toUpperCase()}
+          </Text>
+        </View>
+
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            paddingHorizontal: responsiveWidth(3),
             justifyContent: 'space-between',
           }}>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <Text style={{color: 'gray', fontSize: responsiveFontSize(1.5)}}>
+              Lot{' '}
+            </Text>
+            <Text style={{color: 'black', fontSize: responsiveFontSize(1.5)}}>
+              {item.max_lot}
+            </Text>
+          </View>
+
           <View
             style={{
               display: 'flex',
               flexDirection: 'row',
-              paddingHorizontal: responsiveWidth(3),
+              // justifyContent: 'space-around',
+              flex: 1,
+              paddingHorizontal: responsiveWidth(2),
             }}>
             <View style={{display: 'flex', flexDirection: 'row'}}>
-              <Text style={{color: 'gray',fontSize:responsiveFontSize(1.5)}}>Lot </Text>
-              <Text style={{color: 'black',fontSize:responsiveFontSize(1.5)}}>{item.max_lot}</Text>
-            </View>
-
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                paddingHorizontal:responsiveWidth(2),
-              }}>
-              <View style={{display: 'flex', flexDirection: 'row'}}>
-                <Text style={{color: 'black', fontWeight: '700',fontSize:responsiveFontSize(1.5)}}>
-                  {item.trade_name}
-                </Text>
-              </View>
+              <Text
+                style={{
+                  color: 'black',
+                  fontWeight: '700',
+                  fontSize: responsiveFontSize(1.5),
+                }}>
+                {item.trade_name}
+              </Text>
             </View>
           </View>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              paddingHorizontal: responsiveWidth(7),
-            }}>
-            <View style={{display: 'flex', flexDirection: 'row'}}>
-              <Text style={{color: 'gray',fontSize:responsiveFontSize(1.5)}}>Limit </Text>
-              <Text style={{color: 'green',fontSize:responsiveFontSize(1.5)}}>{item.limit}</Text>
-            </View>
+
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <Text style={{color: 'gray', fontSize: responsiveFontSize(1.5)}}>
+              Limit{' '}
+            </Text>
+            <Text style={{color: 'green', fontSize: responsiveFontSize(1.5)}}>
+              {item.limit}
+            </Text>
           </View>
         </View>
 
@@ -184,8 +211,17 @@ const FirstRoute = () => {
               paddingHorizontal: responsiveWidth(2),
             }}>
             <View style={{display: 'flex', flexDirection: 'row'}}>
-              <Text style={{color: 'gray', paddingRight:responsiveWidth(2),fontSize:responsiveFontSize(1.5)}}>Stop Loss</Text>
-              <Text style={{color: 'black',fontSize:responsiveFontSize(1.5)}}>{item.stop_loss}</Text>
+              <Text
+                style={{
+                  color: 'gray',
+                  paddingRight: responsiveWidth(2),
+                  fontSize: responsiveFontSize(1.5),
+                }}>
+                Stop Loss
+              </Text>
+              <Text style={{color: 'black', fontSize: responsiveFontSize(1.5)}}>
+                {item.stop_loss}
+              </Text>
             </View>
           </View>
           <View
@@ -195,8 +231,12 @@ const FirstRoute = () => {
               paddingHorizontal: 20,
             }}>
             <View style={{display: 'flex', flexDirection: 'row'}}>
-              <Text style={{color: 'gray',fontSize:responsiveFontSize(1.5)}}>Target </Text>
-              <Text style={{color: 'black',fontSize:responsiveFontSize(1.5)}}>{item.target}</Text>
+              <Text style={{color: 'gray', fontSize: responsiveFontSize(1.5)}}>
+                Target{' '}
+              </Text>
+              <Text style={{color: 'black', fontSize: responsiveFontSize(1.5)}}>
+                {item.target}
+              </Text>
               {/* <Text style={{color: 'red'}}> ({})</Text> */}
             </View>
           </View>
@@ -217,7 +257,7 @@ const FirstRoute = () => {
                 display: 'flex',
                 alignSelf: 'center',
                 justifyContent: 'center',
-                fontSize:responsiveFontSize(2)
+                fontSize: responsiveFontSize(2),
               }}>
               Square off
             </Text>
@@ -236,7 +276,7 @@ const FirstRoute = () => {
                 display: 'flex',
                 alignSelf: 'center',
                 justifyContent: 'center',
-                fontSize:responsiveHeight(2)
+                fontSize: responsiveHeight(2),
               }}>
               Edit
             </Text>
@@ -312,18 +352,27 @@ const SecondRoute = () => {
               paddingHorizontal: responsiveWidth(5),
             }}>
             <View style={{display: 'flex', flexDirection: 'row'}}>
-              <Text style={{color: 'gray',fontSize:responsiveFontSize(2)}}>Lot </Text>
-              <Text style={{color: 'black',fontSize:responsiveFontSize(2)}}>{item.max_lot}</Text>
+              <Text style={{color: 'gray', fontSize: responsiveFontSize(2)}}>
+                Lot{' '}
+              </Text>
+              <Text style={{color: 'black', fontSize: responsiveFontSize(2)}}>
+                {item.max_lot}
+              </Text>
             </View>
 
             <View
               style={{
                 display: 'flex',
                 flexDirection: 'row',
-                paddingHorizontal:responsiveWidth(3),
+                paddingHorizontal: responsiveWidth(3),
               }}>
               <View style={{display: 'flex', flexDirection: 'row'}}>
-                <Text style={{color: 'black', fontWeight: '700',fontSize:responsiveFontSize(2)}}>
+                <Text
+                  style={{
+                    color: 'black',
+                    fontWeight: '700',
+                    fontSize: responsiveFontSize(2),
+                  }}>
                   {item.trade_name}
                 </Text>
               </View>
@@ -336,8 +385,12 @@ const SecondRoute = () => {
               paddingHorizontal: responsiveWidth(5),
             }}>
             <View style={{display: 'flex', flexDirection: 'row'}}>
-              <Text style={{color: 'gray',fontSize:responsiveFontSize(2)}}>Limit- </Text>
-              <Text style={{color: 'green',fontSize:responsiveFontSize(2)}}>{item.limit}</Text>
+              <Text style={{color: 'gray', fontSize: responsiveFontSize(2)}}>
+                Limit-{' '}
+              </Text>
+              <Text style={{color: 'green', fontSize: responsiveFontSize(2)}}>
+                {item.limit}
+              </Text>
             </View>
           </View>
         </View>
@@ -357,8 +410,17 @@ const SecondRoute = () => {
               paddingHorizontal: responsiveWidth(5),
             }}>
             <View style={{display: 'flex', flexDirection: 'row'}}>
-              <Text style={{color: 'gray', paddingRight: responsiveWidth(2),fontSize:responsiveFontSize(2)}}>Stop Loss-</Text>
-              <Text style={{color: 'black',fontSize:responsiveFontSize(2)}}>{item.stop_loss}</Text>
+              <Text
+                style={{
+                  color: 'gray',
+                  paddingRight: responsiveWidth(2),
+                  fontSize: responsiveFontSize(2),
+                }}>
+                Stop Loss-
+              </Text>
+              <Text style={{color: 'black', fontSize: responsiveFontSize(2)}}>
+                {item.stop_loss}
+              </Text>
             </View>
           </View>
           <View
@@ -368,8 +430,12 @@ const SecondRoute = () => {
               paddingHorizontal: responsiveWidth(5),
             }}>
             <View style={{display: 'flex', flexDirection: 'row'}}>
-              <Text style={{color: 'gray',fontSize:responsiveFontSize(2)}}>Target- </Text>
-              <Text style={{color: 'black',fontSize:responsiveFontSize(2)}}>{item.target}</Text>
+              <Text style={{color: 'gray', fontSize: responsiveFontSize(2)}}>
+                Target-{' '}
+              </Text>
+              <Text style={{color: 'black', fontSize: responsiveFontSize(2)}}>
+                {item.target}
+              </Text>
               {/* <Text style={{color: 'red'}}> ({})</Text> */}
             </View>
           </View>
@@ -381,7 +447,11 @@ const SecondRoute = () => {
   return (
     <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
       <View style={styles.container}>
-        <View style={{paddingVertical:responsiveHeight(0), marginTop:responsiveHeight(1)}}>
+        <View
+          style={{
+            paddingVertical: responsiveHeight(0),
+            marginTop: responsiveHeight(1),
+          }}>
           <FlatList
             data={pastTradedata}
             renderItem={renderItemLiveTradeUi}
@@ -421,7 +491,11 @@ export default function Portfolio() {
     <TabBar
       {...props}
       style={{backgroundColor: COLORS.bgColor, height: responsiveWidth(11)}} // Set your desired header color here
-      labelStyle={{color: COLORS.textColor, fontSize: responsiveFontSize(1.7), fontWeight: '700'}}
+      labelStyle={{
+        color: COLORS.textColor,
+        fontSize: responsiveFontSize(1.7),
+        fontWeight: '700',
+      }}
       indicatorStyle={{backgroundColor: '#1A6164'}}
       activeColor="#1A6164"
     />
