@@ -145,6 +145,9 @@ const Nav = () => {
         <Stack.Screen
           name="SearchData"
           component={SearchData}
+          options={{
+            headerShown:false
+          }}
         />
         <Stack.Screen
           options={{ title: 'Setting', headerShown: false }}
