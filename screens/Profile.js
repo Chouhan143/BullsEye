@@ -70,10 +70,11 @@ const Profile = (props) => {
           flex: 1,
           paddingHorizontal: responsiveWidth(3),
           backgroundColor: COLORS.mainBgColor,
+          paddingVertical:responsiveHeight(2)
 
         }}>
         {/* Header  */}
-        <Text style={{ color: 'black', fontSize: responsiveFontSize(3.5), }}>Account</Text>
+        {/* <Text style={{ color: 'black', fontSize: responsiveFontSize(3.5), }}>Account</Text> */}
 
         {/* Details  */}
         <ScrollView
@@ -166,7 +167,7 @@ const Profile = (props) => {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate("Setting")}>
+            onPress={() => props.navigation.navigate("ForgotPassword")}>
             <View style={{
               flex: 1, justifyContent: 'space-between',
               flexDirection: "row", marginTop: responsiveHeight(2),
@@ -175,7 +176,7 @@ const Profile = (props) => {
               alignItems: 'center'
             }}>
               <Text style={{ color: COLORS.black, fontSize:responsiveFontSize(2.3)}}>
-                Setting
+                Reset passward
               </Text>
               <Image source={icons.setting}
                 style={{height: responsiveWidth(8), width:responsiveWidth(8), tintColor: "#B1C3BB" }} />
@@ -200,7 +201,7 @@ const Profile = (props) => {
           <SectionTitle title="SUPPORT" />
 
           <TouchableOpacity
-            onPress={() => props.navigation.navigate("Email2")}>
+            onPress={() => props.navigation.navigate("Setting")}>
             <View style={{
               flex: 1, justifyContent: 'space-between',
               flexDirection: "row", marginTop: responsiveHeight(2),
@@ -216,7 +217,7 @@ const Profile = (props) => {
           </TouchableOpacity>
 
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => props.navigation.navigate("BuySrceen")}>
             <View style={{
               flex: 1, justifyContent: 'space-between',
@@ -230,7 +231,7 @@ const Profile = (props) => {
               <Image source={icons.contect}
                 style={{height: responsiveWidth(8), width:responsiveWidth(8), tintColor: "#B1C3BB"  }} />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
         </ScrollView>
 
