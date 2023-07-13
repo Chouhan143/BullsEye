@@ -31,6 +31,7 @@ const email = require("../assets/icons/email.png")
 const padlock = require("../assets/icons/padlock.png")
 const mail = require("../assets/icons/mail.png")
 const smartphone = require("../assets/icons/smartphone.png")
+const telephone = require("../assets/icons/telephone.png")
 
 
 
@@ -70,4 +71,5 @@ export default {
     padlock,
     mail,
     smartphone,
+    telephone,
 }

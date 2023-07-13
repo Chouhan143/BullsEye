@@ -1,23 +1,23 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import React, { useState } from 'react';
-import { SIZES, icons,COLORS } from '../../constants';
-import{ responsiveFontSize,responsiveHeight,responsiveWidth} from "react-native-responsive-dimensions"
+import { SIZES, icons, COLORS } from '../../constants';
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions"
 
 //  ALL pages responsive
 
 const Setting = () => {
     const [isClicked, SetIsClicked] = useState(false)
-    const [clicked,SetClicked] = useState(false)
+    const [clicked, SetClicked] = useState(false)
     const UserRow = ({ title, value, }) => {
         return (
             <View style={{
                 flexDirection: 'row', marginTop: SIZES.radius,
                 height: responsiveWidth(15), justifyContent: 'space-between',
-                 backgroundColor: COLORS.mainBgColor, alignItems: 'center',marginTop:responsiveHeight(2)
+                backgroundColor: COLORS.mainBgColor, alignItems: 'center', marginTop: responsiveHeight(2)
             }}>
                 <Text style={{ marginLeft: responsiveWidth(5) }}>{title}</Text>
                 <TouchableOpacity>
-                    <Text style={{ fontSize: responsiveFontSize(2), color: 'blue', marginRight:responsiveWidth(5) }}>{value} </Text>
+                    <Text style={{ fontSize: responsiveFontSize(2), color: 'blue', marginRight: responsiveWidth(5) }}>{value} </Text>
                 </TouchableOpacity>
 
             </View>
@@ -26,14 +26,24 @@ const Setting = () => {
 
         )
     }
+    const SectionTitle = ({ title }) => {
+
+        return (
+            <View style={{ marginTop: responsiveHeight(3), marginLeft: responsiveWidth(3) }}>
+                <Text style={{
+                    color: "##989FA5", fontSize: responsiveFontSize(3), fontWeight: '400'
+                }}>{title}</Text>
+            </View>
+        )
+    }
 
 
     return (
-        <View style={{flex:1 ,backgroundColor:COLORS.mainBgColor ,}}>
-            <UserRow title={'Passward'} value={"Change"} />
+        <View style={{ flex: 1, backgroundColor: COLORS.mainBgColor, }}>
+            {/* <UserRow title={'Passward'} value={"Change"} />
             <UserRow title={'M-PIN'} value={"Change"} />
 
-            <UserRow title={'Dark Mode'} value={"Change"} />
+            <UserRow title={'Dark Mode'} value={"Change"} /> */}
             {/* <View>
                 <TouchableOpacity style={styles.dropdown}
                     onPress={() => {
@@ -64,6 +74,87 @@ const Setting = () => {
                 </View>
 
             </View> */}
+            <View style={{ marginTop: responsiveHeight(2), marginLeft: responsiveWidth(3) }}>
+                <Text style={{ fontSize: responsiveFontSize(3), color: "#000" }}>Support portal</Text>
+            </View>
+            <SectionTitle title="Details" />
+            <View>
+                <View style={{
+                    flex: 1,
+                    marginLeft: responsiveWidth(5),
+                    flexDirection: 'row',
+                    marginTop: responsiveHeight(3)
+
+                }}>
+                    <Image
+                        source={icons.customersupport}
+                        style={{ width: responsiveWidth(13), height: responsiveWidth(13), }}
+                    />
+                </View>
+                <Text
+                    style={{
+                        color: COLORS.black, fontSize: responsiveFontSize(2.5), marginTop: responsiveHeight(2)
+                        , marginLeft: responsiveWidth(25)
+                    }}>
+                    Chat to us</Text>
+                <Text style={{
+                    marginTop: responsiveHeight(2), marginLeft: responsiveWidth(25)
+                    , fontSize: responsiveFontSize(2)
+                }}>Our friendly team is here to help</Text>
+            </View>
+            <View>
+                <View style={{
+                    flex: 1,
+                    marginLeft: responsiveWidth(5),
+                    flexDirection: 'row',
+                    marginTop: responsiveHeight(8)
+
+                }}>
+                    <Image
+                        source={icons.telephone}
+                        style={{ width: responsiveWidth(13), height: responsiveWidth(13), }}
+                    />
+                </View>
+                <Text
+                    style={{
+                        color: COLORS.black, fontSize: responsiveFontSize(2.5), marginTop: responsiveHeight(2)
+                        , marginLeft: responsiveWidth(25)
+                    }}> Call us
+
+                </Text>
+                <Text style={{
+                    marginTop: responsiveHeight(2), marginLeft: responsiveWidth(25)
+                    , fontSize: responsiveFontSize(2)
+                }}>Mon-sat from 8am to 5pm</Text>
+                <Text style={{
+                    marginTop: responsiveHeight(2), marginLeft: responsiveWidth(25)
+                    , fontSize: responsiveFontSize(2)
+                }}>+183000180000</Text>
+            </View>
+            <View>
+                <View style={{
+                    flex: 1,
+                    marginLeft: responsiveWidth(5),
+                    flexDirection: 'row',
+                    marginTop: responsiveHeight(8)
+
+                }}>
+                    <Image
+                        source={icons.Adduser}
+                        style={{ width: responsiveWidth(13), height: responsiveWidth(13), }}
+                    />
+                </View>
+                <Text
+                    style={{
+                        color: COLORS.black, fontSize: responsiveFontSize(2.5), marginTop: responsiveHeight(2)
+                        , marginLeft: responsiveWidth(25)
+                    }}>
+                    Visit us</Text>
+                    <Text style={{
+                    marginTop: responsiveHeight(2), marginLeft: responsiveWidth(25)
+                    , fontSize: responsiveFontSize(2)
+                }}>website- Bullseye.com</Text>
+            </View>
 
         </View>
 

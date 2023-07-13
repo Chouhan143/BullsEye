@@ -1,8 +1,9 @@
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
-import React,{useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SIZES, COLORS, icons, } from '../../constants';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions"
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { releaseSecureAccess } from 'react-native-document-picker';
 
 // all pages responsive
 
@@ -14,35 +15,45 @@ const UserProfile = (onPress) => {
 
     const getStoredData = async () => {
         try {
-          const storedEmail  = await AsyncStorage.getItem('email');
-          setEmail(storedEmail || '');
-          const storeMobile = await AsyncStorage.getItem('mobile');
-          setMobile(storeMobile || '');
+            const storedEmail = await AsyncStorage.getItem('email');
+            setEmail(storedEmail || '');
+            const storeMobile = await AsyncStorage.getItem('mobile');
+            setMobile(storeMobile || '');
 
-          const first_name = await AsyncStorage.getItem('first_name');
-          setFname(first_name || '')
+            const first_name = await AsyncStorage.getItem('first_name');
+            setFname(first_name || '')
 
-          const last_name = await AsyncStorage.getItem('last_name');
-          setlname(last_name || '')
-          
-          // Do something with the retrieved values (e.g., store them in component state)
-          // ...
+            const last_name = await AsyncStorage.getItem('last_name');
+            setlname(last_name || '')
+
+            // Do something with the retrieved values (e.g., store them in component state)
+            // ...
         } catch (error) {
-          console.error(error);
+            console.error(error);
         }
-      };
+    };
 
-      
-      useEffect(() => {
+
+    useEffect(() => {
         getStoredData();
-      }, []);
+    }, []);
 
+    const SectionTitle = ({ title }) => {
+
+        return (
+          <View style={{ marginTop: responsiveHeight(3),marginLeft:responsiveWidth(2)}}>
+            <Text style={{
+              color: "##989FA5", fontSize:responsiveFontSize(2),fontWeight:'500'
+            }}>{title}</Text>
+          </View>
+        )
+      }
 
 
     return (
         <ScrollView style={{ flex: 1, backgroundColor: COLORS.mainBgColor }}>
-            <View style={{paddingHorizontal:responsiveWidth(1)}}>
-                <Text style={{ color: 'black', fontSize: responsiveFontSize(3.5), paddingLeft: responsiveWidth(3) }}>UserProfile</Text>
+            <View style={{ paddingHorizontal: responsiveWidth(1), marginTop: responsiveHeight(2) }}>
+                {/* <Text style={{ color: 'black', fontSize: responsiveFontSize(3.5), paddingLeft: responsiveWidth(3) }}>UserProfile</Text> */}
 
                 <View style={{ backgroundColor: COLORS.mainBgColor, marginTop: responsiveHeight(2) }}>
                     <View style={{
@@ -52,7 +63,7 @@ const UserProfile = (onPress) => {
                         flexDirection: 'row', borderRadius: responsiveWidth(2)
                     }}>
                         <View style={{ marginTop: responsiveHeight(3) }}>
-                            <Text style={{ fontSize: responsiveFontSize(3), marginLeft: responsiveWidth(4), }}>{fName + ' ' + lName}</Text>
+                            <Text style={{ fontSize: responsiveFontSize(3), marginLeft: responsiveWidth(4), color: '#000' }}>{fName + ' ' + lName}</Text>
                             {/* <Text style={{ fontSize: responsiveFontSize(2), marginLeft: responsiveWidth(4), }}>kas25014</Text> */}
 
                         </View>
@@ -99,33 +110,28 @@ const UserProfile = (onPress) => {
 
                 <View style={{
                     flexDirection: 'row', justifyContent: 'space-between',
-                    paddingLeft:responsiveWidth(3), paddingRight: responsiveWidth(3), marginTop: responsiveHeight(4)
+                    paddingLeft: responsiveWidth(3), paddingRight: responsiveWidth(3), marginTop: responsiveHeight(4)
                 }}>
-                    <Text style={{ fontSize: responsiveFontSize(2.5) }}>
-                        Password
-                    </Text>
-                    <TouchableOpacity>
-                        <Text style={{ fontSize: responsiveFontSize(2.5), color: 'blue' }}>
-                            change
-                        </Text>
-                    </TouchableOpacity>
+                    <SectionTitle title="Details" />
+
+                </View>
+                
+                <View style={{
+                    flexDirection: 'row', justifyContent: 'space-between', marginTop: responsiveHeight(5),
+                    paddingLeft: responsiveWidth(5), paddingRight: responsiveWidth(5)
+                }}>
+                    <Text style={{ fontSize: responsiveFontSize(2), color: '#000' }}>E-mail</Text>
+                    <Text style={{ fontSize: responsiveFontSize(2), color: '##989FA5' }}>{email}</Text>
                 </View>
                 <View style={{
                     flexDirection: 'row', justifyContent: 'space-between', marginTop: 40,
                     paddingLeft: 20, paddingRight: 20
                 }}>
-                    <Text>E-mail</Text>
-                    <Text>{email}</Text>
+                    <Text style={{ fontSize: responsiveFontSize(2), color: '#000' }}>Phone</Text>
+                    <Text style={{ fontSize: responsiveFontSize(2), color: '##989FA5' }}>{mobile}</Text>
                 </View>
-                <View style={{
-                    flexDirection: 'row', justifyContent: 'space-between', marginTop: 40,
-                    paddingLeft: 20, paddingRight: 20
-                }}>
-                    <Text>Phone</Text>
-                    <Text>{mobile}</Text>
-                </View>
-            
-                <View style={{ margin: 20, }}>
+
+                {/* <View style={{ margin: 20, }}>
                     <View style={{ marginTop: 20 }}>
                         <Text style={{ fontSize: 15 }}>Bank Account</Text>
 
@@ -134,7 +140,7 @@ const UserProfile = (onPress) => {
                         <Text>ICICI</Text>
                         <Text>12454***45***58**</Text>
                     </View>
-                </View>
+                </View> */}
 
 
 
