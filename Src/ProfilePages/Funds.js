@@ -44,6 +44,9 @@ const Funds = () => {
     }
   };
 
+
+
+
   const depositeUi = ({item}) => {
     return (
       <View style={{flex: 1, marginTop: responsiveHeight(2)}}>
@@ -228,10 +231,22 @@ const Funds = () => {
   };
 
   useEffect(() => {
-    getStoredData();
+   
     depositeListHandle();
     withdrawListHandle();
   }, []);
+
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+   
+      getStoredData();
+    }, 1000);
+  
+    return () => clearInterval(interval);
+  }, []);
+  
+
 
   const withdrawApi = async () => {
     try {

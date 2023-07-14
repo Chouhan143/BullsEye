@@ -7,6 +7,7 @@ import {
   Dimensions,
   StyleSheet,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import MainLayout from './MainLayout';
@@ -76,11 +77,28 @@ const FirstRoute = () => {
     }
   };
 
+  // const squreOffhandle = tradeId => {
+  //   SquareOff(tradeId);
+  // };
+
   const squreOffhandle = tradeId => {
-    SquareOff(tradeId);
+    Alert.alert(
+      'Confirm',
+      'Are you sure you want to Square Off?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => SquareOff(tradeId),
+        },
+      ],
+      {cancelable: false},
+    );
   };
-  
-  
+
   const toggleModal = tradeId => {
     setIsModalVisible(!isModalVisible);
     setSelectedTradeId(tradeId);
@@ -117,48 +135,52 @@ const FirstRoute = () => {
     toggleModal(); // Close the modal
   };
 
-// flatlist ui render here 
+  // flatlist ui render here
 
   const renderItemLiveTradeUi = ({item}) => {
     let actualPrice = 0;
 
-  if (item.asset != null) {
-    actualPrice = item.asset.price;
-  } else {
-    actualPrice = 0;
-  }
-
-  let profitOrLoss = false;
-
-  if (item.trade_mode === "buy") {
-    if (actualPrice > item.limit) {
-      profitOrLoss = true;
-    }
-  } else if (item.trade_mode === "sell") {
-    if (actualPrice < item.limit) {
-      profitOrLoss = true;
-    }
-  }
-
-  let profitLossVal = 'Trade is Pending';
-
-  if (item.is_pending === 0) {
-    if (item.trade_mode === "buy") {
-      profitLossVal = (((actualPrice - item.limit) * item.asset.lot) * item.max_lot).toFixed(2);
+    if (item.asset != null) {
+      actualPrice = item.asset.price;
     } else {
-      profitLossVal = (((item.limit - actualPrice) * item.asset.lot) * item.max_lot).toFixed(2);
+      actualPrice = 0;
     }
 
-    if (profitLossVal > 0) {
-      profitLossVal = "+"+profitLossVal
-    } else {
-      profitLossVal= +profitLossVal
+    let profitOrLoss = false;
+
+    if (item.trade_mode === 'buy') {
+      if (actualPrice > item.limit) {
+        profitOrLoss = true;
+      }
+    } else if (item.trade_mode === 'sell') {
+      if (actualPrice < item.limit) {
+        profitOrLoss = true;
+      }
     }
-  }
 
+    let profitLossVal = 'Pending';
 
+    if (item.is_pending === 0) {
+      if (item.trade_mode === 'buy') {
+        profitLossVal = (
+          (actualPrice - item.limit) *
+          item.asset.lot *
+          item.max_lot
+        ).toFixed(2);
+      } else {
+        profitLossVal = (
+          (item.limit - actualPrice) *
+          item.asset.lot *
+          item.max_lot
+        ).toFixed(2);
+      }
 
-
+      if (profitLossVal > 0) {
+        profitLossVal = '+' + profitLossVal;
+      } else {
+        profitLossVal = +profitLossVal;
+      }
+    }
 
     return (
       <View
@@ -191,10 +213,9 @@ const FirstRoute = () => {
             }}>
             <Text
               style={{
-                color:item.trade_mode === 'buy' ? 'green' : '#BD2929',
+                color: item.trade_mode === 'buy' ? 'green' : '#BD2929',
                 fontWeight: '700',
                 fontSize: responsiveFontSize(1.5),
-                
               }}>
               {item.trade_mode.toUpperCase()}
             </Text>
@@ -205,7 +226,12 @@ const FirstRoute = () => {
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor: profitLossVal > 0 ? 'green' : profitLossVal < 0 ? COLORS.red : COLORS.lightGray,
+              backgroundColor:
+                profitLossVal > 0
+                  ? 'green'
+                  : profitLossVal < 0
+                  ? COLORS.red
+                  : COLORS.lightGray,
               width: responsiveWidth(30),
               height: responsiveHeight(4),
               marginBottom: responsiveHeight(1),
@@ -215,15 +241,23 @@ const FirstRoute = () => {
               marginRight: responsiveWidth(0.9),
               marginTop: responsiveHeight(0.6),
             }}>
-            <View style={{paddingHorizontal:responsiveWidth(2),paddingVertical:responsiveHeight(0.2),borderRadius:responsiveWidth(0.5),marginRight:responsiveWidth(4)}}>
-              <Text
-                style={{
-                  color: '#fff',
-                  fontWeight: '700',
-                  fontSize: responsiveFontSize(1.5),
-                }}>
-                P&L
-              </Text>
+            <View
+              style={{
+                paddingHorizontal: responsiveWidth(2),
+                paddingVertical: responsiveHeight(0.2),
+                borderRadius: responsiveWidth(0.5),
+                marginRight: responsiveWidth(4),
+              }}>
+              {profitLossVal == 0 ? (
+                <Text
+                  style={{
+                    color: '#fff',
+                    fontWeight: '700',
+                    fontSize: responsiveFontSize(1.5),
+                  }}>
+                  P&L
+                </Text>
+              ) : null}
             </View>
 
             <Text
@@ -233,7 +267,6 @@ const FirstRoute = () => {
                 fontSize: responsiveFontSize(1.5),
               }}>
               {profitLossVal}
-              
             </Text>
           </View>
         </View>
@@ -249,7 +282,12 @@ const FirstRoute = () => {
             <Text style={{color: 'gray', fontSize: responsiveFontSize(1.5)}}>
               Lot{' '}
             </Text>
-            <Text style={{color: '#000', fontSize: responsiveFontSize(1.5),fontWeight:"800"}}>
+            <Text
+              style={{
+                color: '#000',
+                fontSize: responsiveFontSize(1.5),
+                fontWeight: '800',
+              }}>
               {item.max_lot}
             </Text>
           </View>
@@ -308,7 +346,7 @@ const FirstRoute = () => {
                 Stop Loss
               </Text>
               <Text style={{color: 'black', fontSize: responsiveFontSize(1.5)}}>
-              {item.stop_loss}
+                {item.stop_loss}
               </Text>
             </View>
           </View>
@@ -575,19 +613,27 @@ export default function Portfolio() {
     {key: 'second', title: 'PAST TRADES'},
   ]);
 
-  const renderTabBar = props => (
-    <TabBar
-      {...props}
-      style={{backgroundColor: COLORS.bgColor, height: responsiveWidth(11)}} // Set your desired header color here
-      labelStyle={{
-        color: COLORS.textColor,
-        fontSize: responsiveFontSize(1.7),
-        fontWeight: '700',
-      }}
-      indicatorStyle={{backgroundColor: '#1A6164'}}
-      activeColor="#1A6164"
-    />
-  );
+  const renderTabBar = props => {
+    const handleTabPress = index => {
+      setIndex(index);
+    };
+
+    return (
+      <TabBar
+        {...props}
+        style={{backgroundColor: COLORS.bgColor, height: responsiveWidth(11)}} // Set your desired header color here
+        labelStyle={{
+          color: COLORS.textColor,
+          fontSize: responsiveFontSize(1.7),
+          fontWeight: '700',
+        }}
+        indicatorStyle={{backgroundColor: '#1A6164'}}
+        activeColor="#1A6164"
+        pressColor="#1A6164" // Add pressColor prop for touch feedback
+        onTabPress={({index}) => handleTabPress(index)} // Handle tab press event
+      />
+    );
+  };
 
   return (
     <TabView

@@ -17,6 +17,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/dist/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 import OtpTextInpute from './OtpTextInpute';
+import axios from 'axios';
 
 // import OTPInputView from '@twotalltotems/react-native-otp-input';
 const ForgetPasswordOtp = () => {
@@ -24,12 +25,30 @@ const ForgetPasswordOtp = () => {
   const handleGoBack = () => {
     navigation.goBack();
   };
-  const [otpNumber, setotpNumber] = useState('');
+
   const [email, setEmail] = useState('');
+  const [otpNumber, setOtpNumber] = useState(null);
+  const [id, setId] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleOtpInputChange = otpValue => {
+    setOtpNumber(otpValue);
+  };
+
+  const handleNewPasswordChange = text => {
+    setNewPassword(text);
+  };
+
+  const handleConfirmPasswordChange = text => {
+    setConfirmPassword(text);
+  };
 
   const getStoredData = async () => {
     try {
       const storedEmail = await AsyncStorage.getItem('email1');
+      const storeId = await AsyncStorage.getItem('id');
+      setId(storeId || ' ');
       setEmail(storedEmail || '');
     } catch (error) {
       console.error(error);
@@ -39,6 +58,32 @@ const ForgetPasswordOtp = () => {
   useEffect(() => {
     getStoredData();
   }, []);
+
+  const PasswordReset = async () => {
+    try {
+      const payload = {
+        email_otp: otpNumber,
+        new_password: newPassword,
+        confirm_password: confirmPassword,
+      };
+      console.log('payload', payload);
+      const res = await axios.post(
+        'https://panel.bulleyetrade.com/api/mobile/reset-password',
+        payload,
+      );
+      console.log('reccs', res);
+      const email1 = res.config.data;
+      await AsyncStorage.setItem('email1', email1.toString());
+
+      if (res.data.result === true) {
+        const message = res.data.message;
+        alert(message);
+        navigation.navigate('Login');
+      }
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
 
   return (
     <View
@@ -83,16 +128,20 @@ const ForgetPasswordOtp = () => {
                 fontSize: responsiveFontSize(1.7),
                 fontWeight: '400',
               }}>
-              {' '}
               {email}
             </Text>
           </View>
 
           {/* otpinpute ui  */}
-          <View style={{display:'flex',justifyContent:'center',alignItems:'center',marginTop:responsiveHeight(5)}}>
-          <OtpTextInpute />
+          <View
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: responsiveHeight(5),
+            }}>
+            <OtpTextInpute onOtpInputChange={handleOtpInputChange} />
           </View>
-         
 
           <View>
             <Text style={{color: COLORS.black, marginTop: responsiveHeight(4)}}>
@@ -100,8 +149,8 @@ const ForgetPasswordOtp = () => {
             </Text>
 
             <TextInput
-              // value={amount}
-              // onChangeText={setAmount}
+              value={newPassword}
+              onChangeText={handleNewPasswordChange}
               secureTextEntry
               placeholderTextColor={'gray'}
               style={{
@@ -119,8 +168,8 @@ const ForgetPasswordOtp = () => {
             </Text>
 
             <TextInput
-              // value={amount}
-              // onChangeText={setAmount}
+              value={confirmPassword}
+              onChangeText={handleConfirmPasswordChange}
               secureTextEntry
               placeholderTextColor={'gray'}
               style={{
@@ -135,7 +184,7 @@ const ForgetPasswordOtp = () => {
           </View>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate('ForgotPasswordSet')}
+            onPress={PasswordReset}
             style={{
               backgroundColor: COLORS.TopBox,
               padding: responsiveWidth(3),
@@ -149,10 +198,10 @@ const ForgetPasswordOtp = () => {
                 fontSize: responsiveFontSize(2.5),
                 color: '#fff',
               }}>
-              Continue
+              Password Reset
             </Text>
           </TouchableOpacity>
-          <View
+          {/* <View
             style={{
               flexDirection: 'row',
               marginBottom: responsiveHeight(3),
@@ -166,7 +215,7 @@ const ForgetPasswordOtp = () => {
                 Click to resend
               </Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
 
           <TouchableOpacity onPress={handleGoBack}>
             <Text
