@@ -34,12 +34,14 @@ const LoginScreen = () => {
       const mobile = res.data.payload.mobile;
       const first_name = res.data.payload.first_name;
       const last_name = res.data.payload.last_name;
+      const user_balance = res.data.payload.user_balance;
       await AsyncStorage.setItem('accessToken', accessToken.toString());
       await AsyncStorage.setItem('id', id.toString());
       await AsyncStorage.setItem('email', email.toString());
       await AsyncStorage.setItem('mobile', mobile.toString());
       await AsyncStorage.setItem('first_name', first_name.toString());
       await AsyncStorage.setItem('last_name', last_name.toString());
+      await AsyncStorage.setItem('user_balance',user_balance.toString());
 
       const { status, payload: responseData } = res.data;
 

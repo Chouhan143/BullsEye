@@ -43,6 +43,7 @@ const FirstRoute = () => {
     dispatch(setIsTradeModalVisible(!isTradeModalVisible));
   };
 
+  // console.log("liveTradedata",liveTradedata)
   React.useEffect(() => {
     const timer = setInterval(() => {
       dispatch(getLiveTrade()).catch(error => {
@@ -115,39 +116,125 @@ const FirstRoute = () => {
     toggleModal(); // Close the modal
   };
 
+// flatlist ui render here 
+
   const renderItemLiveTradeUi = ({item}) => {
-    // Render the data for each item in the FlatList
+    let actualPrice = 0;
+
+  if (item.asset != null) {
+    actualPrice = item.asset.price;
+  } else {
+    actualPrice = 0;
+  }
+
+  let profitOrLoss = false;
+
+  if (item.trade_mode === "buy") {
+    if (actualPrice > item.limit) {
+      profitOrLoss = true;
+    }
+  } else if (item.trade_mode === "sell") {
+    if (actualPrice < item.limit) {
+      profitOrLoss = true;
+    }
+  }
+
+  let profitLossVal = 'Trade is Pending';
+
+  if (item.is_pending === 0) {
+    if (item.trade_mode === "buy") {
+      profitLossVal = (((actualPrice - item.limit) * item.asset.lot) * item.max_lot).toFixed(2);
+    } else {
+      profitLossVal = (((item.limit - actualPrice) * item.asset.lot) * item.max_lot).toFixed(2);
+    }
+
+    if (profitLossVal > 0) {
+      profitLossVal = "+"+profitLossVal
+    } else {
+      profitLossVal= +profitLossVal
+    }
+  }
+
+
+
+
+
     return (
       <View
         style={[
           styles.searchEluation,
           {
-            paddingVertical: responsiveHeight(2),
+            paddingBottom: responsiveHeight(2),
+            marginHorizontal: responsiveWidth(3),
           },
         ]}>
         <View
           style={{
             display: 'flex',
+            justifyContent: 'space-between',
             flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: item.trade_mode === 'buy' ? 'green' : 'red',
-            width:responsiveWidth(100),
-            height:responsiveHeight(4),
-            marginBottom:responsiveHeight(1),
-            borderTopLeftRadius:responsiveWidth(4),
-            borderTopRightRadius:responsiveWidth(4),
-
-        
           }}>
-          <Text
+          <View
             style={{
-              color: '#fff',
-              fontWeight: '700',
-              fontSize: responsiveFontSize(1.5),
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: COLORS.header,
+              width: responsiveWidth(20),
+              height: responsiveHeight(4),
+              marginBottom: responsiveHeight(1),
+              borderRadius: responsiveWidth(1),
+              marginLeft: responsiveWidth(1),
+              marginTop: responsiveHeight(0.6),
             }}>
-           {item.trade_mode.toUpperCase()}
-          </Text>
+            <Text
+              style={{
+                color:item.trade_mode === 'buy' ? 'green' : '#BD2929',
+                fontWeight: '700',
+                fontSize: responsiveFontSize(1.5),
+                
+              }}>
+              {item.trade_mode.toUpperCase()}
+            </Text>
+          </View>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: profitLossVal > 0 ? 'green' : profitLossVal < 0 ? COLORS.red : COLORS.lightGray,
+              width: responsiveWidth(30),
+              height: responsiveHeight(4),
+              marginBottom: responsiveHeight(1),
+              // borderRadius: responsiveWidth(1),
+              borderTopLeftRadius: responsiveWidth(1),
+              borderBottomLeftRadius: responsiveWidth(1),
+              marginRight: responsiveWidth(0.9),
+              marginTop: responsiveHeight(0.6),
+            }}>
+            <View style={{paddingHorizontal:responsiveWidth(2),paddingVertical:responsiveHeight(0.2),borderRadius:responsiveWidth(0.5),marginRight:responsiveWidth(4)}}>
+              <Text
+                style={{
+                  color: '#fff',
+                  fontWeight: '700',
+                  fontSize: responsiveFontSize(1.5),
+                }}>
+                P&L
+              </Text>
+            </View>
+
+            <Text
+              style={{
+                color: '#fff',
+                fontWeight: '700',
+                fontSize: responsiveFontSize(1.5),
+              }}>
+              {profitLossVal}
+              
+            </Text>
+          </View>
         </View>
 
         <View
@@ -161,7 +248,7 @@ const FirstRoute = () => {
             <Text style={{color: 'gray', fontSize: responsiveFontSize(1.5)}}>
               Lot{' '}
             </Text>
-            <Text style={{color: 'black', fontSize: responsiveFontSize(1.5)}}>
+            <Text style={{color: '#000', fontSize: responsiveFontSize(1.5),fontWeight:"800"}}>
               {item.max_lot}
             </Text>
           </View>
@@ -220,7 +307,7 @@ const FirstRoute = () => {
                 Stop Loss
               </Text>
               <Text style={{color: 'black', fontSize: responsiveFontSize(1.5)}}>
-                {item.stop_loss}
+              {item.stop_loss}
               </Text>
             </View>
           </View>
@@ -246,7 +333,7 @@ const FirstRoute = () => {
             display: 'flex',
             justifyContent: 'space-between',
             flexDirection: 'row',
-            paddingHorizontal: responsiveWidth(8),
+            paddingHorizontal: responsiveWidth(0.9),
           }}>
           <TouchableOpacity
             style={styles.squareOffBtn}
@@ -257,7 +344,7 @@ const FirstRoute = () => {
                 display: 'flex',
                 alignSelf: 'center',
                 justifyContent: 'center',
-                fontSize: responsiveFontSize(2),
+                fontSize: responsiveFontSize(1.7),
               }}>
               Square off
             </Text>
@@ -276,7 +363,7 @@ const FirstRoute = () => {
                 display: 'flex',
                 alignSelf: 'center',
                 justifyContent: 'center',
-                fontSize: responsiveHeight(2),
+                fontSize: responsiveHeight(1.7),
               }}>
               Edit
             </Text>
@@ -555,7 +642,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     top: -150,
-    shadowColor: '#000',
+    shadowColor: 'red',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -568,21 +655,24 @@ const styles = StyleSheet.create({
 
   searchEluation: {
     borderBottomWidth: 0.1,
-    shadowColor: '#b3b3',
+
+    shadowColor: '#b3b',
     shadowOffset: {
       width: responsiveWidth(3),
       height: responsiveWidth(3),
+      borderRadius: responsiveWidth(1),
+      borderBottomWidth: 0.1,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 3,
   },
   squareOffBtn: {
-    width: responsiveWidth(30),
-    height: responsiveHeight(5),
-    backgroundColor: COLORS.BottomTab,
+    width: responsiveWidth(25),
+    height: responsiveHeight(4),
+    backgroundColor: COLORS.header,
     display: 'flex',
     justifyContent: 'center',
-    borderRadius: responsiveWidth(2),
+    borderRadius: responsiveWidth(1),
   },
 });

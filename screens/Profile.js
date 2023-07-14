@@ -1,221 +1,322 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView, Switch, title, onPress, Button, Alert } from 'react-native';
-import { MainLayout } from './';
-import { HeaderBar } from "../components"
-import { FONTS, COLORS, SIZES, dummyData, icons } from "../constants";
-import { Colors } from 'react-native/Libraries/NewAppScreen'
-import { useNavigation, } from '@react-navigation/native';
-import{ responsiveFontSize,responsiveHeight,responsiveWidth} from "react-native-responsive-dimensions"
-
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  Switch,
+  title,
+  onPress,
+  Button,
+  Alert,
+} from 'react-native';
+import {MainLayout} from './';
+import {HeaderBar} from '../components';
+import {FONTS, COLORS, SIZES, dummyData, icons} from '../constants';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  responsiveFontSize,
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
 
 // all pages responsive
 
-const SectionTitle = ({ title }) => {
-
+const SectionTitle = ({title}) => {
   return (
-    <View style={{ marginTop: SIZES.padding }}>
-      <Text style={{
-        color: COLORS.lightGray3, fontSize:responsiveWidth(4),fontWeight:'300'
-      }}>{title}</Text>
+    <View style={{marginTop: SIZES.padding}}>
+      <Text
+        style={{
+          color: COLORS.lightGray3,
+          fontSize: responsiveWidth(4),
+          fontWeight: '300',
+        }}>
+        {title}
+      </Text>
     </View>
-  )
-}
+  );
+};
 
-const HandleLogout = () => {
+
+
+{/* <Button onPress={logout} title="Logout" />; */}
+
+const Profile = props => {
+  const [faceId, SetFaceId] = useState(true);
   const navigation = useNavigation();
-
-  Alert.alert("Logout!", "Are you sure you want to Logout?",
-    [
-      {
-        text: 'Cancel',
-        style: 'cancel',
-
-      },
-      {
-        text: 'Logout',
-        style: 'destructive',
-        onPress: () => {
-
-          navigation.navigate('SignIn');
-        },
-      },
-    ], { cancelable: false }
-  )
-
-  Alert.alert("Logout!", "Are you sure you want to Logout?", [
-    {
-      text: 'Cencal',
-      // onPress: () = {},
-    },
-    {
-      text: 'OK',
-      onPress: () => { navigation.navigate('Login') },
-    },
-  ])
-
-
-}
-<Button onPress={HandleLogout} title="Logout" />
-
-const Profile = (props) => {
-  const [faceId, SetFaceId] = useState(true)
-
-
+  const logout = async () => {
+  
+    try {
+      // Clear the stored user data from AsyncStorage
+      await AsyncStorage.removeItem('accessToken');
+      await AsyncStorage.removeItem('id');
+      await AsyncStorage.removeItem('email');
+      await AsyncStorage.removeItem('mobile');
+      await AsyncStorage.removeItem('first_name');
+      await AsyncStorage.removeItem('last_name');
+      await AsyncStorage.removeItem('user_balance');
+  
+      Alert.alert(
+        'Logout',
+        'Are you sure you want to logout?',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {
+            text: 'Logout',
+            style: 'destructive',
+            onPress: () => {
+              navigation.navigate('Login');
+            },
+          },
+        ],
+        {cancelable: false},
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
   return (
-
     <MainLayout>
-
       <View
         style={{
           flex: 1,
           paddingHorizontal: responsiveWidth(3),
           backgroundColor: COLORS.mainBgColor,
-          paddingVertical:responsiveHeight(2)
-
+          paddingVertical: responsiveHeight(2),
         }}>
         {/* Header  */}
         {/* <Text style={{ color: 'black', fontSize: responsiveFontSize(3.5), }}>Account</Text> */}
 
         {/* Details  */}
-        <ScrollView
-          showsVerticalScrollIndicator={false}>
-
+        <ScrollView showsVerticalScrollIndicator={false}>
           {/* Email and user ID  */}
           <View
             style={{
-              flexDirection: "row",
+              flexDirection: 'row',
 
               marginTop: responsiveHeight(1),
 
               borderRadius: responsiveWidth(2),
-              elevation: 5, borderWidth: 0.5, borderColor: "white",
+              elevation: 5,
+              borderWidth: 0.5,
+              borderColor: 'white',
               backgroundColor: COLORS.bgColor,
-              height: responsiveHeight(15), width: responsiveWidth(93),
+              height: responsiveHeight(15),
+              width: responsiveWidth(93),
               justifyContent: 'center',
-              alignItems: 'center'
+              alignItems: 'center',
             }}>
             {/* Email and ID  */}
-            <View style={{
-              flex: 1,
-              marginLeft: responsiveWidth(3),
-              flexDirection: 'row'
-              // marginBottom: 40
-
-            }}>
+            <View
+              style={{
+                flex: 1,
+                marginLeft: responsiveWidth(3),
+                flexDirection: 'row',
+                // marginBottom: 40
+              }}>
               <Image
                 source={icons.profile}
-                style={{ width: responsiveWidth(13), height: responsiveWidth(13), }}
+                style={{
+                  width: responsiveWidth(13),
+                  height: responsiveWidth(13),
+                }}
               />
               <Text
-                style={{ color: COLORS.black, fontSize:responsiveFontSize(2), marginTop: responsiveHeight(2)}}
-              >{dummyData.profile.email}</Text>
+                style={{
+                  color: COLORS.black,
+                  fontSize: responsiveFontSize(2),
+                  marginTop: responsiveHeight(2),
+                }}>
+                {dummyData.profile.email}
+              </Text>
               {/* <Text style={{
                 color: COLORS.lightGray2, ...FONTS.body4
               }}>ID :{dummyData.profile.id}</Text> */}
             </View>
             {/* STATUS  */}
-            <View style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginRight: responsiveWidth(5)
-            }}
-            >
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginRight: responsiveWidth(5),
+              }}>
               <Image
                 source={icons.verified}
-                style={{ width: responsiveWidth(7), height: responsiveWidth(7), }}
+                style={{width: responsiveWidth(7), height: responsiveWidth(7)}}
               />
-              <Text style={{
-                marginLeft: responsiveWidth(2),
-                color: "#013220", fontSize:responsiveFontSize(1.9)
-              }}>Verified</Text>
-
+              <Text
+                style={{
+                  marginLeft: responsiveWidth(2),
+                  color: '#013220',
+                  fontSize: responsiveFontSize(1.9),
+                }}>
+                Verified
+              </Text>
             </View>
           </View>
 
-
           <SectionTitle title="ACCOUNT" />
 
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate("Funds")} >
-            <View style={{
-              flex: 1, justifyContent: 'space-between',
-              flexDirection: "row", marginTop: SIZES.radius,
-              borderBottomWidth: 0.8, height:responsiveWidth(15), borderBottomColor: '#D6EDF0',
-              alignItems: 'center'
-            }}>
-              <Text style={{ color: COLORS.black,  fontSize:responsiveFontSize(2.3)  }}>
+          <TouchableOpacity onPress={() => props.navigation.navigate('Funds')}>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                marginTop: SIZES.radius,
+                borderBottomWidth: 0.8,
+                height: responsiveWidth(15),
+                borderBottomColor: '#D6EDF0',
+                alignItems: 'center',
+              }}>
+              <Text
+                style={{
+                  color: COLORS.black,
+                  fontSize: responsiveFontSize(2.3),
+                }}>
                 Funds
               </Text>
-              <Image source={icons.funds}
-                  style={{ height: responsiveWidth(8), width:responsiveWidth(8), tintColor: "#B1C3BB" }}  />
+              <Image
+                source={icons.funds}
+                style={{
+                  height: responsiveWidth(8),
+                  width: responsiveWidth(8),
+                  tintColor: '#B1C3BB',
+                }}
+              />
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => props.navigation.navigate("UserProfile")}>
-            <View style={{
-              flex: 1, justifyContent: 'space-between',
-              flexDirection: "row", marginTop: responsiveHeight(2),
-              borderBottomWidth: 0.8, height:responsiveWidth(15), borderBottomColor: '#D6EDF0',
-              alignItems: 'center'
-            }}>
-              <Text style={{ color: COLORS.black, fontSize:responsiveFontSize(2.3) }}>
+            onPress={() => props.navigation.navigate('UserProfile')}>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                marginTop: responsiveHeight(2),
+                borderBottomWidth: 0.8,
+                height: responsiveWidth(15),
+                borderBottomColor: '#D6EDF0',
+                alignItems: 'center',
+              }}>
+              <Text
+                style={{
+                  color: COLORS.black,
+                  fontSize: responsiveFontSize(2.3),
+                }}>
                 Profile
               </Text>
-              <Image source={icons.profile}
-                style={{ height: responsiveWidth(8), width:responsiveWidth(8), tintColor: "#B1C3BB" }} />
+              <Image
+                source={icons.profile}
+                style={{
+                  height: responsiveWidth(8),
+                  width: responsiveWidth(8),
+                  tintColor: '#B1C3BB',
+                }}
+              />
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate("ForgotPassword")}>
-            <View style={{
-              flex: 1, justifyContent: 'space-between',
-              flexDirection: "row", marginTop: responsiveHeight(2),
-              borderBottomWidth: 0.8, height: responsiveWidth(15), borderBottomColor: '#D6EDF0',
+            onPress={() => props.navigation.navigate('ForgotPassword')}>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                marginTop: responsiveHeight(2),
+                borderBottomWidth: 0.8,
+                height: responsiveWidth(15),
+                borderBottomColor: '#D6EDF0',
 
-              alignItems: 'center'
-            }}>
-              <Text style={{ color: COLORS.black, fontSize:responsiveFontSize(2.3)}}>
+                alignItems: 'center',
+              }}>
+              <Text
+                style={{
+                  color: COLORS.black,
+                  fontSize: responsiveFontSize(2.3),
+                }}>
                 Reset passward
               </Text>
-              <Image source={icons.setting}
-                style={{height: responsiveWidth(8), width:responsiveWidth(8), tintColor: "#B1C3BB" }} />
+              <Image
+                source={icons.setting}
+                style={{
+                  height: responsiveWidth(8),
+                  width: responsiveWidth(8),
+                  tintColor: '#B1C3BB',
+                }}
+              />
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate("Login")}>
-            <View style={{
-              flex: 1, justifyContent: 'space-between',
-              flexDirection: "row", marginTop: responsiveHeight(2),
-              borderBottomWidth: 0.8, height: responsiveWidth(15), borderBottomColor: '#D6EDF0',
-              alignItems: 'center'
-            }}>
-              <Text style={{ color: COLORS.black, fontSize:responsiveFontSize(2.3) }}>
+          <TouchableOpacity onPress={logout}>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                marginTop: responsiveHeight(2),
+                borderBottomWidth: 0.8,
+                height: responsiveWidth(15),
+                borderBottomColor: '#D6EDF0',
+                alignItems: 'center',
+              }}>
+              <Text
+                style={{
+                  color: COLORS.black,
+                  fontSize: responsiveFontSize(2.3),
+                }}>
                 Logout
               </Text>
-              <Image source={icons.logout}
-                style={{ height: responsiveWidth(8), width:responsiveWidth(8), tintColor: "#B1C3BB" }} />
+              <Image
+                source={icons.logout}
+                style={{
+                  height: responsiveWidth(8),
+                  width: responsiveWidth(8),
+                  tintColor: '#B1C3BB',
+                }}
+              />
             </View>
           </TouchableOpacity>
           <SectionTitle title="SUPPORT" />
 
           <TouchableOpacity
-            onPress={() => props.navigation.navigate("Setting")}>
-            <View style={{
-              flex: 1, justifyContent: 'space-between',
-              flexDirection: "row", marginTop: responsiveHeight(2),
-              borderBottomWidth: 0.8, height: responsiveWidth(15), borderBottomColor: '#D6EDF0',
-              alignItems: 'center'
-            }}>
-              <Text style={{ color: COLORS.black, fontSize:responsiveFontSize(2.3)}}>
+            onPress={() => props.navigation.navigate('Setting')}>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                marginTop: responsiveHeight(2),
+                borderBottomWidth: 0.8,
+                height: responsiveWidth(15),
+                borderBottomColor: '#D6EDF0',
+                alignItems: 'center',
+              }}>
+              <Text
+                style={{
+                  color: COLORS.black,
+                  fontSize: responsiveFontSize(2.3),
+                }}>
                 Support portal
               </Text>
-              <Image source={icons.customersupport}
-                style={{ height: responsiveWidth(8), width:responsiveWidth(8), tintColor: "#B1C3BB" }} />
+              <Image
+                source={icons.customersupport}
+                style={{
+                  height: responsiveWidth(8),
+                  width: responsiveWidth(8),
+                  tintColor: '#B1C3BB',
+                }}
+              />
             </View>
           </TouchableOpacity>
-
 
           {/* <TouchableOpacity
             onPress={() => props.navigation.navigate("BuySrceen")}>
@@ -232,9 +333,7 @@ const Profile = (props) => {
                 style={{height: responsiveWidth(8), width:responsiveWidth(8), tintColor: "#B1C3BB"  }} />
             </View>
           </TouchableOpacity> */}
-
         </ScrollView>
-
       </View>
     </MainLayout>
   );
