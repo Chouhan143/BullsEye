@@ -34,6 +34,7 @@ const Funds = () => {
   const navigation = useNavigation();
   const [userFund, setUserFund] = useState('');
   const [depositResponse, setDepositeResponse] = useState('');
+  const [withdrawResponse, setWithdrawResponse] = useState('');
   const getStoredData = async () => {
     try {
       const storedbalance = await AsyncStorage.getItem('user_balance');
@@ -194,9 +195,42 @@ const Funds = () => {
     }
   };
 
+  const withdrawListHandle = async () => {
+    try {
+      const access_token = await AsyncStorage.getItem('accessToken');
+      const headers = {
+        Authorization: `Bearer ${access_token}`,
+      };
+
+      const response = await axios.get(
+        'https://scripts.bulleyetrade.com/api/withdraw',
+        {headers},
+      );
+
+      const formattedData = response.data.Data.map(item => {
+        const createdDate = new Date(item.created_at);
+        const formattedDate = createdDate
+          .toLocaleDateString()
+          .split('/')
+          .map(part => part.padStart(2, '0'))
+          .join('-');
+
+          const isApproved = item.is_approved === 1 ? 'Active' : 'Pending';
+
+          return { ...item, created_at: formattedDate, is_approved: isApproved };
+      });
+
+      setWithdrawResponse(formattedData);
+      console.log('formatted data', formattedData);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
   useEffect(() => {
     getStoredData();
     depositeListHandle();
+    withdrawListHandle();
   }, []);
 
   const withdrawApi = async () => {
@@ -540,7 +574,7 @@ const Funds = () => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            marginTop: responsiveHeight(12),
+            marginTop: responsiveHeight(5),
           }}>
           <Text
             style={{
@@ -593,6 +627,30 @@ const Funds = () => {
               Withdraw Request
             </Text>
           </TouchableOpacity>
+          <View
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              backgroundColor: COLORS.bgColor,
+              width: responsiveWidth(100),
+              height: responsiveHeight(4),
+              paddingHorizontal: responsiveWidth(7),
+              marginTop: responsiveHeight(4),
+            }}>
+            <Text style={{color: COLORS.black, alignSelf: 'center', fontWeight:'600',fontSize:responsiveFontSize(2)}}>Date</Text>
+            <Text style={{color: COLORS.black, alignSelf: 'center', fontWeight:'600',fontSize:responsiveFontSize(2)}}>
+              Amount
+            </Text>
+            <Text style={{color: COLORS.black, alignSelf: 'center', fontWeight:'600',fontSize:responsiveFontSize(2)}}>
+              Status
+            </Text>
+          </View>
+          <FlatList
+            data={withdrawResponse}
+            renderItem={depositeUi}
+            keyExtractor={item => item.id.toString()}
+          />
         </View>
       ) : (
         <View

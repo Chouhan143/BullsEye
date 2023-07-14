@@ -79,7 +79,8 @@ const FirstRoute = () => {
   const squreOffhandle = tradeId => {
     SquareOff(tradeId);
   };
-
+  
+  
   const toggleModal = tradeId => {
     setIsModalVisible(!isModalVisible);
     setSelectedTradeId(tradeId);

@@ -4,6 +4,8 @@ import { SIZES, COLORS, icons, } from '../../constants';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { releaseSecureAccess } from 'react-native-document-picker';
+import axios from 'axios';
+
 
 // all pages responsive
 
@@ -12,6 +14,33 @@ const UserProfile = (onPress) => {
     const [mobile, setMobile] = useState('');
     const [fName, setFname] = useState('');
     const [lName, setlname] = useState('');
+    const [bankData,setBankData]=useState('');
+
+
+
+    const FetchBankDetails = async () => {
+        try {
+          const access_token = await AsyncStorage.getItem('accessToken');
+          const headers = {
+            Authorization: `Bearer ${access_token}`,
+          };
+    
+          const response = await axios.get(
+            'https://scripts.bulleyetrade.com/api/bank_details',
+            {headers},
+          );
+
+          
+    
+          setBankData(response.data.Data);
+          console.log(response.data.Data)
+        } catch (error) {
+          console.log('error', error);
+        }
+      };
+
+
+
 
     const getStoredData = async () => {
         try {
@@ -36,6 +65,7 @@ const UserProfile = (onPress) => {
 
     useEffect(() => {
         getStoredData();
+        FetchBankDetails();
     }, []);
 
     const SectionTitle = ({ title }) => {
@@ -57,12 +87,13 @@ const UserProfile = (onPress) => {
 
                 <View style={{ backgroundColor: COLORS.mainBgColor, marginTop: responsiveHeight(2) }}>
                     <View style={{
-                        height: responsiveWidth(30), backgroundColor: COLORS.bgColor, width: responsiveWidth(93),
+                        height: responsiveWidth(20), backgroundColor: COLORS.bgColor, width: responsiveWidth(93),
                         justifyContent: 'space-between',
                         borderBottomWidth: 0.3, borderBottomColor: COLORS.lightGray3, alignSelf: 'center',
+                        alignItems:'center',
                         flexDirection: 'row', borderRadius: responsiveWidth(2)
                     }}>
-                        <View style={{ marginTop: responsiveHeight(3) }}>
+                        <View>
                             <Text style={{ fontSize: responsiveFontSize(3), marginLeft: responsiveWidth(4), color: '#000' }}>{fName + ' ' + lName}</Text>
                             {/* <Text style={{ fontSize: responsiveFontSize(2), marginLeft: responsiveWidth(4), }}>kas25014</Text> */}
 
@@ -70,23 +101,23 @@ const UserProfile = (onPress) => {
 
                         <View
                             style={{
-                                width: responsiveWidth(15),
-                                height: responsiveWidth(15),
+                                width: responsiveWidth(10),
+                                height: responsiveWidth(10),
                                 borderRadius: responsiveWidth(2),
-                                marginTop: responsiveHeight(2),
+                               
                                 marginRight: responsiveWidth(10),
                             }}>
                             <Image
                                 source={icons.profile}
                                 style={{
-                                    width: responsiveWidth(20),
-                                    height: responsiveWidth(20),
+                                    width: responsiveWidth(10),
+                                    height: responsiveWidth(10),
                                     borderWidth: 0.5,
                                     borderColor: '#000',
                                     borderRadius: responsiveWidth(10),
                                 }}
                             />
-                            <View
+                            {/* <View
                                 style={{
                                     width: responsiveWidth(8),
                                     height: responsiveWidth(4),
@@ -101,7 +132,7 @@ const UserProfile = (onPress) => {
                                         Edit
                                     </Text>
                                 </TouchableOpacity>
-                            </View>
+                            </View> */}
                         </View>
 
                     </View>
@@ -131,16 +162,29 @@ const UserProfile = (onPress) => {
                     <Text style={{ fontSize: responsiveFontSize(2), color: '#989FA5' }}>{mobile}</Text>
                 </View>
 
-                {/* <View style={{ margin: 20, }}>
-                    <View style={{ marginTop: 20 }}>
-                        <Text style={{ fontSize: 15 }}>Bank Account</Text>
+                
 
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
-                        <Text>ICICI</Text>
-                        <Text>12454***45***58**</Text>
-                    </View>
-                </View> */}
+                
+        {bankData ? (
+          <View style={{ margin: 20 }}>
+            <View style={{ marginTop: 20 }}>
+              <Text style={{ fontSize: responsiveFontSize(2), color: '#000' }}>Bank Account</Text>
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
+              <Text style={{ fontSize: responsiveFontSize(2), color: '#000' }}> ICICI</Text>
+              <Text style={{ fontSize: responsiveFontSize(2), color: '#989FA5' }}>{bankData}</Text>
+            </View>
+          </View>
+        ) : (
+          <View style={{ margin: 20,flexDirection:'row',justifyContent:'space-between',alignItems:'center' }}>
+            <View style={{ marginTop: 20 }}>
+              <Text style={{ fontSize: responsiveFontSize(2), color: '#000' }}>Bank Account</Text>
+            </View>
+            <View >
+              <Text style={{ fontSize: responsiveFontSize(2), color:'#989FA5',alignSelf:'center' }}>Add Bank Account</Text>
+            </View>
+          </View>
+        )}
 
 
 
