@@ -35,6 +35,11 @@ const LoginScreen = () => {
       const first_name = res.data.payload.first_name;
       const last_name = res.data.payload.last_name;
       const user_balance = res.data.payload.user_balance;
+      const bank_name = res.data.payload.bank_name;
+      const account_name = res.data.payload.account_name;
+      const account_number = res.data.payload.account_number;
+      const branch_address = res.data.payload.branch_address;
+
       await AsyncStorage.setItem('accessToken', accessToken.toString());
       await AsyncStorage.setItem('id', id.toString());
       await AsyncStorage.setItem('email', email.toString());
@@ -42,6 +47,11 @@ const LoginScreen = () => {
       await AsyncStorage.setItem('first_name', first_name.toString());
       await AsyncStorage.setItem('last_name', last_name.toString());
       await AsyncStorage.setItem('user_balance',user_balance.toString());
+      await AsyncStorage.setItem('bank_name',bank_name.toString());
+      await AsyncStorage.setItem('account_name',account_name.toString());
+      await AsyncStorage.setItem('account_number',account_number.toString());
+      await AsyncStorage.setItem('branch_address',branch_address.toString());
+      console.log('das',branch_address)
 
       const { status, payload: responseData } = res.data;
 

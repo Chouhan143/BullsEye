@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,11 +12,11 @@ import {
 } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Toast} from 'react-native-toast-message/lib/src/Toast';
-import {useNavigation} from '@react-navigation/native';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import { useNavigation } from '@react-navigation/native';
 
-import {COLORS, icons, SIZES} from '../../constants';
-import {postData, postData3} from '../../constants/hooks/ApiHelper';
+import { COLORS, icons, SIZES } from '../../constants';
+import { postData, postData3 } from '../../constants/hooks/ApiHelper';
 import {
   responsiveFontSize,
   responsiveHeight,
@@ -47,29 +47,29 @@ const Funds = () => {
 
 
 
-  const depositeUi = ({item}) => {
+  const depositeUi = ({ item }) => {
     return (
-      <View style={{flex: 1, marginTop: responsiveHeight(2)}}>
-         <View
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              flexDirection: 'row',
-              // backgroundColor: 'red',
-              width: responsiveWidth(100),
-              height: responsiveHeight(3),
-              paddingHorizontal: responsiveWidth(7),
-              marginTop: responsiveHeight(2),
-            }}>
-            <Text style={{color: COLORS.black, alignSelf: 'center'}}>{item.created_at}</Text>
-            <Text style={{color: COLORS.black, alignSelf: 'center'}}>
+      <View style={{ flex: 1, marginTop: responsiveHeight(2) }}>
+        <View
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            // backgroundColor: 'red',
+            width: responsiveWidth(100),
+            height: responsiveHeight(3),
+            paddingHorizontal: responsiveWidth(7),
+            marginTop: responsiveHeight(2),
+          }}>
+          <Text style={{ color: COLORS.black, alignSelf: 'center' }}>{item.created_at}</Text>
+          <Text style={{ color: COLORS.black, alignSelf: 'center' }}>
             {item.amount}
-            </Text>
-            <Text style={{color: COLORS.black, alignSelf: 'center'}}>
+          </Text>
+          <Text style={{ color: COLORS.black, alignSelf: 'center' }}>
             {item.is_approved}
-            </Text>
-          </View>
-       
+          </Text>
+        </View>
+
       </View>
     );
   };
@@ -175,7 +175,7 @@ const Funds = () => {
 
       const response = await axios.get(
         'https://scripts.bulleyetrade.com/api/deposit',
-        {headers},
+        { headers },
       );
 
       const formattedData = response.data.Data.map(item => {
@@ -186,9 +186,9 @@ const Funds = () => {
           .map(part => part.padStart(2, '0'))
           .join('-');
 
-          const isApproved = item.is_approved === 1 ? 'Active' : 'Pending';
+        const isApproved = item.is_approved === 1 ? 'Active' : 'Pending';
 
-          return { ...item, created_at: formattedDate, is_approved: isApproved };
+        return { ...item, created_at: formattedDate, is_approved: isApproved };
       });
 
       setDepositeResponse(formattedData);
@@ -207,7 +207,7 @@ const Funds = () => {
 
       const response = await axios.get(
         'https://scripts.bulleyetrade.com/api/withdraw',
-        {headers},
+        { headers },
       );
 
       const formattedData = response.data.Data.map(item => {
@@ -218,9 +218,9 @@ const Funds = () => {
           .map(part => part.padStart(2, '0'))
           .join('-');
 
-          const isApproved = item.is_approved === 1 ? 'Active' : 'Pending';
+        const isApproved = item.is_approved === 1 ? 'Active' : 'Pending';
 
-          return { ...item, created_at: formattedDate, is_approved: isApproved };
+        return { ...item, created_at: formattedDate, is_approved: isApproved };
       });
 
       setWithdrawResponse(formattedData);
@@ -235,18 +235,6 @@ const Funds = () => {
     depositeListHandle();
     withdrawListHandle();
   }, []);
-
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-   
-      getStoredData();
-    }, 1000);
-  
-    return () => clearInterval(interval);
-  }, []);
-  
-
 
   const withdrawApi = async () => {
     try {
@@ -306,7 +294,7 @@ const Funds = () => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text style={{fontSize: responsiveFontSize(2), color: '#000'}}>
+          <Text style={{ fontSize: responsiveFontSize(2), color: '#000' }}>
             Trading Balance
           </Text>
           <Text
@@ -394,18 +382,18 @@ const Funds = () => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            marginTop: responsiveHeight(3),
+            marginTop: responsiveHeight(2),
           }}>
           {/* Render QR code image here */}
-          <Text
+          {/* <Text
             style={{
               color: '#000',
               fontSize: responsiveFontSize(2),
               marginBottom: responsiveWidth(5),
             }}>
             Scan QR For Add Fund
-          </Text>
-          <Image
+          </Text> */}
+          {/* <Image
             source={require('../../assets/Image/QR.png')}
             style={{
               width: responsiveWidth(30),
@@ -413,9 +401,9 @@ const Funds = () => {
               borderRadius: responsiveHeight(2),
               // tintColor: '#fff',
             }}
-          />
+          /> */}
 
-          <View style={{marginVertical: responsiveHeight(2)}}>
+          <View style={{ marginVertical: responsiveHeight(1) }}>
             {/* <View
               style={{
                 backgroundColor: COLORS.bgColor,
@@ -427,12 +415,65 @@ const Funds = () => {
                 marginHorizontal: responsiveWidth(2),
               }}
             > */}
+            <View style={{ marginLeft: responsiveWidth(5) }}>
+              <View style={{}}>
+                <Text style={{ fontSize: responsiveFontSize(3), color: '#000' }}>Deposit Bank Details  -:</Text>
+              </View>
+              <View style={{ marginTop: responsiveHeight(1), marginLeft: responsiveWidth(0.5) }}>
+                <View style={{
+                  width: responsiveWidth(90), height: responsiveWidth(30), backgroundColor: COLORS.bgColor,
+                  paddingLeft: responsiveWidth(2), borderRadius: responsiveWidth(2), paddingTop: responsiveHeight(1),
+
+                }}>
+                  <Text style={{ fontSize: responsiveFontSize(2), color: '#000', paddingVertical: responsiveHeight(0.2) }}>Account Name : BULLSEYE BROKING PVT.LTD.</Text>
+
+                  <Text style={{ fontSize: responsiveFontSize(2), color: '#000', paddingVertical: responsiveHeight(0.2) }}>Account Number : 50200078920916</Text>
+
+                  <Text style={{ fontSize: responsiveFontSize(2), color: '#000', paddingVertical: responsiveHeight(0.2) }}>Bank Name : HDFC BANK</Text>
+
+                  <Text style={{ fontSize: responsiveFontSize(2), color: '#000', paddingVertical: responsiveHeight(0.2) }}>IFSC Code : HDFC0007002</Text>
+                </View>
+
+              </View>
+
+
+
+            </View>
+            <View style={{
+              width: responsiveWidth(15), height: responsiveWidth(6), backgroundColor: 'blue',
+              borderRadius: responsiveWidth(10), paddingTop: responsiveHeight(0), marginTop: responsiveHeight(1.4),
+              justifyContent: 'center', alignItems: 'center', alignSelf: 'center'
+            }}>
+              <Text style={{ fontSize: responsiveFontSize(2.3), color: '#fff', fontWeight: '400' }}>OR</Text>
+            </View>
+            <View style={{ marginLeft: responsiveWidth(5) }}>
+              <View style={{marginTop:responsiveHeight(1.2 )}}>
+                <Text style={{ fontSize: responsiveFontSize(3), color: '#000' }}>Deposit By UPI ID  -:</Text>
+              </View>
+              <View style={{ marginTop: responsiveHeight(1), marginLeft: responsiveWidth(0.5) }}>
+                <View style={{
+                  width: responsiveWidth(90), height: responsiveWidth(10), backgroundColor: COLORS.bgColor,
+                  paddingLeft: responsiveWidth(5), borderRadius: responsiveWidth(2), paddingTop: responsiveHeight(1),
+
+                }}>
+                  <Text style={{ fontSize: responsiveFontSize(2), color: '#000',
+                   paddingVertical: responsiveHeight(0.2) }}>UPI ID Address : bullseye.ltd@axl</Text>
+
+
+                </View>
+
+              </View>
+
+
+
+            </View>
             <Text
               style={{
                 color: '#000',
                 fontSize: responsiveFontSize(1.7),
                 fontWeight: '700',
                 marginHorizontal: responsiveWidth(4),
+                marginTop: responsiveHeight(3)
               }}>
               Upload Screenshot
             </Text>
@@ -467,19 +508,19 @@ const Funds = () => {
                     alignSelf: 'center',
                   }}>
                   <Text
-                    style={{color: '#000', fontSize: responsiveFontSize(2)}}>
+                    style={{ color: '#000', fontSize: responsiveFontSize(2) }}>
                     Select
                   </Text>
                 </View>
               </TouchableOpacity>
-              <View style={{paddingHorizontal: 5}}>
+              <View style={{ paddingHorizontal: 5 }}>
                 <TextInput
                   value={doc ? doc.name : ''}
                   onChangeText={handleDocInputChange}
                   numberOfLines={2}
                   maxLength={15}
                   multiline={true}
-                  style={{color: doc ? 'black' : 'red'}}
+                  style={{ color: doc ? 'black' : 'red' }}
                 />
               </View>
             </View>
@@ -569,11 +610,11 @@ const Funds = () => {
               paddingHorizontal: responsiveWidth(7),
               marginTop: responsiveHeight(4),
             }}>
-            <Text style={{color: COLORS.black, alignSelf: 'center', fontWeight:'600',fontSize:responsiveFontSize(2)}}>Date</Text>
-            <Text style={{color: COLORS.black, alignSelf: 'center', fontWeight:'600',fontSize:responsiveFontSize(2)}}>
+            <Text style={{ color: COLORS.black, alignSelf: 'center', fontWeight: '600', fontSize: responsiveFontSize(2) }}>Date</Text>
+            <Text style={{ color: COLORS.black, alignSelf: 'center', fontWeight: '600', fontSize: responsiveFontSize(2) }}>
               Amount
             </Text>
-            <Text style={{color: COLORS.black, alignSelf: 'center', fontWeight:'600',fontSize:responsiveFontSize(2)}}>
+            <Text style={{ color: COLORS.black, alignSelf: 'center', fontWeight: '600', fontSize: responsiveFontSize(2) }}>
               Status
             </Text>
           </View>
@@ -653,11 +694,11 @@ const Funds = () => {
               paddingHorizontal: responsiveWidth(7),
               marginTop: responsiveHeight(4),
             }}>
-            <Text style={{color: COLORS.black, alignSelf: 'center', fontWeight:'600',fontSize:responsiveFontSize(2)}}>Date</Text>
-            <Text style={{color: COLORS.black, alignSelf: 'center', fontWeight:'600',fontSize:responsiveFontSize(2)}}>
+            <Text style={{ color: COLORS.black, alignSelf: 'center', fontWeight: '600', fontSize: responsiveFontSize(2) }}>Date</Text>
+            <Text style={{ color: COLORS.black, alignSelf: 'center', fontWeight: '600', fontSize: responsiveFontSize(2) }}>
               Amount
             </Text>
-            <Text style={{color: COLORS.black, alignSelf: 'center', fontWeight:'600',fontSize:responsiveFontSize(2)}}>
+            <Text style={{ color: COLORS.black, alignSelf: 'center', fontWeight: '600', fontSize: responsiveFontSize(2) }}>
               Status
             </Text>
           </View>

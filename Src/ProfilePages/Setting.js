@@ -119,13 +119,13 @@ const Setting = () => {
                     style={{
                         color: COLORS.black, fontSize: responsiveFontSize(2.5), marginTop: responsiveHeight(2)
                         , marginLeft: responsiveWidth(25)
-                    }}> Call us
+                    }}> Email us
 
                 </Text>
                 <Text style={{
                     marginTop: responsiveHeight(2), marginLeft: responsiveWidth(25)
                     , fontSize: responsiveFontSize(2),color:'#000'
-                }}>Mon-sat from 8am to 5pm</Text>
+                }}>mail: bullseyebroking68@gmail.com</Text>
                 <Text style={{
                     marginTop: responsiveHeight(2), marginLeft: responsiveWidth(25)
                     , fontSize: responsiveFontSize(2),color:'#000'
@@ -149,11 +149,11 @@ const Setting = () => {
                         color: COLORS.black, fontSize: responsiveFontSize(2.5), marginTop: responsiveHeight(2)
                         , marginLeft: responsiveWidth(25)
                     }}>
-                    Visit us</Text>
+                    Visit wedsite</Text>
                     <Text style={{
                     marginTop: responsiveHeight(2), marginLeft: responsiveWidth(25)
                     , fontSize: responsiveFontSize(2),color:'#000'
-                }}>website- Bullseye.com</Text>
+                }}> https://bulleyetrade.com/</Text>
             </View>
 
         </View>
