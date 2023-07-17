@@ -6,6 +6,7 @@ import { fetchCoinData, setIsTradeModalVisible, selectIsTradeModalVisible } from
 import { responsiveHeight,responsiveWidth,responsiveFontSize } from 'react-native-responsive-dimensions';
 import MainLayout from './MainLayout';
 import { COLORS } from '../constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const {width,height}=Dimensions.get("window")
 
@@ -41,6 +42,9 @@ const Home = () => {
   const [selectedItem, setSelectedItem] = useState(null);
 
   const coinsData = useSelector((state) => state.coin.data);
+
+
+
 
   useEffect(() => {
     const interval = setInterval(() => {

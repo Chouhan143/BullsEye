@@ -18,23 +18,41 @@ import Icon from 'react-native-vector-icons/dist/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 import OtpTextInpute from './OtpTextInpute';
 import axios from 'axios';
-
+// import OtpLibrary from './otpLibrary';
+import OTPTextInput from 'react-native-otp-textinput';
 // import OTPInputView from '@twotalltotems/react-native-otp-input';
-const ForgetPasswordOtp = () => {
+const ForgetPasswordOtp = ({route}) => {
   const navigation = useNavigation();
+  const { email } = route.params;
   const handleGoBack = () => {
     navigation.goBack();
   };
 
-  const [email, setEmail] = useState('');
-  const [otpNumber, setOtpNumber] = useState(null);
+  const [otpNumber, setOtpNumber] = useState('');
   const [id, setId] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [value, setValue] = useState('');
+  const [otp, setOtp] = useState('');
+
+  const handleOtpChange = text => {
+    setOtp(text);
+    // You can perform any additional logic here, like verifying the OTP.
+  };
+  
+  // const handleOtpInputChange = otpValue => {
+  //   setOtpNumber(otpValue);
+  // };
 
   const handleOtpInputChange = otpValue => {
-    setOtpNumber(otpValue);
+    const numericValue = otpValue.replace(/[^0-9]/g, '');
+    console.log('otpValue in OtpTextInpute:', numericValue);
+    setOtpNumber(numericValue); // Store the OTP value in the component state
   };
+
+  useEffect(() => {
+    console.log('otpNumber in ForgetPasswordOtp:', otpNumber);
+  }, [otpNumber]);
 
   const handleNewPasswordChange = text => {
     setNewPassword(text);
@@ -44,47 +62,65 @@ const ForgetPasswordOtp = () => {
     setConfirmPassword(text);
   };
 
-  const getStoredData = async () => {
-    try {
-      const storedEmail = await AsyncStorage.getItem('email1');
-      const storeId = await AsyncStorage.getItem('id');
-      setId(storeId || ' ');
-      setEmail(storedEmail || '');
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const getStoredData = async () => {
+  //   try {
+  //     const storedEmail = await AsyncStorage.getItem('email1');
+  //     const storeId = await AsyncStorage.getItem('id');
+  //     setId(storeId || ' ');
+  //     setEmail(storedEmail || '');
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getStoredData();
-  }, []);
+  // useEffect(() => {
+  //   getStoredData();
+  // }, []);
 
   const PasswordReset = async () => {
+    console.log('otpNumber before API call:', typeof otpNumber);
     try {
       const payload = {
-        email_otp: otpNumber,
+        email_otp: otp,
         new_password: newPassword,
         confirm_password: confirmPassword,
+        email: email,
       };
       console.log('payload', payload);
       const res = await axios.post(
         'https://panel.bulleyetrade.com/api/mobile/reset-password',
         payload,
       );
-      console.log('reccs', res);
-      const email1 = res.config.data;
-      await AsyncStorage.setItem('email1', email1.toString());
 
       if (res.data.result === true) {
         const message = res.data.message;
         alert(message);
-        navigation.navigate('Login');
+        navigation.navigate('Login'); // Navigate to the 'Login' screen if the password reset is successful
+      } else if (res.data.result === false) {
+        const message = res.data.message;
+        alert(message);
       }
-    } catch (error) {
-      console.log('Error:', error);
+    }  catch (error) {
+      if (error.response && error.response.data && error.response.data.errors) {
+        // Handle validation errors and show them as alerts
+        const errors = error.response.data.errors;
+        let errorMessage = '';
+        Object.keys(errors).forEach((key) => {
+          errorMessage += `${errors[key][0]}\n`;
+        });
+        alert(errorMessage);
+      } else {
+        console.log('Error:', error.response.data.errors);
+        alert('An error occurred during the password reset.'); // Show a generic error message to the user
+      }
+
+ 
+
     }
   };
+  
 
+  
   return (
     <View
       style={{
@@ -121,7 +157,7 @@ const ForgetPasswordOtp = () => {
               flexDirection: 'row',
               marginTop: responsiveHeight(2),
             }}>
-            <Text style={{color: 'gray'}}>we sent a code to.</Text>
+            <Text style={{color: 'gray'}}>we sent a code to your email</Text>
             <Text
               style={{
                 color: COLORS.black,
@@ -133,7 +169,7 @@ const ForgetPasswordOtp = () => {
           </View>
 
           {/* otpinpute ui  */}
-          <View
+          {/* <View
             style={{
               display: 'flex',
               justifyContent: 'center',
@@ -141,6 +177,18 @@ const ForgetPasswordOtp = () => {
               marginTop: responsiveHeight(5),
             }}>
             <OtpTextInpute onOtpInputChange={handleOtpInputChange} />
+          </View> */}
+          <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <OTPTextInput
+              handleTextChange={handleOtpChange}
+              inputCount={6} // Specify the number of OTP digits
+              keyboardType="numeric" // Optional: specify the keyboard type for the OTP input
+              tintColor="green" // Optional: customize the color of the active border
+              offTintColor="gray" // Optional: customize the color of the inactive border
+              containerStyle={{marginBottom: responsiveWidth(1)}} // Optional: customize the container style
+              textInputStyle={{fontSize: responsiveFontSize(2),
+                borderBottomWidth: 3,}} // Optional: customize the OTP input style
+            />
           </View>
 
           <View>

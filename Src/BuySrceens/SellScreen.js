@@ -51,7 +51,7 @@ const SellScreen = () => {
   const [requiredValue, setRequiredValue] = useState(0);
   const [isEnabled, setIsEnabled] = useState(false);
   const [buyInputeFeild, setBuyInputeFeild] = useState({
-    trade_mode: 'buy',
+    trade_mode: 'sell',
     trade_name: '',
     max_lot: '',
     market_price: '',
@@ -162,8 +162,7 @@ const SellScreen = () => {
       underlayColor={selectedButton === buttonId ? 'green' : buttonColor}
       onPress={() => handleButtonPress(buttonId)}>
       <View>
-        <Text style={{color: selectedButton === buttonId ? 'white' : 'white',
-       fontSize: responsiveFontSize(2),}}>
+        <Text style={{color: selectedButton === buttonId ? 'white' : 'white'}}>
           {title}
         </Text>
       </View>
@@ -175,7 +174,7 @@ const SellScreen = () => {
   const BuyKnow = async () => {
     if (
       !selectedItem ||
-      !market_price ||
+      // !market_price ||
       !limit ||
       !target ||
       !stop_loss ||
@@ -255,12 +254,12 @@ const SellScreen = () => {
               <TouchableOpacity onPress={goBack}>
                 <AntDesign
                   name="arrowleft"
-                  size={responsiveFontSize(3)}
+                  size={20}
                   color="#000"
-                  style={{marginRight: responsiveWidth(2)}}
+                  style={{marginRight: 5}}
                 />
               </TouchableOpacity>
-              <Text style={{color: '#000', fontWeight: '700',  fontSize: responsiveFontSize(2),}}>
+              <Text style={{color: '#000', fontWeight: '700', fontSize: 15}}>
                 {selectedItem ? selectedItem.trade_name : ''}
               </Text>
             </View>
@@ -273,13 +272,11 @@ const SellScreen = () => {
               }}>
               <FontAwesome
                 name="inr"
-                size={responsiveFontSize(2.5)}
+                size={15}
                 color="#000"
-                style={{marginRight: responsiveWidth(2)}}
+                style={{marginRight: 5}}
               />
-              <Text style={{color: '#000', fontWeight: '700',
-                marginRight: responsiveWidth(2),
-                fontSize: responsiveFontSize(2),}}>
+              <Text style={{color: '#000', fontWeight: '700', marginRight: 5}}>
                 {selectedItem ? selectedItem.price : ''}
               </Text>
             </View>
@@ -287,7 +284,7 @@ const SellScreen = () => {
           {/* intraday part ........... */}
 
           <View style={styles.intradayBox}>
-            <Text style={{color: '#fff', fontSize: responsiveFontSize(2)}}>Intraday</Text>
+            <Text style={{color: '#fff'}}>Intraday</Text>
           </View>
 
           {/* Buying price & lots .............. */}
@@ -296,7 +293,7 @@ const SellScreen = () => {
               display: 'flex',
               justifyContent: 'space-between',
               flexDirection: 'row',
-              marginHorizontal: responsiveWidth(4),
+              marginHorizontal: 15,
             }}>
             <View
               style={{
@@ -306,7 +303,7 @@ const SellScreen = () => {
                 display: 'flex',
                 alignSelf: 'center',
               }}>
-              <Text style={{color: '#000',fontSize: responsiveFontSize(1.8)}}>Max Lot</Text>
+              <Text style={{color: '#000'}}>Max Lot</Text>
               <View
                 onPressIn={handlePressIn}
                 onPressOut={handlePressOut}
@@ -318,14 +315,14 @@ const SellScreen = () => {
                   <TouchableOpacity onPress={handleDecrement}>
                     <AntDesign
                       name="minuscircleo"
-                      size={responsiveFontSize(2.5)}
+                      size={20}
                       color="#000"
                       style={{marginRight: responsiveWidth(5)}}
                     />
                   </TouchableOpacity>
                   <TextInput
                     style={[
-                      [styles.textInput, {flex: 1 / 2, paddingHorizontal:  responsiveWidth(3)}],
+                      [styles.textInput, {flex: 1 / 2, paddingHorizontal: 20}],
                     ]}
                     value={counter.toString()} // Convert the counter value to a string before passing it to the text input
                     onChangeText={value =>
@@ -339,7 +336,7 @@ const SellScreen = () => {
                   <TouchableOpacity onPress={handleIncrement}>
                     <AntDesign
                       name="pluscircleo"
-                      size={responsiveFontSize(2.5)}
+                      size={20}
                       color="#000"
                       style={{marginRight: responsiveWidth(1)}}
                     />
@@ -356,7 +353,7 @@ const SellScreen = () => {
                 display: 'flex',
                 alignSelf: 'center',
               }}>
-              <Text style={{color: '#000',fontSize: responsiveFontSize(1.8)}}>Selling Price</Text>
+              <Text style={{color: '#000'}}>Selling Price</Text>
               <View
                 style={[
                   styles.inputWrapper,
@@ -498,7 +495,7 @@ const SellScreen = () => {
                 fontSize: responsiveFontSize(2.3),
                 fontWeight: '600',
                 color: COLORS.secondary,
-                marginBottom: responsiveHeight(1),
+                marginBottom: responsiveHeight(2),
               }}>
               Wallet Pin
             </Text>
@@ -519,17 +516,16 @@ const SellScreen = () => {
             style={{
               backgroundColor: 'red',
               width: responsiveWidth(90),
-              height: responsiveWidth(14),
+              height: responsiveWidth(15),
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               alignSelf: 'center',
-              borderRadius: responsiveWidth(3),
+              borderRadius: responsiveWidth(5),
               marginTop: responsiveHeight(3),
-              marginBottom:responsiveHeight(2)
             }}
             onPress={BuyKnow}>
-            <Text style={{color: '#ffff',fontSize:responsiveFontSize(2)}}>Sell</Text>
+            <Text style={{color: '#ffff'}}>Sell</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -558,19 +554,19 @@ const styles = StyleSheet.create({
   },
   inputWrapper: {
     borderColor: '#BBC7CF',
-    borderWidth: 0.5,
-    borderRadius: responsiveWidth(1),
-    marginTop: responsiveHeight(2),
+    borderWidth: 1,
+    borderRadius: 3,
+    marginTop: 10,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: responsiveWidth(2),
+    paddingHorizontal: 10,
     backgroundColor: '#bdd3ea',
   },
   textInput: {
-    fontSize: responsiveFontSize(2.5),
+    fontSize: 18,
     flex: 1,
     color: '#000',
     justifyContent: 'center',
@@ -579,11 +575,11 @@ const styles = StyleSheet.create({
   separator: {
     borderBottomColor: '#BBC7CF',
     borderBottomWidth: 0.5,
-    marginVertical: responsiveHeight(2),
-    marginHorizontal: responsiveWidth(2),
+    marginVertical: 15,
+    marginHorizontal: 10,
   },
   sectionHeader: {
-    marginLeft: responsiveWidth(3),
+    marginLeft: 10,
   },
   sectionHeaderText: {
     fontSize: responsiveFontSize(2.5),
@@ -592,14 +588,14 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginVertical: responsiveHeight(2),
-    marginLeft: responsiveWidth(5),
+    marginVertical: 15,
+    marginLeft: 10,
   },
   button: {
-    padding: responsiveHeight(1.8),
-    borderRadius: responsiveWidth(1),
-    marginBottom: responsiveHeight(1),
-    marginRight: responsiveWidth(5),
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+    marginRight: 10,
   },
   buyButton: {
     display: 'flex',

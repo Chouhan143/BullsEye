@@ -54,6 +54,7 @@ const Nav = () => {
           component={RegisterScreen}
           options={{
             title: 'Register',
+            headerShown: false
           }}
         />
 

@@ -37,6 +37,8 @@ export const getLiveTrade = createAsyncThunk('LiveTrade', async () => {
   }
 });
 
+
+
 export const getPastTrade = createAsyncThunk('PastTrade', async () => {
   try {
     const token = await AsyncStorage.getItem('accessToken');

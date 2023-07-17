@@ -1,9 +1,9 @@
-import React from 'react';
+import React,{useEffect } from 'react';
 import { SafeAreaView, View, Text, TouchableOpacity, TextInput, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation,useIsFocused  } from '@react-navigation/native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Lottie from 'lottie-react-native';
@@ -12,11 +12,55 @@ import { COLORS } from '../constants';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions";
 import CustomButton from '../components2/CustomButton';
 import InputField from '../components2/InputField';
-
+import { getToken,checkToken,setToken } from './TokenHooks';
+import { TokenConstant } from './TokenConstant';
 const baseUrl = 'https://scripts.bulleyetrade.com/api/signin';
-
 const LoginScreen = () => {
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
+
+  const checkLoggedInStatus = async () => {
+    const isLogged = await checkToken(TokenConstant.IS_LOGGED);
+    if (isLogged) {
+      navigation.replace('MainLayout'); // Redirect the user to the MainLayout if already logged in
+    }else {
+      navigation.replace('Login');
+    }
+  };
+
+  
+  // useEffect(()=>{
+  //   checkLoggedInStatus();
+  // },[])
+
+
+  
+  // useEffect(() => {
+  //   const checkStatus = async () => {
+  //     // Wait for the checkLoggedInStatus function to finish before navigating
+  //     await checkLoggedInStatus();
+
+  //     // If the screen is still focused, navigate to the login screen
+  //     if (isFocused) {
+  //       navigation.replace('Login');
+  //     }
+  //   };
+
+  //   checkStatus();
+  // }, [isFocused]);
+  // const fetch = async () => {
+  //   const id = await AsyncStorage.getItem('accessToken');
+  //   if (id.length > 0) {
+  //   } else {
+  //     navigation.replace('Login');
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetch(); 
+  //   checkLoggedInStatus();
+  // }, []);
+
 
   const login = async (values) => {
     const { email, password } = values;
@@ -51,11 +95,10 @@ const LoginScreen = () => {
       await AsyncStorage.setItem('account_name',account_name.toString());
       await AsyncStorage.setItem('account_number',account_number.toString());
       await AsyncStorage.setItem('branch_address',branch_address.toString());
-      console.log('das',branch_address)
-
+      console.log('das',res)
       const { status, payload: responseData } = res.data;
-
       if (status === 200) {
+        await setToken(TokenConstant.IS_LOGGED, 'True');
         const { email_verified_at, mobile_verified_at, aadhar_verified_at } =
           responseData;
 
@@ -81,7 +124,19 @@ const LoginScreen = () => {
         navigation.navigate('MainLayout');
       }
     } catch (error) {
-      console.error(error);
+      // console.log(error.response.data.errors)
+      if (error.response && error.response.data && error.response.data.errors) {
+        // The server returned validation errors
+        const validationErrors = error.response.data.errors;
+  
+        // Handle the validation errors and show them to the user
+        console.log('Validation Errors:', validationErrors);
+        alert('Validation errors occurred.');
+      } else {
+        // Handle other types of errors
+        console.log('Error:', error);
+        alert('An error occurred during the API call.');
+      }
     }
   };
 
@@ -105,7 +160,13 @@ const LoginScreen = () => {
         password: '',
       }}
       validationSchema={SignupSchema}
-      onSubmit={(values) => login(values)}
+      // onSubmit={(values) => login(values)
+      // }
+      onSubmit={async (values) => {
+        await login(values);
+        await setToken(TokenConstant.IS_LOGGED, 'True');
+      }}
+      
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isValid }) => (
         <SafeAreaView style={{ flex: 1, justifyContent: 'center', backgroundColor: COLORS.mainBgColor }}>

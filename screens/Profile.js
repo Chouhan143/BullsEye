@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {
   View,
   Text,
@@ -47,8 +47,10 @@ const SectionTitle = ({title}) => {
 const Profile = props => {
   const [faceId, SetFaceId] = useState(true);
   const navigation = useNavigation();
+  const [fName, setFname] = useState('');
+  const [lName, setlname] = useState('');
   const logout = async () => {
-  
+   
     try {
       // Clear the stored user data from AsyncStorage
       await AsyncStorage.removeItem('accessToken');
@@ -82,6 +84,29 @@ const Profile = props => {
     }
   };
   
+
+  const getStoredData = async () => {
+    try {
+  
+      const first_name = await AsyncStorage.getItem('first_name');
+      setFname(first_name || '')
+
+      const last_name = await AsyncStorage.getItem('last_name');
+      setlname(last_name || '')
+      
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+  useEffect(() => {
+    getStoredData();
+   
+  }, []);
+
+
+
   return (
     <MainLayout>
       <View
@@ -134,7 +159,7 @@ const Profile = props => {
                   fontSize: responsiveFontSize(2),
                   marginTop: responsiveHeight(2),
                 }}>
-                {dummyData.profile.email}
+                {fName + ' ' + lName}
               </Text>
               {/* <Text style={{
                 color: COLORS.lightGray2, ...FONTS.body4
@@ -225,7 +250,7 @@ const Profile = props => {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate('ForgotPassword')}>
+            onPress={() => props.navigation.navigate('ForgotPasswordSet')}>
             <View
               style={{
                 flex: 1,

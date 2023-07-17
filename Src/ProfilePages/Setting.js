@@ -126,10 +126,10 @@ const Setting = () => {
                     marginTop: responsiveHeight(2), marginLeft: responsiveWidth(25)
                     , fontSize: responsiveFontSize(2),color:'#000'
                 }}>mail: bullseyebroking68@gmail.com</Text>
-                <Text style={{
+                {/* <Text style={{
                     marginTop: responsiveHeight(2), marginLeft: responsiveWidth(25)
                     , fontSize: responsiveFontSize(2),color:'#000'
-                }}>+183000180000</Text>
+                }}>+183000180000</Text> */}
             </View>
             <View>
                 <View style={{

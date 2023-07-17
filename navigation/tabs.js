@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {TouchableOpacity,Text} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {TabIcon} from '../components';
@@ -8,11 +8,13 @@ import {useSelector, useDispatch} from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import {
   setIsTradeModalVisible,
+  
   selectIsTradeModalVisible,
 } from '../Src/redux/market/coinSlice';
 import Watchlist from '../screens/Watchlist';
 import Watchlist2 from '../screens/Watchlist2';
 import {responsiveFontSize, responsiveHeight, responsiveWidth,} from 'react-native-responsive-dimensions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createBottomTabNavigator();
 const TabBarCustomButton = ({children, onPress}) => {
@@ -36,6 +38,17 @@ const Tabs = () => {
   const handleTradeButtonPress = () => {
     dispatch(setIsTradeModalVisible(!isTradeModalVisible));
   };
+
+  const checkLoggedInStatus = async () => {
+    const accessToken = await AsyncStorage.getItem('accessToken');
+    if (!accessToken) {
+      navigation.replace('Login'); // Redirect the user to the Login Screen if not logged in
+    }
+  };
+
+  useEffect(() => {
+    checkLoggedInStatus(); // Call the function to check the login status when the component mounts
+  }, []);
 
   return (
     <Tab.Navigator

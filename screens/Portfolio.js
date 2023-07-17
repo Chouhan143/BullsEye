@@ -44,6 +44,8 @@ const FirstRoute = () => {
     dispatch(setIsTradeModalVisible(!isTradeModalVisible));
   };
 
+  // console.log("libve",liveTradedata);
+
   // console.log("liveTradedata",liveTradedata)
   React.useEffect(() => {
     const timer = setInterval(() => {
@@ -454,8 +456,11 @@ const SecondRoute = () => {
 
   const pastTradedata = useSelector(state => state.coin.pastTradedata);
 
+  console.log('past', pastTradedata);
+
   const renderItemLiveTradeUi = ({item}) => {
     // Render the data for each item in the FlatList
+    const tradeOutcome = parseFloat(item.trade_outcome);
     return (
       <View
         style={[
@@ -464,6 +469,44 @@ const SecondRoute = () => {
             paddingVertical: responsiveHeight(2),
           },
         ]}>
+        {/* profit loss ui  */}
+
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            paddingHorizontal: responsiveWidth(3),
+            justifyContent: 'space-between',
+            paddingVertical: responsiveWidth(2),
+          }}>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              paddingHorizontal: responsiveWidth(5),
+            }}>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              <Text
+                style={{
+                  color: 'gray',
+                  paddingRight: responsiveWidth(2),
+                  fontSize: responsiveFontSize(2),
+                }}>
+                Profit/Loss
+              </Text>
+              <Text
+                style={{
+                  color: item.trade_outcome >= 0 ? 'green' : 'red',  
+                  fontSize: responsiveFontSize(2),
+                }}>
+                {item.trade_outcome}
+              </Text>
+            </View>
+          </View>
+        </View>
+
+        {/* end */}
+
         <View
           style={{
             display: 'flex',

@@ -124,6 +124,39 @@ const BuyScreen = () => {
     }
   };
 
+
+  // const handleButtonPress = buttonId => {
+  //   setSelectedButton(buttonId);
+  
+  //   if (buttonId === 2) {
+  //     setBuyInputeFeild({
+  //       ...buyInputeFeild,
+  //       market_price: 'SET_TRADE',
+  //       limit: selectedItem ? selectedItem.price.toString() : '',
+  //     });
+  //   } else if (buttonId === 1) {
+  //     // Check if the "Limit" button is pressed and the "Buying Price" input field is manually filled
+  //     if (textT) {
+  //       // Set the manually entered value as the "Buying Price" when "Limit" is selected
+  //       setBuyInputeFeild({
+  //         ...buyInputeFeild,
+  //         market_price: textT,
+  //         limit: '',
+  //       });
+  //     } else {
+  //       // If the "Buying Price" input field is empty, set it to the selected item's price
+  //       setBuyInputeFeild({
+  //         ...buyInputeFeild,
+  //         market_price: '',
+  //         limit: selectedItem ? selectedItem.price.toString() : '',
+  //       });
+  //     }
+  //   }
+  // };
+  
+
+
+
   const handlePressIn = event => {
     event.persist();
     setIsPressed(true);
@@ -183,7 +216,7 @@ const BuyScreen = () => {
   const BuyKnow = async () => {
     if (
       !selectedItem ||
-      !market_price ||
+      // !market_price ||
       !limit ||
       !target ||
       !stop_loss ||
@@ -195,7 +228,7 @@ const BuyScreen = () => {
         text2: 'All fields are required',
         position: 'bottom',
         bottomOffset: 100, // Adjust the offset value to position the toast higher or lower
-        textStyle: {fontSize: 30},
+        textStyle: {fontSize: responsiveFontSize(2)},
       });
       return;
     }
@@ -219,7 +252,8 @@ const BuyScreen = () => {
       const headers = {
         Authorization: `Bearer ${access_token}`,
       };
-      console.log('token', access_token);
+      // console.log('token', access_token);
+      console.log("api hit krne se pahle ",payload)
       const res = await axios.post(baseUrl, payload, {headers});
       console.log('res', res);
 

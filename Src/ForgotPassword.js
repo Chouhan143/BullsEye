@@ -23,7 +23,7 @@ import axios from 'axios';
 
 const ForgotPassword = () => {
   const navigation = useNavigation();
-
+  // const [email, setEmail] = useState('');
   const emailOtpApi = async values => {
     try {
       const res = await axios.post(
@@ -31,16 +31,17 @@ const ForgotPassword = () => {
         {email: values.email},
       );
       console.log('reccs', res);
-      const email1 = res.config.data;
-      await AsyncStorage.setItem('email1', email1.toString());
 
       if (res.data.result === true) {
         const message = res.data.message;
         alert(message);
-        navigation.navigate('ForgetPasswordOtp');
+        navigation.navigate('ForgetPasswordOtp', {email: values.email}); // Pass email as a parameter
       }
     } catch (error) {
-      console.log('Error:', error);
+      if (error.response.data.message) {
+        const validation = error.response.data.message;
+        alert(validation);
+      }
     }
   };
 
