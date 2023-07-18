@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState,useRef,useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer,CommonActions  } from '@react-navigation/native';
 
 import SignIn from './screens/SignIn';
 import Funds from './Src/ProfilePages/Funds';
@@ -12,7 +12,7 @@ import SearchData from './Src/SearchData';
 import LoginScreen from './Src/LoginScreen';
 import RegisterScreen from './Src/RegisterScreen';
 import SellScreen from './Src/BuySrceens/SellScreen';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Email2 from './Src/BuySrceens/Email2';
 import Mobile from './Src/BuySrceens/Mobile';
@@ -24,27 +24,117 @@ import ForgetPasswordOtp from './Src/ForgetPasswordOtp';
 import ForgotPasswordSet from './Src/ForgotPasswordSet';
 import ForgotPasswordDone from './Src/ForgotPasswordDone';
 import { COLORS } from './constants';
+import { BackHandler,Platform  } from 'react-native';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 const Stack = createStackNavigator();
 
 const Nav = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigationRef = useRef(null);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    navigationRef.current?.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'Login' }],
+      })
+    );
+  };
+
+// Handle Android hardware back button press
+const handleBackPress = () => {
+  if (!isLoggedIn) {
+    BackHandler.exitApp();
+    return true;
+  } else if (isLoggedIn && navigationRef.current) {
+    const currentRoute = navigationRef.current.getCurrentRoute();
+    // Check if the current screen is "MainLayout", prevent going back if logged in
+    if (currentRoute?.name === "MainLayout") {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+
+// Set the initial route conditionally based on isLoggedIn state
+useEffect(() => {
+  const unsubscribe = navigationRef.current?.addListener('state', () => {
+    // Check if the user is logged in, if not, close the app when the back button is pressed on Android
+    if (Platform.OS === 'android') {
+      BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+    }
+  });
+
+  return () => {
+    if (Platform.OS === 'android') {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    }
+    unsubscribe?.();
+  };
+}, [isLoggedIn]);
+
+
+useEffect(() => {
+  // Update the initial route based on the isLoggedIn state
+  const initialRouteName = isLoggedIn ? 'MainLayout' : 'Login';
+  navigationRef.current?.resetRoot({
+    index: 0,
+    routes: [{ name: initialRouteName }],
+  });
+}, [isLoggedIn]);
+ 
+
+
+useEffect(() => {
+  const checkLoggedInStatus = async () => {
+    try {
+      const accessToken = await AsyncStorage.getItem('accessToken');
+
+      // If the accessToken exists, the user is logged in
+      if (accessToken) {
+        setIsLoggedIn(true);
+        navigation.navigate('MainLayout')
+      } else {
+        setIsLoggedIn(false);
+      }
+    } catch (error) {
+      // Handle error if token retrieval fails
+      console.log('Error retrieving token:', error);
+      setIsLoggedIn(false);
+    }
+  };
+
+  // Add a 1-second delay using setTimeout
+  const timer = setTimeout(() => {
+    checkLoggedInStatus();
+  }, 1000);
+
+  // Clear the timer on unmount to prevent memory leaks
+  return () => clearTimeout(timer);
+}, []);
+
+
+
+
+
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
-        screenOptions={{
+        screenOptions={{  
           // headerShown: false,
         }}
-        initialRouteName="Login" // Set initial route to Login
+        initialRouteName={isLoggedIn ? "MainLayout" : "Login"} // Set initial route to MainLayout if logged in, otherwise to Login
       >
         <Stack.Screen
           name="Login"
-          component={LoginScreen}
+          component={() => <LoginScreen handleLogin={handleLogin} />}
           options={{
             headerShown: false
           }}
@@ -128,7 +218,7 @@ const Nav = () => {
           name="MainLayout"
           component={Tabs}
           options={{ headerShown: false }}
-
+          initialParams={{ handleLogout }} 
         />
         <Stack.Screen
           options={{

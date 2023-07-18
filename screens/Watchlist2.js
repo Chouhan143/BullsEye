@@ -88,7 +88,7 @@ const Watchlist2 = () => {
         <TouchableOpacity
           style={styles.searchInputContainer}
           onPress={navigationHandle}>
-          <Icon2 name="search" size={responsiveFontSize(2.5)} color="#fff" />
+          <Icon2 name="search" size={responsiveFontSize(2.5)} color="#000" />
           <Text style={[styles.searchInput,{fontSize:responsiveFontSize(2.1)}]}>Search</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     paddingLeft: responsiveWidth(3),
-    color: COLORS.white,
+    color: '#000',
   },
   profileIconContainer: {
     width: responsiveWidth(11),

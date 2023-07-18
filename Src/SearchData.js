@@ -137,9 +137,9 @@ const SearchData = () => {
               }}>
               {item.price}
             </Text>
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
               <Icon5 name="shopping-bag" size={responsiveFontSize(2.6)} color="#1B1A1A" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity
               style={{paddingLeft: responsiveWidth(5)}}
               onPress={() => handleAddToWatchlist(item)}>

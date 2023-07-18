@@ -46,12 +46,12 @@ const ForgetPasswordOtp = ({route}) => {
 
   const handleOtpInputChange = otpValue => {
     const numericValue = otpValue.replace(/[^0-9]/g, '');
-    console.log('otpValue in OtpTextInpute:', numericValue);
+    //console.log('otpValue in OtpTextInpute:', numericValue);
     setOtpNumber(numericValue); // Store the OTP value in the component state
   };
 
   useEffect(() => {
-    console.log('otpNumber in ForgetPasswordOtp:', otpNumber);
+    //console.log('otpNumber in ForgetPasswordOtp:', otpNumber);
   }, [otpNumber]);
 
   const handleNewPasswordChange = text => {
@@ -78,7 +78,7 @@ const ForgetPasswordOtp = ({route}) => {
   // }, []);
 
   const PasswordReset = async () => {
-    console.log('otpNumber before API call:', typeof otpNumber);
+    //console.log('otpNumber before API call:', typeof otpNumber);
     try {
       const payload = {
         email_otp: otp,
@@ -86,7 +86,7 @@ const ForgetPasswordOtp = ({route}) => {
         confirm_password: confirmPassword,
         email: email,
       };
-      console.log('payload', payload);
+      //console.log('payload', payload);
       const res = await axios.post(
         'https://panel.bulleyetrade.com/api/mobile/reset-password',
         payload,
@@ -110,7 +110,7 @@ const ForgetPasswordOtp = ({route}) => {
         });
         alert(errorMessage);
       } else {
-        console.log('Error:', error.response.data.errors);
+        //console.log('Error:', error.response.data.errors);
         alert('An error occurred during the password reset.'); // Show a generic error message to the user
       }
 

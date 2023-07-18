@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -40,9 +40,9 @@ const SectionTitle = ({title}) => {
   );
 };
 
-
-
-{/* <Button onPress={logout} title="Logout" />; */}
+{
+  /* <Button onPress={logout} title="Logout" />; */
+}
 
 const Profile = props => {
   const [faceId, SetFaceId] = useState(true);
@@ -50,17 +50,23 @@ const Profile = props => {
   const [fName, setFname] = useState('');
   const [lName, setlname] = useState('');
   const logout = async () => {
-   
     try {
+      const accessToken = await AsyncStorage.getItem('accessToken');
+      console.log('Access Token:', accessToken);
       // Clear the stored user data from AsyncStorage
-      await AsyncStorage.removeItem('accessToken');
+    const token =  await AsyncStorage.removeItem('accessToken');
+    
+      // await AsyncStorage.setItem(accessToken,'');
       await AsyncStorage.removeItem('id');
       await AsyncStorage.removeItem('email');
       await AsyncStorage.removeItem('mobile');
       await AsyncStorage.removeItem('first_name');
       await AsyncStorage.removeItem('last_name');
       await AsyncStorage.removeItem('user_balance');
-  
+
+      const tokenAfterRemoval = await AsyncStorage.getItem('accessToken');
+      console.log('Access Token after logout:', tokenAfterRemoval);
+
       Alert.alert(
         'Logout',
         'Are you sure you want to logout?',
@@ -74,6 +80,7 @@ const Profile = props => {
             style: 'destructive',
             onPress: () => {
               navigation.navigate('Login');
+              console.log('acctoken', token);
             },
           },
         ],
@@ -83,29 +90,22 @@ const Profile = props => {
       console.error(error);
     }
   };
-  
 
   const getStoredData = async () => {
     try {
-  
       const first_name = await AsyncStorage.getItem('first_name');
-      setFname(first_name || '')
+      setFname(first_name || '');
 
       const last_name = await AsyncStorage.getItem('last_name');
-      setlname(last_name || '')
-      
+      setlname(last_name || '');
     } catch (error) {
       console.error(error);
     }
   };
 
-
   useEffect(() => {
     getStoredData();
-   
   }, []);
-
-
 
   return (
     <MainLayout>

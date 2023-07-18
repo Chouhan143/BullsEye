@@ -62,7 +62,7 @@ const RegisterScreen = ({ navigation }) => {
 
 
     } catch (error) {
-      console.error(error);
+      console.error(error.response);
 
     }
   }

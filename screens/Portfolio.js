@@ -44,13 +44,13 @@ const FirstRoute = () => {
     dispatch(setIsTradeModalVisible(!isTradeModalVisible));
   };
 
-  // console.log("libve",liveTradedata);
+  // ////console.log("libve",liveTradedata);
 
-  // console.log("liveTradedata",liveTradedata)
+  // ////console.log("liveTradedata",liveTradedata)
   React.useEffect(() => {
     const timer = setInterval(() => {
       dispatch(getLiveTrade()).catch(error => {
-        console.log('Error fetching coin TradeLivedata:', error);
+        ////console.log('Error fetching coin TradeLivedata:', error);
       });
     }, 2000); // 2000 milliseconds = 2 seconds
 
@@ -61,7 +61,7 @@ const FirstRoute = () => {
 
   const SquareOff = async tradeId => {
     try {
-      console.log('trad', tradeId);
+      //console.log('trad', tradeId);
       const token = await AsyncStorage.getItem('accessToken');
       const config = {
         headers: {
@@ -73,9 +73,9 @@ const FirstRoute = () => {
         `https://scripts.bulleyetrade.com/api/square_off/${tradeId}`,
         config,
       );
-      console.log('past Trade', response);
+      //console.log('past Trade', response);
     } catch (error) {
-      console.log('error', error);
+      //console.log('error', error);
     }
   };
 
@@ -108,7 +108,7 @@ const FirstRoute = () => {
 
   const onSaveEdit = async (tradeId, editedValues) => {
     try {
-      console.log('trad', tradeId);
+      //console.log('trad', tradeId);
       const token = await AsyncStorage.getItem('accessToken');
       const config = {
         headers: {
@@ -127,11 +127,11 @@ const FirstRoute = () => {
         config,
       );
 
-      console.log('past Trade', response);
+      //console.log('past Trade', response);
 
       // Perform any necessary actions or state updates after the API call is successful
     } catch (error) {
-      console.log('error', error);
+      //console.log('error', error);
     }
 
     toggleModal(); // Close the modal
@@ -445,7 +445,7 @@ const SecondRoute = () => {
   React.useEffect(() => {
     const timer = setInterval(() => {
       dispatch(getPastTrade()).catch(error => {
-        console.log('Error fetching coin TradeLivedata:', error);
+        //console.log('Error fetching coin TradeLivedata:', error);
       });
     }, 2000); // 2000 milliseconds = 2 seconds
 
@@ -456,11 +456,17 @@ const SecondRoute = () => {
 
   const pastTradedata = useSelector(state => state.coin.pastTradedata);
 
-  console.log('past', pastTradedata);
+  //console.log('past', pastTradedata);
 
   const renderItemLiveTradeUi = ({item}) => {
     // Render the data for each item in the FlatList
-    const tradeOutcome = parseFloat(item.trade_outcome);
+    // const tradeOutcome = parseFloat(item.trade_outcome);
+
+    const tradeOutcome =
+    item.trade_outcome !== undefined && !isNaN(item.trade_outcome)
+      ? parseFloat(item.trade_outcome)
+      : 0; // You can set a default value as 0 or any other value
+
     return (
       <View
         style={[
@@ -499,7 +505,7 @@ const SecondRoute = () => {
                   color: item.trade_outcome >= 0 ? 'green' : 'red',  
                   fontSize: responsiveFontSize(2),
                 }}>
-                {item.trade_outcome}
+               {tradeOutcome.toFixed(2)}
               </Text>
             </View>
           </View>

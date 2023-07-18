@@ -1,16 +1,24 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const checkToken = async key => {
-  const data = await AsyncStorage.getItem(key);
-  if (data?.length > 0) {
-    return true;
-  } else {
+export const setToken = async (key, accessToken) => {
+  try {
+    await AsyncStorage.setItem(key, accessToken);
+  } catch (error) {
+    console.log('Error setting token:', error);
+  }
+};
+
+export const checkToken = async (key) => {
+  try {
+    const token = await AsyncStorage.getItem(key);
+    return token !== null;
+  } catch (error) {
+    console.log('Error checking token:', error);
     return false;
   }
 };
-export const setToken = async (key, value) => {
-  await AsyncStorage.setItem(key, value);
-};
-export const getToken = async (key) => {
-  await AsyncStorage.getItem(key);
-};
+
+
+
+
+
