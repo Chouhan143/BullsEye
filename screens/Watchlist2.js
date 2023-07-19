@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, FlatList} from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/Feather';
 import Icon3 from 'react-native-vector-icons/AntDesign';
-import {useNavigation} from '@react-navigation/native';
-import {useSelector, useDispatch} from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
 import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   fetchCoinData,
@@ -12,8 +12,8 @@ import {
   removeFromWatchlist,
   initWatchlistData
 } from '../Src/redux/market/coinSlice';
-import {COLORS} from '../constants';
-import{ responsiveFontSize,responsiveHeight,responsiveWidth} from "react-native-responsive-dimensions"
+import { COLORS } from '../constants';
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions"
 
 
 const Watchlist2 = () => {
@@ -29,8 +29,8 @@ const Watchlist2 = () => {
 
 
   useEffect(() => {
-    dispatch(initWatchlistData()).catch(error=>{
-        console.log('error fetching inititwatchlist data',error)
+    dispatch(initWatchlistData()).catch(error => {
+      console.log('error fetching inititwatchlist data', error)
     })
   }, []);
 
@@ -39,7 +39,7 @@ const Watchlist2 = () => {
     dispatch(removeAllFromWatchlist());
   };
 
- 
+
 
 
   const handleRemoveItem = (itemId) => {
@@ -50,11 +50,11 @@ const Watchlist2 = () => {
     navigation.navigate('SearchData');
   };
 
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     return (
       <TouchableOpacity
         style={{
-          width:responsiveWidth(100) ,
+          width: responsiveWidth(100),
           height: responsiveWidth(20),
           backgroundColor: COLORS.bgColor,
           marginVertical: 1,
@@ -66,30 +66,36 @@ const Watchlist2 = () => {
             <Text style={styles.topText}>{item.trade_name}</Text>
           </View>
           <View style={styles.topLast}>
-            <Text style={[styles.topText, {paddingRight: 60}]}>
+            <Text style={[styles.topText, { paddingRight: 60 }]}>
               {item.price}
             </Text>
             <Text style={styles.topText}>{item.percent_chg}%</Text>
           </View>
           <TouchableOpacity
-              style={{paddingLeft: 10}}
-              onPress={()=>handleRemoveItem(item.id)}>
-              <Icon4 name="delete-circle-outline" size={22} color="red" />
-            </TouchableOpacity>
+            style={{ paddingLeft: 10 }}
+            onPress={() => handleRemoveItem(item.id)}>
+            <Icon4 name="delete-circle-outline" size={22} color="red" />
+          </TouchableOpacity>
         </View>
-        
+
       </TouchableOpacity>
     );
   };
 
+  const handleGoBack = () => {
+    navigation.goBack(); // Go back to the previous screen
+  };
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
+        <TouchableOpacity onPress={handleGoBack}>
+          <Icon name="arrowleft" size={responsiveFontSize(3)} color="#000" />
+        </TouchableOpacity>
         <TouchableOpacity
           style={styles.searchInputContainer}
           onPress={navigationHandle}>
           <Icon2 name="search" size={responsiveFontSize(2.5)} color="#000" />
-          <Text style={[styles.searchInput,{fontSize:responsiveFontSize(2.1)}]}>Search</Text>
+          <Text style={[styles.searchInput, { fontSize: responsiveFontSize(2.1) }]}>Search</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
           <View style={styles.profileIconContainer}>
@@ -107,9 +113,9 @@ const Watchlist2 = () => {
             <Text style={styles.topText1}>Change / Vol</Text>
           </View>
           <View style={styles.topLast}>
-            
+
           </View>
-          
+
         </View>
       </View>
 
@@ -121,10 +127,10 @@ const Watchlist2 = () => {
         />
       ) : (
         <View style={styles.noItemsContainer}>
-          <Text style={{color:'#000',fontSize:responsiveFontSize(2.5)}}>No items in watchlist</Text>
+          <Text style={{ color: '#000', fontSize: responsiveFontSize(2.5) }}>No items in watchlist</Text>
         </View>
       )}
-   
+
       <TouchableOpacity style={styles.addBox} onPress={navigationHandle}>
         <Icon name="plus" size={responsiveFontSize(2.5)} color="#fff" />
       </TouchableOpacity>
@@ -137,14 +143,14 @@ export default Watchlist2;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:COLORS.mainBgColor
+    backgroundColor: COLORS.mainBgColor
   },
   searchContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginVertical: responsiveHeight(2),
-    marginHorizontal:responsiveWidth(5)
+    marginHorizontal: responsiveWidth(5)
   },
   searchInputContainer: {
     width: responsiveWidth(55),
