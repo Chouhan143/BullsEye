@@ -417,15 +417,26 @@ const FirstRoute = () => {
   return (
     //  <MainLayout>
     <View style={{flex: 1, backgroundColor: COLORS.mainBgColor}}>
-      <View style={styles.container}>
-        <View style={{paddingVertical: 10, marginTop: 5}}>
-          <FlatList
-            data={liveTradedata}
-            renderItem={renderItemLiveTradeUi}
-            keyExtractor={item => item.id}
-          />
+      {liveTradedata?.length > 0 ? (
+        <FlatList
+          data={liveTradedata}
+          renderItem={renderItemLiveTradeUi}
+          keyExtractor={item => item.id}
+          contentContainerStyle={{paddingVertical: 10, marginTop: 5}}
+        />
+      ) : (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingHorizontal: responsiveWidth(5),
+          }}>
+          <Text style={{fontSize: responsiveFontSize(2.3), color: '#000'}}>
+            Live Trade is not available.
+          </Text>
         </View>
-      </View>
+      )}
       {isModalVisible && (
         <ModalComponents
           tradeId={selectedTradeId}
@@ -463,9 +474,9 @@ const SecondRoute = () => {
     // const tradeOutcome = parseFloat(item.trade_outcome);
 
     const tradeOutcome =
-    item.trade_outcome !== undefined && !isNaN(item.trade_outcome)
-      ? parseFloat(item.trade_outcome)
-      : 0; // You can set a default value as 0 or any other value
+      item.trade_outcome !== undefined && !isNaN(item.trade_outcome)
+        ? parseFloat(item.trade_outcome)
+        : 0; // You can set a default value as 0 or any other value
 
     return (
       <View
@@ -502,10 +513,10 @@ const SecondRoute = () => {
               </Text>
               <Text
                 style={{
-                  color: item.trade_outcome >= 0 ? 'green' : 'red',  
+                  color: item.trade_outcome >= 0 ? 'green' : 'red',
                   fontSize: responsiveFontSize(2),
                 }}>
-               {tradeOutcome.toFixed(2)}
+                {tradeOutcome.toFixed(2)}
               </Text>
             </View>
           </View>
@@ -627,11 +638,25 @@ const SecondRoute = () => {
             paddingVertical: responsiveHeight(0),
             marginTop: responsiveHeight(1),
           }}>
-          <FlatList
-            data={pastTradedata}
-            renderItem={renderItemLiveTradeUi}
-            keyExtractor={item => item.id}
-          />
+          {pastTradedata?.length > 0 ? (
+            <FlatList
+              data={pastTradedata}
+              renderItem={renderItemLiveTradeUi}
+              keyExtractor={item => item.id}
+            />
+          ) : (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingHorizontal: responsiveWidth(5),
+              }}>
+              <Text style={{fontSize: responsiveFontSize(2)}}>
+               Past Trade is not available.
+              </Text>
+            </View>
+          )}
         </View>
       </View>
     </View>

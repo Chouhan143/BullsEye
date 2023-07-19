@@ -30,7 +30,7 @@ const ForgotPassword = () => {
         'https://panel.bulleyetrade.com/api/mobile/forget-password',
         {email: values.email},
       );
-      console.log('reccs', res);
+      //console.log('reccs', res);
 
       if (res.data.result === true) {
         const message = res.data.message;
@@ -144,7 +144,7 @@ const ForgotPassword = () => {
 
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate('login');
+                  navigation.navigate('Login');
                 }}>
                 <Text
                   style={{

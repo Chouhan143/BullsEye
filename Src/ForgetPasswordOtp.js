@@ -273,7 +273,7 @@ const ForgetPasswordOtp = ({route}) => {
                 fontSize: responsiveFontSize(2.1),
                 color: '#000',
               }}>
-              <Icon name="arrowleft" size={20} color="#000" /> Back to log in
+              <Icon name="arrowleft" size={20} color="#000" /> Back 
             </Text>
           </TouchableOpacity>
         </View>

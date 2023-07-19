@@ -65,17 +65,17 @@ const [isLoggedInStatus,setIsLoggedInStatus]=useState(false)
       const account_number = res.data.payload.account_number;
       const branch_address = res.data.payload.branch_address;
 
-      await AsyncStorage.setItem('accessToken', accessToken.toString());
-      await AsyncStorage.setItem('id', id.toString());
-      await AsyncStorage.setItem('email', email.toString());
-      await AsyncStorage.setItem('mobile', mobile.toString());
-      await AsyncStorage.setItem('first_name', first_name.toString());
-      await AsyncStorage.setItem('last_name', last_name.toString());
-      await AsyncStorage.setItem('user_balance', user_balance.toString());
-      await AsyncStorage.setItem('bank_name', bank_name.toString());
-      await AsyncStorage.setItem('account_name', account_name.toString());
-      await AsyncStorage.setItem('account_number', account_number.toString());
-      await AsyncStorage.setItem('branch_address', branch_address.toString());
+      await AsyncStorage.setItem('accessToken', accessToken ? accessToken.toString() : '');
+      await AsyncStorage.setItem('id', id ? id.toString() : '');
+      await AsyncStorage.setItem('email', email ? email.toString() : '');
+      await AsyncStorage.setItem('mobile', mobile ? mobile.toString() : '');
+      await AsyncStorage.setItem('first_name', first_name ? first_name.toString() : '');
+      await AsyncStorage.setItem('last_name', last_name ? last_name.toString() : '');
+      await AsyncStorage.setItem('user_balance', user_balance ? user_balance.toString() : '');
+      await AsyncStorage.setItem('bank_name', bank_name ? bank_name.toString() : '');
+      await AsyncStorage.setItem('account_name', account_name ? account_name.toString() : '');
+      await AsyncStorage.setItem('account_number', account_number ? account_number.toString() : '');
+      await AsyncStorage.setItem('branch_address', branch_address ? branch_address.toString() : '');
      console.log('das', res);
       const {status, payload: responseData} = res.data;
       if (status === 200) {
@@ -111,6 +111,8 @@ const [isLoggedInStatus,setIsLoggedInStatus]=useState(false)
         });
         navigation.navigate('MainLayout');
 
+      }else{
+        console.log("testing else",res)
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {
@@ -134,6 +136,7 @@ const [isLoggedInStatus,setIsLoggedInStatus]=useState(false)
           position: 'bottom',
         });
       }
+      console.log("fsdf",error.response)
      
     }
   };

@@ -7,7 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import DatePicker from 'react-native-date-picker';
 import Lottie from 'lottie-react-native';
 
@@ -25,10 +25,11 @@ import { COLORS } from '../constants';
 import { useNavigation } from '@react-navigation/native';
 import { postData2 } from '../constants/hooks/ApiHelper';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import axios from 'axios';
 
 // this screen are responsive
 
-const baseUrl = "https://scripts.bulleyetrade.com/api/signup";
+const baseUrl = "https://panel.bulleyetrade.com/api/mobile/signup";
 
 const RegisterScreen = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
@@ -38,31 +39,50 @@ const RegisterScreen = ({ navigation }) => {
 
 
 
-  const UserRegister = async () => {
+  const UserRegister = async (values) => {
     ;
     const payload = {
-      txtFirstName,
-      txtLastName,
-      txtMobile,
-      email,
-      password,
-      confirm_password,
-      walletPin,
+      txtFirstName: values.txtFirstName, // Access 'txtFirstName' from 'values' object
+      txtLastName: values.txtLastName,
+      txtMobile: values.txtMobile,
+      email: values.email,
+      password: values.password,
+      confirm_password: values.confirm_password,
+      walletPin: values.walletPin,
     };
-    // console.log("payload", payload);
+ console.log(payload)
     try {
-      const res = await postData2(baseUrl, payload)
-      if (SignupSchema()) {
-        // console.log(UserRegister)
-      }
-      if (res.data.status == 201) {
-        navigation.navigate("Login")
-      }
+      await SignupSchema.validate(values);
+      const res = await axios.post(baseUrl, payload);
 
 
+
+
+    console.log("simple",res);
+      // if (res.data.status == 201) {
+      //   Toast.show({
+      //     type: 'success',
+      //     text1: 'Registration Successful',
+      //     position: 'top',
+      //   });
+      //   navigation.navigate("Login")
+      // }
 
     } catch (error) {
-      console.error(error.response);
+      // console.log("error",error.response.data.errors.walletPin[0]);
+      // // console.log("error",error.response.data.errors.txtFirstName[0]);
+      // // console.log("error",error.response.data.errors.txtLastName[0]);
+      // // console.log("error",error.response.data.errors.txtMobile[0]);
+      // console.log("error",error.response.data.errors.email[0]);
+      // console.log("error",error.response.data.errors.password[0]);
+      // console.log("error",error.response.data.errors.confirm_password[0]);
+      // Toast.show({
+      //   type: 'error',
+      //   text1: 'something went wrong',
+      //   // text2: 'Please check login and password',
+      //   position: 'bottom',
+      // });
+      // console.error("catch data",error.responseJSON);
 
     }
   }
@@ -113,7 +133,7 @@ const RegisterScreen = ({ navigation }) => {
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isValid }) => (
 
-
+        
         <SafeAreaView style={{ flex: 1, justifyContent: 'center', backgroundColor: COLORS.mainBgColor, }}>
           <ScrollView
             showsVerticalScrollIndicator={false}
