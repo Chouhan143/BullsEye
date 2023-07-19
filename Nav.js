@@ -1,6 +1,6 @@
-import React, { useState,useRef,useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer,CommonActions  } from '@react-navigation/native';
+import { NavigationContainer, CommonActions } from '@react-navigation/native';
 
 import SignIn from './screens/SignIn';
 import Funds from './Src/ProfilePages/Funds';
@@ -24,7 +24,7 @@ import ForgetPasswordOtp from './Src/ForgetPasswordOtp';
 import ForgotPasswordSet from './Src/ForgotPasswordSet';
 import ForgotPasswordDone from './Src/ForgotPasswordDone';
 import { COLORS } from './constants';
-import { BackHandler,Platform  } from 'react-native';
+import { BackHandler, Platform } from 'react-native';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 const Stack = createStackNavigator();
 
@@ -46,79 +46,79 @@ const Nav = () => {
     );
   };
 
-// Handle Android hardware back button press
-const handleBackPress = () => {
-  if (!isLoggedIn) {
-    BackHandler.exitApp();
-    return true;
-  } else if (isLoggedIn && navigationRef.current) {
-    const currentRoute = navigationRef.current.getCurrentRoute();
-    // Check if the current screen is "MainLayout", prevent going back if logged in
-    if (currentRoute?.name === "MainLayout") {
+  // Handle Android hardware back button press
+  const handleBackPress = () => {
+    if (!isLoggedIn) {
+      BackHandler.exitApp();
       return true;
+    } else if (isLoggedIn && navigationRef.current) {
+      const currentRoute = navigationRef.current.getCurrentRoute();
+      // Check if the current screen is "MainLayout", prevent going back if logged in
+      if (currentRoute?.name === "MainLayout") {
+        return true;
+      }
     }
-  }
 
-  return false;
-};
-
-
-// Set the initial route conditionally based on isLoggedIn state
-useEffect(() => {
-  const unsubscribe = navigationRef.current?.addListener('state', () => {
-    // Check if the user is logged in, if not, close the app when the back button is pressed on Android
-    if (Platform.OS === 'android') {
-      BackHandler.addEventListener('hardwareBackPress', handleBackPress);
-    }
-  });
-
-  return () => {
-    if (Platform.OS === 'android') {
-      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
-    }
-    unsubscribe?.();
+    return false;
   };
-}, [isLoggedIn]);
 
 
-useEffect(() => {
-  // Update the initial route based on the isLoggedIn state
-  const initialRouteName = isLoggedIn ? 'MainLayout' : 'Login';
-  navigationRef.current?.resetRoot({
-    index: 0,
-    routes: [{ name: initialRouteName }],
-  });
-}, [isLoggedIn]);
- 
+  // Set the initial route conditionally based on isLoggedIn state
+  useEffect(() => {
+    const unsubscribe = navigationRef.current?.addListener('state', () => {
+      // Check if the user is logged in, if not, close the app when the back button is pressed on Android
+      if (Platform.OS === 'android') {
+        BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+      }
+    });
+
+    return () => {
+      if (Platform.OS === 'android') {
+        BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+      }
+      unsubscribe?.();
+    };
+  }, [isLoggedIn]);
 
 
-useEffect(() => {
-  const checkLoggedInStatus = async () => {
-    try {
-      const accessToken = await AsyncStorage.getItem('accessToken');
+  useEffect(() => {
+    // Update the initial route based on the isLoggedIn state
+    const initialRouteName = isLoggedIn ? 'MainLayout' : 'Login';
+    navigationRef.current?.resetRoot({
+      index: 0,
+      routes: [{ name: initialRouteName }],
+    });
+  }, [isLoggedIn]);
 
-      // If the accessToken exists, the user is logged in
-      if (accessToken) {
-        setIsLoggedIn(true);
-        navigation.navigate('MainLayout')
-      } else {
+
+
+  useEffect(() => {
+    const checkLoggedInStatus = async () => {
+      try {
+        const accessToken = await AsyncStorage.getItem('accessToken');
+
+        // If the accessToken exists, the user is logged in
+        if (accessToken) {
+          setIsLoggedIn(true);
+          navigation.navigate('MainLayout')
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        // Handle error if token retrieval fails
+        console.log('Error retrieving token:', error);
         setIsLoggedIn(false);
       }
-    } catch (error) {
-      // Handle error if token retrieval fails
-      console.log('Error retrieving token:', error);
-      setIsLoggedIn(false);
-    }
-  };
+    };
 
-  // Add a 1-second delay using setTimeout
-  const timer = setTimeout(() => {
-    checkLoggedInStatus();
-  }, 1000);
+    // Add a 1-second delay using setTimeout
+    const timer = setTimeout(() => {
+      checkLoggedInStatus();
+    }, 1000);
 
-  // Clear the timer on unmount to prevent memory leaks
-  return () => clearTimeout(timer);
-}, []);
+    // Clear the timer on unmount to prevent memory leaks
+    return () => clearTimeout(timer);
+  }, []);
 
 
 
@@ -127,7 +127,7 @@ useEffect(() => {
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
-        screenOptions={{  
+        screenOptions={{
           // headerShown: false,
         }}
         initialRouteName={isLoggedIn ? "MainLayout" : "Login"} // Set initial route to MainLayout if logged in, otherwise to Login
@@ -144,7 +144,15 @@ useEffect(() => {
           component={RegisterScreen}
           options={{
             title: 'Register',
-            headerShown: false
+            headerStyle: {
+              width: responsiveWidth(100),
+              height: responsiveHeight(7),
+              backgroundColor: COLORS.bgColor,
+
+            },
+            headerTitleStyle: {
+              fontSize: responsiveFontSize(2.5), // Set the desired font size
+            },
           }}
         />
 
@@ -156,14 +164,14 @@ useEffect(() => {
               width: responsiveWidth(100),
               height: responsiveHeight(7),
               backgroundColor: COLORS.bgColor,
-              
+
             },
             headerTitleStyle: {
               fontSize: responsiveFontSize(2.5), // Set the desired font size
             },
           }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="ForgetPasswordOtp"
           component={ForgetPasswordOtp}
           options={{
@@ -171,14 +179,14 @@ useEffect(() => {
               width: responsiveWidth(100),
               height: responsiveHeight(7),
               backgroundColor: COLORS.bgColor,
-              
+
             },
             headerTitleStyle: {
               fontSize: responsiveFontSize(2.5), // Set the desired font size
             },
           }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="ForgotPasswordSet"
           component={ForgotPasswordSet}
           options={{
@@ -186,14 +194,14 @@ useEffect(() => {
               width: responsiveWidth(100),
               height: responsiveHeight(7),
               backgroundColor: COLORS.bgColor,
-              
+
             },
             headerTitleStyle: {
               fontSize: responsiveFontSize(2.5), // Set the desired font size
             },
           }}
         />
-           <Stack.Screen
+        <Stack.Screen
           name="ForgotPasswordDone"
           component={ForgotPasswordDone}
           options={{
@@ -202,9 +210,9 @@ useEffect(() => {
               width: responsiveWidth(100),
               height: responsiveHeight(7),
               backgroundColor: COLORS.bgColor,
-              
+
             },
-            
+
             headerTitleStyle: {
               fontSize: responsiveFontSize(2.5), // Set the desired font size
             },
@@ -218,7 +226,7 @@ useEffect(() => {
           name="MainLayout"
           component={Tabs}
           options={{ headerShown: false }}
-          initialParams={{ handleLogout }} 
+          initialParams={{ handleLogout }}
         />
         <Stack.Screen
           options={{
@@ -229,7 +237,18 @@ useEffect(() => {
           component={Funds}
         />
         <Stack.Screen
-          options={{ title: 'Profile', headerShown: false }}
+          options={{
+            title: 'Profile',
+            headerStyle: {
+              width: responsiveWidth(100),
+              height: responsiveHeight(7),
+              backgroundColor: COLORS.bgColor,
+
+            },
+            headerTitleStyle: {
+              fontSize: responsiveFontSize(2.5), // Set the desired font size
+            },
+          }}
           name="UserProfile"
           component={UserProfile}
         />
@@ -237,13 +256,24 @@ useEffect(() => {
           name="SearchData"
           component={SearchData}
           options={{
-            headerShown:false
+            headerShown: false
           }}
         />
         <Stack.Screen
-          options={{ title: 'Setting', headerShown: false }}
           name="Setting"
           component={Setting}
+          options={{
+            title: 'Help',
+            headerStyle: {
+              width: responsiveWidth(100),
+              height: responsiveHeight(7),
+              backgroundColor: COLORS.bgColor,
+
+            },
+            headerTitleStyle: {
+              fontSize: responsiveFontSize(2.5), // Set the desired font size
+            },
+          }}
         />
         <Stack.Screen
           options={{ title: 'BuyScreen', headerShown: false }}
