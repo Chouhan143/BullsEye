@@ -376,21 +376,7 @@ const FirstRoute = () => {
             flexDirection: 'row',
             paddingHorizontal: responsiveWidth(0.9),
           }}>
-          <TouchableOpacity
-            style={styles.squareOffBtn}
-            onPress={() => squreOffhandle(item.id)}>
-            <Text
-              style={{
-                color: '#fff',
-                display: 'flex',
-                alignSelf: 'center',
-                justifyContent: 'center',
-                fontSize: responsiveFontSize(1.7),
-              }}>
-              Square off
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+               <TouchableOpacity
             style={[
               styles.squareOffBtn,
               {
@@ -409,6 +395,25 @@ const FirstRoute = () => {
               Edit
             </Text>
           </TouchableOpacity>
+
+          {item.allow_square_off && !item.allow_to_hold ? (
+            <TouchableOpacity
+              style={styles.squareOffBtn}
+              onPress={() => squreOffhandle(item.id)}>
+              <Text
+                style={{
+                  color: '#fff',
+                  display: 'flex',
+                  alignSelf: 'center',
+                  justifyContent: 'center',
+                  fontSize: responsiveFontSize(1.7),
+                }}>
+                Square off
+              </Text>
+            </TouchableOpacity>
+          ) : null}
+
+       
         </View>
       </View>
     );
@@ -653,7 +658,7 @@ const SecondRoute = () => {
                 paddingHorizontal: responsiveWidth(5),
               }}>
               <Text style={{fontSize: responsiveFontSize(2)}}>
-               Past Trade is not available.
+                Past Trade is not available.
               </Text>
             </View>
           )}

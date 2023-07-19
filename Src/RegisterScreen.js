@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -6,43 +6,39 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
-import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import {Toast} from 'react-native-toast-message/lib/src/Toast';
 import DatePicker from 'react-native-date-picker';
 import Lottie from 'lottie-react-native';
 
 import InputField from '../components2/InputField';
-import { Formik } from 'formik';
+import {Formik} from 'formik';
 import * as Yup from 'yup';
-
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CustomButton from '../components2/CustomButton';
-import { COLORS } from '../constants';
+import {COLORS} from '../constants';
 // import { postData } from '../constants/hooks/ApiHelper';
-import { useNavigation } from '@react-navigation/native';
-import { postData2 } from '../constants/hooks/ApiHelper';
-import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import {useNavigation} from '@react-navigation/native';
+import {postData2} from '../constants/hooks/ApiHelper';
+import {
+  responsiveFontSize,
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
 import axios from 'axios';
 
 // this screen are responsive
 
-const baseUrl = "https://panel.bulleyetrade.com/api/mobile/signup";
+const baseUrl = 'https://panel.bulleyetrade.com/api/mobile/signup';
 
-const RegisterScreen = ({ navigation }) => {
-  const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
-  const [dobLabel, setDobLabel] = useState('Date of Birth');
-  const [errors, setErrors] = useState('')
-
-
-
-  const UserRegister = async (values) => {
-    ;
+const RegisterScreen = ({navigation}) => {
+  const UserRegister = async values => {
     const payload = {
-      txtFirstName: values.txtFirstName, // Access 'txtFirstName' from 'values' object
+      txtFirstName: values.txtFirstName,
       txtLastName: values.txtLastName,
       txtMobile: values.txtMobile,
       email: values.email,
@@ -50,45 +46,57 @@ const RegisterScreen = ({ navigation }) => {
       confirm_password: values.confirm_password,
       walletPin: values.walletPin,
     };
- console.log(payload)
+    console.log(payload);
     try {
       await SignupSchema.validate(values);
       const res = await axios.post(baseUrl, payload);
 
+      console.log('simple', res);
+      if (res.data.status == 201) {
+        Toast.show({
+          type: 'success',
+          text1: 'Registration Successful',
+          position: 'top',
+        });
+        navigation.navigate('Login');
+      }
+    } 
+    catch (error) {
+      console.log("error",error.response.data.errors);
+      if (error.response.data.status === 422) {
+        const errorData = error.response.data.errors;
 
+        let errorMessage = '';
 
+        if (errorData.email) {
+          errorMessage += errorData.email[0] + '\n';
+        }
 
-    console.log("simple",res);
-      // if (res.data.status == 201) {
-      //   Toast.show({
-      //     type: 'success',
-      //     text1: 'Registration Successful',
-      //     position: 'top',
-      //   });
-      //   navigation.navigate("Login")
-      // }
+        if (errorData.confirm_password) {
+          errorMessage += errorData.confirm_password[0] + '\n';
+        }
 
-    } catch (error) {
-      // console.log("error",error.response.data.errors.walletPin[0]);
-      // // console.log("error",error.response.data.errors.txtFirstName[0]);
-      // // console.log("error",error.response.data.errors.txtLastName[0]);
-      // // console.log("error",error.response.data.errors.txtMobile[0]);
-      // console.log("error",error.response.data.errors.email[0]);
-      // console.log("error",error.response.data.errors.password[0]);
-      // console.log("error",error.response.data.errors.confirm_password[0]);
-      // Toast.show({
-      //   type: 'error',
-      //   text1: 'something went wrong',
-      //   // text2: 'Please check login and password',
-      //   position: 'bottom',
-      // });
-      // console.error("catch data",error.responseJSON);
+        if (errorData.walletPin) {
+          errorMessage += errorData.walletPin[0] + '\n';
+        }
 
+        if (errorData.txtMobile) {
+          errorMessage += errorData.txtMobile[0] + '\n';
+        }
+
+        if (errorMessage !== '') {
+          // Toast.show({
+          //   type: 'error',
+          //   text1: errorMessage,
+          //   position: 'bottom',
+          // });
+          Alert.alert('Error', errorMessage);
+        }
+      }
     }
-  }
+  };
 
   const SignupSchema = Yup.object().shape({
-
     txtFirstName: Yup.string()
       .min(4, 'Too Short!')
       .max(50, 'Too Long!')
@@ -97,9 +105,7 @@ const RegisterScreen = ({ navigation }) => {
       .min(4, 'Too Short!')
       .max(50, 'Too Long!')
       .required('Please enter your last name'),
-    email: Yup.string()
-      .email('Invalid email')
-      .required('Email is required'),
+    email: Yup.string().email('Invalid email').required('Email is required'),
     txtMobile: Yup.string()
       .min(10, 'Must be Exactly 10 digit')
       .max(10, 'Must be Exactly 10 digit')
@@ -108,38 +114,56 @@ const RegisterScreen = ({ navigation }) => {
       .required('Password is required')
       .min(8, 'Password must be at least 8 characters'),
     confirm_password: Yup.string()
-      .min(8, "Confirm Passward must be 8 characters long")
-      .oneOf([Yup.ref('password')], "Your Passward do not match.")
-      .required("Confirm passward is required"),
+      .min(8, 'Confirm Passward must be 8 characters long')
+      .oneOf([Yup.ref('password')], 'Your Passward do not match.')
+      .required('Confirm passward is required'),
     walletPin: Yup.string()
-      .min(4, "please enter at least 4 digit pin")
+      .min(4, 'please enter at least 4 digit pin')
       .max(6)
-      .required('please enter Valid pin')
+      .required('please enter Valid pin'),
   });
 
-
   return (
-    <Formik initialValues={{
-      txtFirstName: '',
-      txtLastName: '',
-      txtMobile: '',
-      email: '',
-      password: '',
-      confirm_password: '',
-      walletPin: '',
-    }}
+    <Formik
+      initialValues={{
+        txtFirstName: '',
+        txtLastName: '',
+        txtMobile: '',
+        email: '',
+        password: '',
+        confirm_password: '',
+        walletPin: '',
+      }}
       validationSchema={SignupSchema}
-      onSubmit={UserRegister}
-    >
-      {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isValid }) => (
-
-        
-        <SafeAreaView style={{ flex: 1, justifyContent: 'center', backgroundColor: COLORS.mainBgColor, }}>
+      onSubmit={UserRegister}>
+      {({
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        isValid,
+      }) => (
+        <SafeAreaView
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            backgroundColor: COLORS.mainBgColor,
+          }}>
           <ScrollView
             showsVerticalScrollIndicator={false}
-            style={{ paddingHorizontal: responsiveWidth(5) }}>
-            <View style={{ alignItems: 'center' }}>
-              <Lottie source={require('../assets/register.json')} autoPlay loop style={{ width: responsiveWidth(35), height: responsiveWidth(35) }} />
+            style={{paddingHorizontal: responsiveWidth(5)}}>
+            <View style={{alignItems: 'center'}}>
+              <Lottie
+                source={require('../assets/register.json')}
+                autoPlay
+                loop
+                style={{
+                  width: responsiveWidth(35),
+                  height: responsiveWidth(35),
+                }}
+              />
             </View>
 
             <Text
@@ -153,31 +177,31 @@ const RegisterScreen = ({ navigation }) => {
               Register
             </Text>
 
-
-
             <InputField
               label={'First Name'}
               // value={txtFirstName}
               // onChangeText={(value) => handleInputChange('txtFirstName', value)}
               value={values.txtFirstName}
-              onChangeText={handleChange("txtFirstName")}
+              onChangeText={handleChange('txtFirstName')}
               onBlur={handleBlur('txtFirstName')}
               error={touched.txtFirstName && errors.txtFirstName}
-
               icon={
                 <Ionicons
                   name="person-outline"
                   size={20}
                   color="#666"
-                  style={{ marginRight: responsiveWidth(1) }}
+                  style={{marginRight: responsiveWidth(1)}}
                 />
               }
             />
             {errors.txtFirstName && (
-              <Text style={{
-                color: 'red', marginBottom: responsiveHeight(5), paddingLeft: responsiveWidth(5),
-                paddingBottom: responsiveHeight(1)
-              }}>
+              <Text
+                style={{
+                  color: 'red',
+                  marginBottom: responsiveHeight(5),
+                  paddingLeft: responsiveWidth(5),
+                  paddingBottom: responsiveHeight(1),
+                }}>
                 {errors.txtFirstName}
               </Text>
             )}
@@ -190,22 +214,23 @@ const RegisterScreen = ({ navigation }) => {
               onChangeText={handleChange('txtLastName')}
               onBlur={handleBlur('txtLastName')}
               error={touched.txtLastName && errors.txtLastName}
-
-
               icon={
                 <Ionicons
                   name="person-outline"
                   size={20}
                   color="#666"
-                  style={{ marginRight: responsiveWidth(1) }}
+                  style={{marginRight: responsiveWidth(1)}}
                 />
               }
             />
             {errors.txtLastName && (
-              <Text style={{
-                color: 'red', marginBottom: responsiveHeight(5), paddingLeft: responsiveWidth(5),
-                paddingBottom: responsiveHeight(1)
-              }}>
+              <Text
+                style={{
+                  color: 'red',
+                  marginBottom: responsiveHeight(5),
+                  paddingLeft: responsiveWidth(5),
+                  paddingBottom: responsiveHeight(1),
+                }}>
                 {errors.txtLastName}
               </Text>
             )}
@@ -214,41 +239,37 @@ const RegisterScreen = ({ navigation }) => {
               // value={txtMobile}
               // onChangeText={(value) => handleInputChange('txtMobile', value)}
               value={values.txtMobile}
-              onChangeText={handleChange("txtMobile")}
+              onChangeText={handleChange('txtMobile')}
               onBlur={handleBlur('txtMobile')}
               error={touched.txtMobile && errors.txtMobile}
-
-
               icon={
                 <FontAwesome5
                   name="mobile-alt"
                   size={20}
                   color="#666"
-                  style={{ marginRight: responsiveWidth(3) }}
+                  style={{marginRight: responsiveWidth(3)}}
                 />
               }
             />
             {errors.txtMobile && (
-              <Text style={{
-                color: 'red', marginBottom: responsiveHeight(5), paddingLeft: responsiveWidth(5),
-                paddingBottom: responsiveHeight(1)
-              }}>
+              <Text
+                style={{
+                  color: 'red',
+                  marginBottom: responsiveHeight(5),
+                  paddingLeft: responsiveWidth(5),
+                  paddingBottom: responsiveHeight(1),
+                }}>
                 {errors.txtMobile}
               </Text>
             )}
 
-
-
-
             <InputField
               label={'Email ID'}
               value={values.email}
-              onChangeText={handleChange("email")}
+              onChangeText={handleChange('email')}
               onBlur={handleBlur('email')}
               error={touched.email && errors.email}
               autoCapitaliz={false}
-
-
               // value={email}
               // onChangeText={(value) => handleInputChange('email', value)}
               icon={
@@ -256,14 +277,20 @@ const RegisterScreen = ({ navigation }) => {
                   name="alternate-email"
                   size={20}
                   color="#666"
-                  style={{ marginRight: responsiveWidth(1) }}
+                  style={{marginRight: responsiveWidth(1)}}
                 />
               }
-            // error={errors.email}
-            // keyboardType="email-address"
+              // error={errors.email}
+              // keyboardType="email-address"
             />
             {errors.email && (
-              <Text style={{ color: 'red', marginBottom: responsiveHeight(5), paddingLeft: responsiveWidth(5), paddingBottom: responsiveHeight(1) }}>
+              <Text
+                style={{
+                  color: 'red',
+                  marginBottom: responsiveHeight(5),
+                  paddingLeft: responsiveWidth(5),
+                  paddingBottom: responsiveHeight(1),
+                }}>
                 {errors.email}
               </Text>
             )}
@@ -273,53 +300,60 @@ const RegisterScreen = ({ navigation }) => {
               // value={password}
               // onChangeText={(value) => handleInputChange('password', value)}
               value={values.password}
-
               onChangeText={handleChange('password')}
               onBlur={handleBlur('password')}
               error={touched.password && errors.password}
-
-
-
               icon={
                 <Ionicons
                   name="ios-lock-closed-outline"
                   size={20}
                   color="#666"
-                  style={{ marginRight: responsiveWidth(1) }}
+                  style={{marginRight: responsiveWidth(1)}}
                 />
               }
               // error={errors.password}
               inputType="password"
             />
             {errors.password && (
-              <Text style={{ color: 'red', marginBottom: responsiveHeight(5), paddingLeft: responsiveWidth(5), paddingBottom: responsiveHeight(1) }}>
+              <Text
+                style={{
+                  color: 'red',
+                  marginBottom: responsiveHeight(5),
+                  paddingLeft: responsiveWidth(5),
+                  paddingBottom: responsiveHeight(1),
+                }}>
                 {errors.password}
               </Text>
             )}
-
 
             <InputField
               label={'Confirm Password'}
               // value={confirm_password}
               // onChangeText={(value) => handleInputChange('confirm_password', value)}
               value={values.confirm_password}
-              onChangeText={handleChange("confirm_password")}
-              onBlur={handleBlur("confirm_password")}
+              onChangeText={handleChange('confirm_password')}
+              onBlur={handleBlur('confirm_password')}
               error={touched.confirm_password && errors.confirm_password}
               icon={
                 <Ionicons
                   name="ios-lock-closed-outline"
                   size={20}
                   color="#666"
-                  style={{ marginRight: responsiveWidth(1) }}
+                  style={{marginRight: responsiveWidth(1)}}
                 />
               }
               // error={errors.confirm_password}
               inputType="password"
             />
-            {errors.password && (
-              <Text style={{ color: 'red', marginBottom: responsiveHeight(5), paddingLeft: responsiveWidth(5), paddingBottom: responsiveHeight(1) }}>
-                {errors.password}
+           {errors.confirm_password && (
+              <Text
+                style={{
+                  color: 'red',
+                  marginBottom: responsiveHeight(5),
+                  paddingLeft: responsiveWidth(5),
+                  paddingBottom: responsiveHeight(1),
+                }}>
+                {errors.confirm_password}
               </Text>
             )}
             <InputField
@@ -327,22 +361,26 @@ const RegisterScreen = ({ navigation }) => {
               // value={walletPin}
               // onChangeText={(value) => handleInputChange('walletPin', value)}
               value={values.walletPin}
-              onChangeText={handleChange("walletPin")}
-              onBlur={handleBlur("walletPin")}
+              onChangeText={handleChange('walletPin')}
+              onBlur={handleBlur('walletPin')}
               error={touched.walletPin && errors.walletPin}
-
               icon={
                 <Ionicons
                   name="person-outline"
                   size={20}
                   color="#666"
-                  style={{ marginRight: responsiveWidth(1) }}
+                  style={{marginRight: responsiveWidth(1)}}
                 />
               }
-
             />
             {errors.walletPin && (
-              <Text style={{ color: 'red', marginBottom: responsiveHeight(5), paddingLeft: responsiveWidth(5), paddingBottom: responsiveHeight(1) }}>
+              <Text
+                style={{
+                  color: 'red',
+                  marginBottom: responsiveHeight(5),
+                  paddingLeft: responsiveWidth(5),
+                  paddingBottom: responsiveHeight(1),
+                }}>
                 {errors.walletPin}
               </Text>
             )}
@@ -351,16 +389,18 @@ const RegisterScreen = ({ navigation }) => {
             like this
                      onpress ={UserRegister} */}
 
-
             <View
               style={{
                 flexDirection: 'row',
                 justifyContent: 'center',
                 marginBottom: responsiveHeight(2),
               }}>
-              <Text style={{ color: '#000' }}>Already registered?</Text>
+              <Text style={{color: '#000'}}>Already registered?</Text>
               <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Text style={{ color: '#f6b248', fontWeight: '700' }}> Login</Text>
+                <Text style={{color: '#f6b248', fontWeight: '700'}}>
+                  {' '}
+                  Login
+                </Text>
               </TouchableOpacity>
             </View>
           </ScrollView>
